@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.apeptodaygroep4.Database.DatabaseUser;
+import com.example.apeptodaygroep4.Models.User;
+
 public class SignUp extends AppCompatActivity {
 
     @Override
@@ -26,6 +29,13 @@ public class SignUp extends AppCompatActivity {
 
         boolean correctInput = checkIfFieldsCorrect(name,pass1,pass2);
 
+        if (correctInput){
+            User user = new User(name, pass1);
+            DatabaseUser.getDbExecutor().execute(()->{
+                DatabaseUser.getDatabaseUser(getApplicationContext()).userDao().addUser(user);
+                Toast.makeText(getApplicationContext(),"Your Task has been added.", Toast.LENGTH_LONG);
+            });
+        }
 
     }
 
