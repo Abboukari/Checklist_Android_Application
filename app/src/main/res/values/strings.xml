@@ -26,4 +26,5 @@
     <string name="delete">Delete</string>
     <string name="edit">edit</string>
     <string name="label_name">Label Name</string>
+    <string name="date_and_time">Date and time</string>
 </resources>
