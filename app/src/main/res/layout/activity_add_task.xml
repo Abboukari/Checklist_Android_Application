@@ -34,28 +34,6 @@
         app:layout_constraintStart_toStartOf="@+id/editTextTitle"
         app:layout_constraintTop_toBottomOf="@+id/editTextTitle" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:contentDescription="@android:string/fingerprint_icon_content_description"
-        app:layout_constraintBottom_toBottomOf="@+id/addLabelBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/addLabelBtn"
-        app:layout_constraintTop_toTopOf="@+id/addLabelBtn"
-        app:srcCompat="@drawable/mariohead" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/choose_label"
-        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
-        app:layout_constraintEnd_toEndOf="@+id/floatingActionButton"
-        app:layout_constraintStart_toStartOf="@+id/floatingActionButton" />
-
     <Button
         android:id="@+id/addLabelBtn"
         android:layout_width="wrap_content"
@@ -65,8 +43,7 @@
         android:onClick="addLabel"
         android:text="@string/add_label"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/dateTimeButn"
-        app:layout_constraintEnd_toStartOf="@+id/floatingActionButton"
+        app:layout_constraintEnd_toStartOf="@+id/spinner"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dateTimeButn" />
@@ -95,5 +72,16 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/editTextDiscription"
         app:layout_constraintTop_toBottomOf="@+id/editTextDiscription" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="178dp"
+        android:layout_height="40dp"
+        android:entries="@android:array/phoneTypes"
+        app:layout_constraintBottom_toBottomOf="@+id/addLabelBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/addLabelBtn"
+        app:layout_constraintTop_toTopOf="@+id/addLabelBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
