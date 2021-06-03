@@ -2,6 +2,7 @@ package com.example.apeptodaygroep4;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -36,6 +37,8 @@ public class SignUp extends AppCompatActivity {
             DatabaseUser.getDbExecutor().execute(()->{
                 DatabaseUser.getDatabaseUser(getApplicationContext()).userDao().addUser(user);
                 Toast.makeText(getApplicationContext(),"Get ready to get your shit together", Toast.LENGTH_LONG).show();
+                /*Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(intent);*/
             });
         }
 
