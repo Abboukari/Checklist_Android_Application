@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.apeptodaygroep4.Database.DatabaseUser;
@@ -16,6 +17,7 @@ public class SignUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
     }
 
 
@@ -33,7 +35,7 @@ public class SignUp extends AppCompatActivity {
             User user = new User(name, pass1);
             DatabaseUser.getDbExecutor().execute(()->{
                 DatabaseUser.getDatabaseUser(getApplicationContext()).userDao().addUser(user);
-                Toast.makeText(getApplicationContext(),"Your Task has been added.", Toast.LENGTH_LONG);
+                Toast.makeText(getApplicationContext(),"Get ready to get your shit together", Toast.LENGTH_LONG).show();
             });
         }
 
