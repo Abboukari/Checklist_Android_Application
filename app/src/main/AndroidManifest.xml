@@ -4,11 +4,27 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_mario"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/mariohead"
         android:supportsRtl="true"
         android:theme="@style/Theme.APEPToDayGroep4">
+        <activity android:name=".UserActivity.EditTask"
+            android:parentActivityName=".MainMenuUser"></activity>
+        <activity android:name=".UserActivity.AddTask"
+            android:parentActivityName=".MainMenuUser"/>
+        <activity android:name=".UserActivity.Label"
+            android:parentActivityName=".MainMenuUser"/>
+        <activity android:name=".UserActivity.CompletedTask"
+            android:parentActivityName=".MainMenuUser"/>
+        <activity android:name=".MainMenuUser"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".Login"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".SignUp"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
