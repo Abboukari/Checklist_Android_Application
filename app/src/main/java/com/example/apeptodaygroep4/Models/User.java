@@ -1,26 +1,27 @@
 package com.example.apeptodaygroep4.Models;
 
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.Serializable;
+
 @Entity
-public class User {
-    @PrimaryKey public int uId;
-    @ColumnInfo private String userName;
-    @ColumnInfo private String password;
+public class User implements Serializable {
 
-    public User(String userName, String password) {
-        this.userName = userName;
-        this.password = password;
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+    private String userName;
+    private String password;
+    private String email;
+
+    public int getId() {
+        return id;
     }
 
-    public int getuId() {
-        return uId;
-    }
-
-    public void setuId(int uId) {
-        this.uId = uId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUserName() {
@@ -39,11 +40,28 @@ public class User {
         this.password = password;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public User(String userName, String password, String email) {
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
+    }
+
+    @NotNull
     @Override
     public String toString() {
         return "User{" +
-                "userName='" + userName + '\'' +
-                ", password='" + password + '\'' + uId +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 }

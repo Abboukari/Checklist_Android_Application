@@ -9,21 +9,12 @@
         android:roundIcon="@drawable/mariohead"
         android:supportsRtl="true"
         android:theme="@style/Theme.APEPToDayGroep4">
-        <activity android:name=".UserActivity.EditTask"
-            android:parentActivityName=".MainMenuUser"></activity>
-        <activity android:name=".UserActivity.AddTask"
-            android:parentActivityName=".MainMenuUser"/>
-        <activity android:name=".UserActivity.Label"
-            android:parentActivityName=".MainMenuUser"/>
-        <activity android:name=".UserActivity.CompletedTask"
-            android:parentActivityName=".MainMenuUser"/>
-        <activity android:name=".MainMenuUser"
-            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".HomeActivity" />
         <activity
-            android:name=".Login"
+            android:name=".LoginScreenActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".SignUp"
+            android:name=".RegisterActivity"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

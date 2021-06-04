@@ -27,4 +27,32 @@
     <string name="edit">edit</string>
     <string name="label_name">Label Name</string>
     <string name="date_and_time">Date and time</string>
+
+
+
+    <string name="mainActivity_welcome">Welcome by To-day</string>
+    <string name="mainActivity_welcome1">Are you ready to make your day awesome?</string>
+    <string name="mainActivity_welcome_register">Click down below to get started!</string>
+    <string name="mainActivity_buttonRegister">Register</string>
+    <string name="mainActivity_alreadyAccount">Already have a account?</string>
+    <string name="mainActivity_buttonLogin">Login</string>
+
+
+    <string name="registerActivity_Title">Registration form</string>
+    <string name="registerActivity_EnterName">Enter Name</string>
+    <string name="registerActivity_EnterPassword">Enter Password</string>
+    <string name="registerActivity_RepeatPassword">Repeat Password</string>
+    <string name="registerActivity_EnterEmail">Enter Email</string>
+    <string name="registerActivity_button">Register Account</string>
+
+    <string name="LoginActivity_button">Login</string>
+    <string name="LoginActivity_Enter_Email">Enter_Email</string>
+    <string name="LoginActivity_Enter_Password">Enter Password</string>
+    <string name="LoginActivity_Welcome_Text">Login down below</string>
+
+    <string name="HomeActivity_Button_Logout">Log out</string>
+
+
+
+
 </resources>

@@ -8,6 +8,7 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -15,15 +16,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void goToLogin(View view){
-        Intent intent = new Intent(this, Login.class);
-        startActivity(intent);
 
+    public void moveToRegisterActivity(View view){
+        Intent intent = new Intent(this,RegisterActivity.class);
+        startActivity(intent);
     }
 
-    public void goToSignUp(View view){
-        Intent intent = new Intent(getApplicationContext(),SignUp.class);
+    public  void moveToLoginActivity(View view){
+        Intent intent = new Intent(this, LoginScreenActivity.class);
         startActivity(intent);
-
     }
+
 }
