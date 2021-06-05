@@ -22,7 +22,6 @@ import java.util.List;
 public class RegisterActivity extends AppCompatActivity {
     EditText editTextUserName, editTextEmail, editTextPassword, editTextPasswoordCheck;
     private UserDao userDao;
-    private List<String> emails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +46,14 @@ public class RegisterActivity extends AppCompatActivity {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String passwordCheck = editTextPasswoordCheck.getText().toString().trim();
+
         boolean emailValid = isValidEmail(email);
         int checkIfEmailFoundCounter = 0;
+        int lengthUserPassword = 6;
+
         // Happy of onhappy senario?
-        if (password.equals(passwordCheck) && password.length() > 6 && emailValid && !userName.isEmpty()) {
-            emails = userDao.getAllEmail();
+        if (password.equals(passwordCheck) && password.length() > lengthUserPassword && emailValid && !userName.isEmpty()) {
+            List<String> emails = userDao.getAllEmail();
             //Check if email already exist in de database, if yes move to if statement, if no make new user
             for (int i = 0; i < emails.size(); i++) {
                 if (emails.get(i).equals(email)) {
@@ -70,7 +72,7 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(moveToLogin);
             }
 
-        } else if (password.length() < 6) {
+        } else if (password.length() < lengthUserPassword) {
             Toast.makeText(getApplicationContext(), "You need a longer password!", Toast.LENGTH_SHORT).show();
             Toast.makeText(getApplicationContext(), "At least 6 characters!", Toast.LENGTH_SHORT).show();
         } else if (!emailValid) {
