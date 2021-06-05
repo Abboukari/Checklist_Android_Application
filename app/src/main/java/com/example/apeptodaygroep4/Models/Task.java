@@ -6,6 +6,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 public class Task {
@@ -13,6 +14,6 @@ public class Task {
     @ColumnInfo int uIdUser;
     @ColumnInfo String Titel;
     @ColumnInfo String Discription;
-    @ColumnInfo LocalDateTime dateTime;
+    Date dateTime;
 
 }
