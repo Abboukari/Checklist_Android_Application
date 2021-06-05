@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Entity
 public class Task {
     @PrimaryKey int uIdTask;
+    @ColumnInfo int uIdUser;
     @ColumnInfo String Titel;
     @ColumnInfo String Discription;
     @ColumnInfo LocalDateTime dateTime;
