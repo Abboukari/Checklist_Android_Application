@@ -53,8 +53,5 @@ public class LoginScreenActivity extends AppCompatActivity {
 
     }
 
-    public void toMain(View view){
-        Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
-        startActivity(intent);
-    }
+
 }

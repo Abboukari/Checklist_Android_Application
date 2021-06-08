@@ -25,7 +25,6 @@
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="50dp"
         android:clickable="true"
-        android:onClick="addTaskIntent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add_24" />
@@ -57,16 +56,5 @@
         app:layout_constraintTop_toTopOf="parent">
 
     </ListView>
-
-    <Button
-        android:id="@+id/addTaskIntent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="10dp"
-        android:onClick="addTaskIntent"
-        android:text="add task"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/fabHome" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
