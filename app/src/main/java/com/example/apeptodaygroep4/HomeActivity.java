@@ -31,14 +31,14 @@ public class HomeActivity extends AppCompatActivity {
             userName.setText("Welcome " + user.getUserName());
         }
 
-        /*FloatingActionButton fabButton = findViewById(R.id.fabHome);
+        FloatingActionButton fabButton = findViewById(R.id.fabHome);
         fabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent startTaskIntent = new Intent(HomeActivity.this, AddTask.class);
                 startActivity(startTaskIntent);
             }
-        });*/
+        });
 
     }
 
@@ -47,8 +47,5 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void addTaskIntent(View view){
-        Intent startTaskIntent = new Intent(HomeActivity.this, AddTask.class);
-        startActivity(startTaskIntent);
-    }
+
 }
