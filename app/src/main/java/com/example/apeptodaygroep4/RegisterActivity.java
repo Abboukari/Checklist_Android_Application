@@ -48,20 +48,21 @@ public class RegisterActivity extends AppCompatActivity {
         String passwordCheck = editTextPasswoordCheck.getText().toString().trim();
 
         boolean emailValid = isValidEmail(email);
-        int checkIfEmailFoundCounter = 0;
+        boolean emailFound = false;
         int lengthUserPassword = 6;
 
         // Happy of onhappy senario?
-        if (password.equals(passwordCheck) && password.length() > lengthUserPassword && emailValid && !userName.isEmpty()) {
+        if (password.equals(passwordCheck) && password.length() >= lengthUserPassword && emailValid && !userName.isEmpty()) {
             List<String> emails = userDao.getAllEmail();
             //Check if email already exist in de database, if yes move to if statement, if no make new user
             for (int i = 0; i < emails.size(); i++) {
                 if (emails.get(i).equals(email)) {
-                    checkIfEmailFoundCounter++;
+                    emailFound = true;
+                    break;
                 }
             }
 
-            if (checkIfEmailFoundCounter >= 1) {
+            if  (emailFound) {
                 Toast.makeText(this, "Email already exist", Toast.LENGTH_SHORT).show();
                 Toast.makeText(this, "Please try again or move to login", Toast.LENGTH_SHORT).show();
             } else {
@@ -72,15 +73,15 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(moveToLogin);
             }
 
-        } else if (password.length() < lengthUserPassword) {
+        } if (password.length() < lengthUserPassword) {
             Toast.makeText(getApplicationContext(), "You need a longer password!", Toast.LENGTH_SHORT).show();
             Toast.makeText(getApplicationContext(), "At least 6 characters!", Toast.LENGTH_SHORT).show();
-        } else if (!emailValid) {
+        } if (!emailValid) {
             Toast.makeText(getApplicationContext(), "Email is not valid", Toast.LENGTH_SHORT).show();
-        } else if (userName.isEmpty()) {
+        } if (userName.isEmpty()) {
             Toast.makeText(getApplicationContext(), "Don't you have a name?", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getApplicationContext(), "Password is not matching dumbass", Toast.LENGTH_SHORT).show();
+        } if (!password.equals(passwordCheck)){
+            Toast.makeText(getApplicationContext(), "Password is not matching", Toast.LENGTH_SHORT).show();
         }
     }
 
