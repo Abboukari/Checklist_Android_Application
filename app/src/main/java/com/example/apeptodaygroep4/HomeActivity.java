@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.apeptodaygroep4.Models.User;
+import com.example.apeptodaygroep4.UserActivity.AddTask;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -28,10 +30,25 @@ public class HomeActivity extends AppCompatActivity {
         if (user != null){
             userName.setText("Welcome " + user.getUserName());
         }
+
+        /*FloatingActionButton fabButton = findViewById(R.id.fabHome);
+        fabButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent startTaskIntent = new Intent(HomeActivity.this, AddTask.class);
+                startActivity(startTaskIntent);
+            }
+        });*/
+
     }
 
     public void logOut(View view){
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
+    }
+
+    public void addTaskIntent(View view){
+        Intent startTaskIntent = new Intent(HomeActivity.this, AddTask.class);
+        startActivity(startTaskIntent);
     }
 }

@@ -15,10 +15,10 @@ import java.util.Date;
         childColumns = "uIdUser"),
         })
 public class Task {
-    @PrimaryKey int uIdTask;
-    @ColumnInfo int uIdUser;
-    @ColumnInfo String Titel;
-    @ColumnInfo String Discription;
-    Date dateTime;
+    @PrimaryKey public int uIdTask;
+    @ColumnInfo public int uIdUser;
+    @ColumnInfo public String Title;
+    @ColumnInfo public String Discription;
+    public Date dateTime;
 
 }

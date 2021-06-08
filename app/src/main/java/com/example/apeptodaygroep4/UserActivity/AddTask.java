@@ -9,14 +9,25 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import com.example.apeptodaygroep4.Database.UserDatabase;
+import com.example.apeptodaygroep4.Models.Task;
 import com.example.apeptodaygroep4.R;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class AddTask extends AppCompatActivity {
+    private int tYear;
+    private int tMonth;
+    private int tDay;
+    private int tHour;
+    private int tMinute;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +49,9 @@ public class AddTask extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         Log.i(TAG, "Date chosen: " + dayOfMonth + "-" + month + "-" + year);
+                        tYear = year;
+                        tMonth = month;
+                        tDay = dayOfMonth;
                     }
                 },cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH));
 
@@ -47,6 +61,8 @@ public class AddTask extends AppCompatActivity {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         Log.i(TAG,"Time chosen: " + hourOfDay + ":" + minute);
+                        tHour = hourOfDay;
+                        tMinute = minute;
                     }
                 }, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE),true);
 
@@ -59,7 +75,26 @@ public class AddTask extends AppCompatActivity {
 
 
     public void addTaskToDb(View view){
-        //TODO:  add task to DB if all fields are filled
+        EditText taskTitle = findViewById(R.id.editTextTitle);
+        EditText taskDiscription = findViewById(R.id.editTextDiscription);
+        Calendar myCalander= new GregorianCalendar(tYear,tMonth,tDay,tHour,tMinute);
+
+        String titleTask = taskTitle.getText().toString();
+        String descriptionTask = taskDiscription.getText().toString();
+        Date dueDateTask = myCalander.getTime();
+        //int userId = getFromLoginScreenActivity;
+
+        /*//TODO:  add task to DB if all fields are filled
+        if (titleTask.equals("") || descriptionTask.equals("")|| dueDateTask == null){
+            Toast.makeText(getApplicationContext(), "not all fields are filled", Toast.LENGTH_SHORT).show();
+        } else {
+            Task task = new Task(userId,titleTask,descriptionTask,dueDateTask);
+
+            UserDatabase.getExecutor().execute(()->{
+                UserDatabase.getDatabase(getApplicationContext(),taskDao().addTask(task));
+            });
+            Toast.makeText(getApplicationContext(), "Your task has been added", Toast.LENGTH_SHORT);
+        }*/
         //TODO: Snackbar task is added plus undo option
     }
 
