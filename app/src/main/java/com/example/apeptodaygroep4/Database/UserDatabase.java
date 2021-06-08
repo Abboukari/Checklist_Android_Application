@@ -13,7 +13,7 @@ import com.example.apeptodaygroep4.Models.LabelDb;
 import com.example.apeptodaygroep4.Models.Task;
 import com.example.apeptodaygroep4.Models.User;
 
-@Database(entities = {User.class, Task.class, LabelDb.class}, version = 1, exportSchema = false)
+@Database(entities = {User.class, Task.class, LabelDb.class}, version = 2, exportSchema = false)
 @TypeConverters(Converters.class)
 
 public abstract class UserDatabase extends RoomDatabase {
