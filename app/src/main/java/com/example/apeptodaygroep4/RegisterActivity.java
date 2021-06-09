@@ -34,7 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
                     UserDatabase
                     .getDatabase(getApplicationContext())
                     .getUserDao()
-                    .getAllEmail()
+                    .getAllEmailFromUsers()
             );
         });
 
