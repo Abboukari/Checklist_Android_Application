@@ -1,6 +1,7 @@
 package com.example.apeptodaygroep4;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import android.content.Intent;
@@ -59,6 +60,11 @@ public class LoginScreenActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void homeButton(View view){
+        Intent homeIntent = new Intent(getApplicationContext(),HomeActivity.class);
+        startActivity(homeIntent);
     }
 
 
