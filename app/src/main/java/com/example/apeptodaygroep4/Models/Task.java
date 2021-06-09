@@ -26,7 +26,7 @@ public class Task {
     @ColumnInfo public int uIdUser;
     @ColumnInfo private String Title;
     @ColumnInfo private String Description;
-    @ColumnInfo public String uIdLabel;
+    @ColumnInfo public String uIdLabel; //TODO: set to labelName
     @ColumnInfo private boolean completed;
     public Date dateTime;
 

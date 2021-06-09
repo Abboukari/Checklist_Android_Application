@@ -38,10 +38,10 @@ public class RegisterActivity extends AppCompatActivity {
             );
         });
 
-        userDao = Room.databaseBuilder(this, UserDatabase.class, "User").
+        /*userDao = Room.databaseBuilder(this, UserDatabase.class, "User").
                 allowMainThreadQueries().
                 build().
-                getUserDao();
+                getUserDao();*/
 
     }
 
@@ -63,10 +63,10 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Happy of onhappy senario?
         if (password.equals(passwordCheck) && password.length() >= lengthUserPassword && emailValid && !userName.isEmpty()) {
-            List<String> emails = userDao.getAllEmail(); //TODO: je hebt dan al een arrayllist met de naam emailList
+            //List<String> emails = userDao.getAllEmail(); //TODO: je hebt dan al een arrayllist met de naam emailList
             //Check if email already exist in de database, if yes move to if statement, if no make new user
-            for (int i = 0; i < emails.size(); i++) {
-                if (emails.get(i).equals(email)) {
+            for (int i = 0; i < emailList.size(); i++) {
+                if (emailList.get(i).equals(email)) {
                     emailFound = true;
                     break;
                 }
@@ -77,7 +77,10 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(this, "Please try again or move to login", Toast.LENGTH_SHORT).show();
             } else {
                 User user = new User(userName, password, email);
-                userDao.insert(user);
+                UserDatabase.getExecutor().execute(()->{
+                    UserDatabase.getDatabase(getApplicationContext()).getUserDao().insert(user);
+                });
+                //userDao.insert(user);
                 Toast.makeText(getApplicationContext(), "Registration Succesful", Toast.LENGTH_SHORT).show();
                 Intent moveToLogin = new Intent(RegisterActivity.this, LoginScreenActivity.class);
                 startActivity(moveToLogin);

@@ -1,6 +1,8 @@
 package com.example.apeptodaygroep4;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -14,16 +16,20 @@ import com.example.apeptodaygroep4.Database.UserDatabase;
 import com.example.apeptodaygroep4.Models.Task;
 import com.example.apeptodaygroep4.Models.User;
 import com.example.apeptodaygroep4.UserActivity.AddTask;
+import com.example.apeptodaygroep4.ui.tasks.TaskAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
 
+    TaskAdapter taskAdapter;
+
     private User user;
     private TextView userName;
     private int userId;
     private ArrayList<Task> tasks;
+    RecyclerView recyclerView;
 
 
     @SuppressLint("SetTextI18n")
@@ -31,12 +37,29 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view_tasks);
+
+        UserDatabase.getExecutor().execute(() -> {
+            tasks = new ArrayList<Task>(
+                    UserDatabase
+                            .getDatabase(getApplicationContext())
+                            .taskDao()
+                            .getTaskList(userId)
+            );
+
+            taskAdapter = new TaskAdapter(getApplicationContext(), tasks);
+            recyclerView.setAdapter(taskAdapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()
+                    , RecyclerView.VERTICAL
+                    , false));
+
+        });
 
         user = (User) getIntent().getSerializableExtra("User");
         userName = findViewById(R.id.displayUserName);
         userId = user.getId();
 
-        if (user != null){
+        if (user != null) {
             userName.setText("Welcome " + user.getUserName());
         }
 
@@ -45,12 +68,12 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent startTaskIntent = new Intent(HomeActivity.this, AddTask.class);
-                startTaskIntent.putExtra("userId",userId);
+                startTaskIntent.putExtra("userId", userId);
                 startActivity(startTaskIntent);
             }
         });
 
-        ListView listView = findViewById(R.id.listViewTask);
+        /*ListView listView = findViewById(R.id.listViewTask);
         UserDatabase.getExecutor().execute(()->{
             tasks = new ArrayList<Task>(
                     UserDatabase
@@ -65,9 +88,9 @@ public class HomeActivity extends AppCompatActivity {
                     tasks);
 
             runOnUiThread(()-> listView.setAdapter(adapter));
-        });
-
+        });*/
     }
+
 
     public void logOut(View view){
         Intent intent = new Intent(this,MainActivity.class);

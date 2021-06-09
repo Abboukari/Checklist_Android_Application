@@ -19,6 +19,7 @@ public class LoginScreenActivity extends AppCompatActivity {
     UserDatabase database;
     EditText editEmail, editPassword;
     Button buttonLogin;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,17 +30,24 @@ public class LoginScreenActivity extends AppCompatActivity {
         editPassword = findViewById(R.id.enterLoginPassword);
         buttonLogin = findViewById(R.id.buttonToLogin);
 
-        database = Room.databaseBuilder(this, UserDatabase.class,"User")
+        /*database = Room.databaseBuilder(this, UserDatabase.class,"User")
                 .allowMainThreadQueries()
                 .build();
-        db = database.getUserDao();
+        db = database.getUserDao();*/
+
+
 
 
         buttonLogin.setOnClickListener(v -> {
             String email = editEmail.getText().toString().trim();
             String password = editPassword.getText().toString().trim();
 
-            User user = db.getUser(email,password);
+           // User user = db.getUser(email,password);
+
+            UserDatabase.getExecutor().execute(()->{
+            user =
+                UserDatabase.getDatabase(getApplicationContext()).getUserDao().getUser(email,password);
+            });
 
             if (user != null){
                 Intent intent = new Intent(LoginScreenActivity.this,HomeActivity.class);

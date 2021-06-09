@@ -6,6 +6,6 @@ import com.example.apeptodaygroep4.R;
 
 public class TaskFragment extends Fragment{
     public TaskFragment(){
-        super(R.layout.activity_home);
+        super(R.layout.fragment_task);
     }
 }

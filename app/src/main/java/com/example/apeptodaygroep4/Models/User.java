@@ -1,6 +1,7 @@
 package com.example.apeptodaygroep4.Models;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import org.jetbrains.annotations.NotNull;
@@ -50,6 +51,11 @@ public class User implements Serializable {
 
     public User(String userName, String password, String email) {
         this.userName = userName;
+        this.password = password;
+        this.email = email;
+    }
+    @Ignore
+    public User(String email,String password){
         this.password = password;
         this.email = email;
     }
