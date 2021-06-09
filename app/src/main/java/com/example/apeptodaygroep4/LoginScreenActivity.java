@@ -14,52 +14,41 @@ import com.example.apeptodaygroep4.Dao.UserDao;
 import com.example.apeptodaygroep4.Database.UserDatabase;
 import com.example.apeptodaygroep4.Models.User;
 
+import java.util.List;
+
 public class LoginScreenActivity extends AppCompatActivity {
     UserDao db;
     UserDatabase database;
-    EditText editEmail, editPassword;
-    Button buttonLogin;
-    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen_activity);
 
-        editEmail = findViewById(R.id.EnterLoginEmailAddress);
-        editPassword = findViewById(R.id.enterLoginPassword);
-        buttonLogin = findViewById(R.id.buttonToLogin);
-
-        /*database = Room.databaseBuilder(this, UserDatabase.class,"User")
-                .allowMainThreadQueries()
+        database = Room.databaseBuilder(this, UserDatabase.class, "User").allowMainThreadQueries()
                 .build();
-        db = database.getUserDao();*/
-
-
-
-
-        buttonLogin.setOnClickListener(v -> {
-            String email = editEmail.getText().toString().trim();
-            String password = editPassword.getText().toString().trim();
-
-           // User user = db.getUser(email,password);
-
-            UserDatabase.getExecutor().execute(()->{
-            user =
-                UserDatabase.getDatabase(getApplicationContext()).getUserDao().getUser(email,password);
-            });
-
-            if (user != null){
-                Intent intent = new Intent(LoginScreenActivity.this,HomeActivity.class);
-                intent.putExtra("User",user);
-                startActivity(intent);
-                finish();
-            } else {
-                Toast.makeText(getApplicationContext(), "incorrect username or password", Toast.LENGTH_SHORT).show();
-            }
-        });
+        db = database.getUserDao();
 
     }
 
+    public void findUser(View view) {
 
+
+        EditText editEmail = findViewById(R.id.EnterLoginEmailAddress);
+        EditText editPassword = findViewById(R.id.enterLoginPassword);
+        String email = editEmail.getText().toString().trim();
+        String password = editPassword.getText().toString().trim();
+
+        User user = db.getUser(email, password);
+
+        if (user != null) {
+            Toast.makeText(getApplicationContext(), "User is found", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(LoginScreenActivity.this, HomeActivity.class);
+//            intent.putExtra("User", user);
+            startActivity(intent);
+            finish();
+        } else {
+            Toast.makeText(getApplicationContext(), "incorrect username or password", Toast.LENGTH_SHORT).show();
+        }
+    }
 }

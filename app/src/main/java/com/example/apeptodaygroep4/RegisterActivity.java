@@ -21,13 +21,15 @@ import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText editTextUserName, editTextEmail, editTextPassword, editTextPasswoordCheck;
-    private UserDao userDao;
     private ArrayList<String> emailList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+
+
 
         UserDatabase.getExecutor().execute(()->{
             emailList = new ArrayList<String>(
@@ -37,11 +39,6 @@ public class RegisterActivity extends AppCompatActivity {
                     .getAllEmailFromUsers()
             );
         });
-
-        /*userDao = Room.databaseBuilder(this, UserDatabase.class, "User").
-                allowMainThreadQueries().
-                build().
-                getUserDao();*/
 
     }
 
@@ -63,7 +60,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Happy of onhappy senario?
         if (password.equals(passwordCheck) && password.length() >= lengthUserPassword && emailValid && !userName.isEmpty()) {
-            //List<String> emails = userDao.getAllEmail(); //TODO: je hebt dan al een arrayllist met de naam emailList
             //Check if email already exist in de database, if yes move to if statement, if no make new user
             for (int i = 0; i < emailList.size(); i++) {
                 if (emailList.get(i).equals(email)) {
