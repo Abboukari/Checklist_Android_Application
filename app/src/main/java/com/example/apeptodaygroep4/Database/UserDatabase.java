@@ -37,17 +37,18 @@ public abstract class UserDatabase extends RoomDatabase {
     public static ExecutorService getExecutor(){
         return dbExecutor;
     }
+
     public static final UserDatabase getDatabase(final Context context){
-        UserDatabase database;
+        UserDatabase userDatabase;
 
         synchronized (UserDatabase.class){
-            database = Room.databaseBuilder(
+            userDatabase = Room.databaseBuilder(
                     context.getApplicationContext(),
                     UserDatabase.class,
                     "ToDayDatabase")
                     .build();
         }
-        return database;
+        return userDatabase;
     }
 
 

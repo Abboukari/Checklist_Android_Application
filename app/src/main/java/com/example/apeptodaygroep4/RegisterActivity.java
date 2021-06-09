@@ -5,6 +5,7 @@ import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.service.autofill.UserData;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
@@ -21,7 +22,6 @@ import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText editTextUserName, editTextEmail, editTextPassword, editTextPasswoordCheck;
-    private UserDao userDao;
     private ArrayList<String> emailList;
 
     @Override
@@ -30,19 +30,11 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         UserDatabase.getExecutor().execute(()->{
-            emailList = new ArrayList<String>(
-                    UserDatabase
-                    .getDatabase(getApplicationContext())
+            emailList = new ArrayList<>(UserDatabase
+                    .getDatabase(this)
                     .getUserDao()
-                    .getAllEmail()
-            );
+                    .getAllEmailFromUsers());
         });
-
-        userDao = Room.databaseBuilder(this, UserDatabase.class, "User").
-                allowMainThreadQueries().
-                build().
-                getUserDao();
-
     }
 
     public void addUser(View view) {
@@ -63,21 +55,23 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Happy of onhappy senario?
         if (password.equals(passwordCheck) && password.length() >= lengthUserPassword && emailValid && !userName.isEmpty()) {
-            List<String> emails = userDao.getAllEmail(); //TODO: je hebt dan al een arrayllist met de naam emailList
             //Check if email already exist in de database, if yes move to if statement, if no make new user
-            for (int i = 0; i < emails.size(); i++) {
-                if (emails.get(i).equals(email)) {
+            for (int i = 0; i < emailList.size(); i++) {
+                if (emailList.get(i).equals(email)) {
                     emailFound = true;
                     break;
                 }
             }
-
             if  (emailFound) {
                 Toast.makeText(this, "Email already exist", Toast.LENGTH_SHORT).show();
                 Toast.makeText(this, "Please try again or move to login", Toast.LENGTH_SHORT).show();
             } else {
                 User user = new User(userName, password, email);
-                userDao.insert(user);
+
+                UserDatabase.getExecutor().execute(()->{
+                    UserDatabase.getDatabase(getApplicationContext()).getUserDao().insert(user);
+                });
+
                 Toast.makeText(getApplicationContext(), "Registration Succesful", Toast.LENGTH_SHORT).show();
                 Intent moveToLogin = new Intent(RegisterActivity.this, LoginScreenActivity.class);
                 startActivity(moveToLogin);
@@ -99,6 +93,8 @@ public class RegisterActivity extends AppCompatActivity {
     public static boolean isValidEmail(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
+
+    //TODO: Maak een methode aan voor de toast + Laat een toast oppuppen met de vraag of je het geldige emailadress invoert.
 
 
 }
