@@ -38,23 +38,23 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-//        recyclerView = (RecyclerView) findViewById(R.id.recycler_view_tasks);
-//
-//        UserDatabase.getExecutor().execute(() -> {
-//            tasks = new ArrayList<>(
-//                    UserDatabase
-//                            .getDatabase(getApplicationContext())
-//                            .taskDao()
-//                            .getTaskList(userId)
-//            );
-//
-//            taskAdapter = new TaskAdapter(getApplicationContext(), tasks);
-//            recyclerView.setAdapter(taskAdapter);
-//            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()
-//                    , RecyclerView.VERTICAL
-//                    , false));
-//
-//        });
+        /*recyclerView = (RecyclerView) findViewById(R.id.recycler_view_tasks);
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        UserDatabase.getExecutor().execute(() -> {
+            tasks = new ArrayList<Task>(
+                    UserDatabase
+                            .getDatabase(getApplicationContext())
+                            .taskDao()
+                            .getTaskList(userId)
+            );
+
+            taskAdapter = new TaskAdapter(getApplicationContext(), tasks);
+            recyclerView.setAdapter(taskAdapter);
+
+
+        });*/
 
         user = (User) getIntent().getSerializableExtra("User");
         userName = findViewById(R.id.displayUserName);
@@ -65,19 +65,22 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         FloatingActionButton fabButton = findViewById(R.id.fabHome);
-        fabButton.setOnClickListener(v -> {
-            Intent startTaskIntent = new Intent(HomeActivity.this, AddTask.class);
-            startTaskIntent.putExtra("userId", userId);
-            startActivity(startTaskIntent);
+        fabButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent startTaskIntent = new Intent(HomeActivity.this, AddTask.class);
+                startTaskIntent.putExtra("userId", userId);
+                startActivity(startTaskIntent);
+            }
         });
 
         ListView listView = findViewById(R.id.listViewTask);
-        UserDatabase.getExecutor().execute(() -> {
-            tasks = new ArrayList<>(
+        UserDatabase.getExecutor().execute(()->{
+            tasks = new ArrayList<Task>(
                     UserDatabase
-                            .getDatabase(getApplicationContext())
-                            .taskDao()
-                            .getTaskList(userId)
+                        .getDatabase(getApplicationContext())
+                        .taskDao()
+                        .getTilteTasks(userId)
             );
 
             ArrayAdapter<Task> adapter = new ArrayAdapter<>(
@@ -85,13 +88,13 @@ public class HomeActivity extends AppCompatActivity {
                     android.R.layout.simple_list_item_1,
                     tasks);
 
-            runOnUiThread(() -> listView.setAdapter(adapter));
+            runOnUiThread(()-> listView.setAdapter(adapter));
         });
     }
 
 
-    public void logOut(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
+    public void logOut(View view){
+        Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
     }
 

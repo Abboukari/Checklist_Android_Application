@@ -22,16 +22,16 @@ import java.util.Date;
 
 
 public class Task {
-    @PrimaryKey (autoGenerate = true) public int uIdTask;
-    @ColumnInfo public int uIdUser;
+    @PrimaryKey (autoGenerate = true) public Integer uIdTask;
+    @ColumnInfo public Integer uIdUser;
     @ColumnInfo private String Title;
     @ColumnInfo private String Description;
     @ColumnInfo public String uIdLabel; //TODO: set to labelName
-    @ColumnInfo private boolean completed;
+    @ColumnInfo private Boolean completed;
     public Date dateTime;
 
     public Task(){}
-    public Task(int uIdUser, String title, String description, Date dateTime) {
+    public Task(Integer uIdUser, String title, String description, Date dateTime) {
         this.uIdUser = uIdUser;
         Title = title;
         Description = description;
@@ -39,19 +39,19 @@ public class Task {
         this.dateTime = dateTime;
     }
 
-    public int getuIdTask() {
+    public Integer getuIdTask() {
         return uIdTask;
     }
 
-    public void setuIdTask(int uIdTask) {
+    public void setuIdTask(Integer uIdTask) {
         this.uIdTask = uIdTask;
     }
 
-    public int getuIdUser() {
+    public Integer getuIdUser() {
         return uIdUser;
     }
 
-    public void setuIdUser(int uIdUser) {
+    public void setuIdUser(Integer uIdUser) {
         this.uIdUser = uIdUser;
     }
 
@@ -79,11 +79,11 @@ public class Task {
         this.uIdLabel = uIdLabel;
     }
 
-    public boolean isCompleted() {
+    public Boolean isCompleted() {
         return completed;
     }
 
-    public void setCompleted(boolean completed) {
+    public void setCompleted(Boolean completed) {
         this.completed = completed;
     }
 
@@ -93,5 +93,10 @@ public class Task {
 
     public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
+    }
+
+    @Override
+    public String toString() {
+        return Title;
     }
 }
