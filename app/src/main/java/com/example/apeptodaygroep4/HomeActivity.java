@@ -16,14 +16,14 @@ import com.example.apeptodaygroep4.Database.UserDatabase;
 import com.example.apeptodaygroep4.Models.Task;
 import com.example.apeptodaygroep4.Models.User;
 import com.example.apeptodaygroep4.UserActivity.AddTask;
-import com.example.apeptodaygroep4.ui.tasks.TaskAdapter;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
 
-    TaskAdapter taskAdapter;
+
 
     private User user;
     private TextView userName;
