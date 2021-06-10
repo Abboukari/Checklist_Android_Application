@@ -21,18 +21,21 @@ import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText editTextUserName, editTextEmail, editTextPassword, editTextPasswoordCheck;
-    private UserDao userDao;
+    private ArrayList<String> emailList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        userDao = Room.databaseBuilder(this, UserDatabase.class, "User").
-                allowMainThreadQueries().
-                build().
-                getUserDao();
-
+        UserDatabase.getExecutor().execute(()->{
+            emailList = new ArrayList<>(
+                    UserDatabase
+                            .getDatabase(getApplicationContext())
+                            .getUserDao()
+                            .getAllEmailFromUsers()
+            );
+        });
     }
 
     public void addUser(View view) {
@@ -48,39 +51,41 @@ public class RegisterActivity extends AppCompatActivity {
         String passwordCheck = editTextPasswoordCheck.getText().toString().trim();
 
         boolean emailValid = isValidEmail(email);
-        int checkIfEmailFoundCounter = 0;
+        boolean emailFound = false;
         int lengthUserPassword = 6;
 
         // Happy of onhappy senario?
-        if (password.equals(passwordCheck) && password.length() > lengthUserPassword && emailValid && !userName.isEmpty()) {
-            List<String> emails = userDao.getAllEmail();
+        if (password.equals(passwordCheck) && password.length() >= lengthUserPassword && emailValid && !userName.isEmpty()) {
             //Check if email already exist in de database, if yes move to if statement, if no make new user
-            for (int i = 0; i < emails.size(); i++) {
-                if (emails.get(i).equals(email)) {
-                    checkIfEmailFoundCounter++;
+            for (int i = 0; i < emailList.size(); i++) {
+                if (emailList.get(i).equals(email)) {
+                    emailFound = true;
+                    break;
                 }
             }
 
-            if (checkIfEmailFoundCounter >= 1) {
+            if  (emailFound) {
                 Toast.makeText(this, "Email already exist", Toast.LENGTH_SHORT).show();
                 Toast.makeText(this, "Please try again or move to login", Toast.LENGTH_SHORT).show();
             } else {
                 User user = new User(userName, password, email);
-                userDao.insert(user);
+                UserDatabase.getExecutor().execute(()->{
+                    UserDatabase.getDatabase(getApplicationContext()).getUserDao().insert(user);
+                });
                 Toast.makeText(getApplicationContext(), "Registration Succesful", Toast.LENGTH_SHORT).show();
                 Intent moveToLogin = new Intent(RegisterActivity.this, LoginScreenActivity.class);
                 startActivity(moveToLogin);
             }
 
-        } else if (password.length() < lengthUserPassword) {
+        } if (password.length() < lengthUserPassword) {
             Toast.makeText(getApplicationContext(), "You need a longer password!", Toast.LENGTH_SHORT).show();
             Toast.makeText(getApplicationContext(), "At least 6 characters!", Toast.LENGTH_SHORT).show();
-        } else if (!emailValid) {
+        } if (!emailValid) {
             Toast.makeText(getApplicationContext(), "Email is not valid", Toast.LENGTH_SHORT).show();
-        } else if (userName.isEmpty()) {
+        } if (userName.isEmpty()) {
             Toast.makeText(getApplicationContext(), "Don't you have a name?", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getApplicationContext(), "Password is not matching dumbass", Toast.LENGTH_SHORT).show();
+        } if (!password.equals(passwordCheck)){
+            Toast.makeText(getApplicationContext(), "Password is not matching", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -88,6 +93,5 @@ public class RegisterActivity extends AppCompatActivity {
     public static boolean isValidEmail(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
-
 
 }

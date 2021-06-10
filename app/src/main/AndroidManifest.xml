@@ -5,10 +5,14 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_mario"
-        android:label="@string/app_name"
+        android:label="@string/appName"
         android:roundIcon="@drawable/mariohead"
         android:supportsRtl="true"
         android:theme="@style/Theme.APEPToDayGroep4">
+        <activity android:name=".UserActivity.AddTask" android:parentActivityName=".HomeActivity" />
+        <activity android:name=".UserActivity.EditTask" android:parentActivityName=".HomeActivity" />
+        <activity android:name=".UserActivity.Label" android:parentActivityName=".HomeActivity" />
+        <activity android:name=".UserActivity.CompletedTask" android:parentActivityName=".HomeActivity" />
         <activity android:name=".HomeActivity" />
         <activity
             android:name=".LoginScreenActivity"

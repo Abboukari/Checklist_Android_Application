@@ -1,6 +1,7 @@
 package com.example.apeptodaygroep4.Models;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import org.jetbrains.annotations.NotNull;
@@ -11,16 +12,16 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private Integer id;
     private String userName;
     private String password;
     private String email;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -53,6 +54,15 @@ public class User implements Serializable {
         this.password = password;
         this.email = email;
     }
+
+    @Ignore
+    public User(String email,String password){
+        this.password = password;
+        this.email = email;
+    }
+
+    @Ignore
+    public User(){};
 
     @NotNull
     @Override

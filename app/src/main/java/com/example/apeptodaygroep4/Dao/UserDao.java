@@ -16,7 +16,7 @@ public interface UserDao {
     User getUser(String email, String password);
 
     @Query("SELECT email FROM User")
-    List<String> getAllEmail();
+    List<String> getAllEmailFromUsers();
 
     @Insert
     void insert(User user);
