@@ -99,7 +99,7 @@ public class AddTask extends AppCompatActivity {
             UserDatabase.getExecutor().execute(()->{
                 UserDatabase.getDatabase(getApplicationContext()).taskDao().addTask(task);
             });
-            Snackbar.make(getApplicationContext(),view,"Your task as been added",Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(getApplicationContext(),view,"Your task as been added",Snackbar.LENGTH_SHORT).show();//TODO: moet ergens heen
 
             //Toast.makeText(getApplicationContext(), "Your task has been added", Toast.LENGTH_SHORT).show();
         }
