@@ -58,10 +58,10 @@ public class HomeActivity extends AppCompatActivity {
 
         user = (User) getIntent().getSerializableExtra("User");
         userName = findViewById(R.id.displayUserName);
-        userId = user.getId();
 
         if (user != null) {
             userName.setText("Welcome " + user.getUserName());
+            userId = user.getId();
         }
 
         FloatingActionButton fabButton = findViewById(R.id.fabHome);
@@ -80,7 +80,7 @@ public class HomeActivity extends AppCompatActivity {
                     UserDatabase
                         .getDatabase(getApplicationContext())
                         .taskDao()
-                        .getTaskList(userId)
+                        .getTilteTasks(userId)
             );
 
             ArrayAdapter<Task> adapter = new ArrayAdapter<>(

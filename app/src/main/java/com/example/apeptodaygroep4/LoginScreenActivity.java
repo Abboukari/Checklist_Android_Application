@@ -25,7 +25,7 @@ public class LoginScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen_activity);
 
-        database = Room.databaseBuilder(this, UserDatabase.class, "User").allowMainThreadQueries()
+        database = Room.databaseBuilder(this, UserDatabase.class, "ToDayDatabase").allowMainThreadQueries()
                 .build();
         db = database.getUserDao();
 

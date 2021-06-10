@@ -14,6 +14,9 @@ public interface TaskDao {
     @Query("SELECT * FROM task WHERE uIdUser = :userId ") //AND completed = false
     List<Task> getTaskList(int userId);
 
+    @Query("SELECT Title, uIdUser FROM Task WHERE uIdUser = :userId")
+    List<Task> getTilteTasks(int userId);
+
 
     @Insert
     void addTask(Task task);

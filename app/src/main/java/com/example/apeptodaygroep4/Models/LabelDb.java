@@ -2,23 +2,26 @@ package com.example.apeptodaygroep4.Models;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity
 public class LabelDb {
-    @PrimaryKey (autoGenerate = true) int uIdLabel;
+    @PrimaryKey (autoGenerate = true) Integer uIdLabel;
     @ColumnInfo String label;
 
+    @Ignore
     public LabelDb(){}
+
     public LabelDb(String label) {
         this.label = label;
     }
 
-    public int getuIdLabel() {
+    public Integer getuIdLabel() {
         return uIdLabel;
     }
 
-    public void setuIdLabel(int uIdLabel) {
+    public void setuIdLabel(Integer uIdLabel) {
         this.uIdLabel = uIdLabel;
     }
 

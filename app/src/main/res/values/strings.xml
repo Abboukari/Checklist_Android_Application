@@ -51,7 +51,7 @@
     <string name="LoginActivity_Welcome_Text">Login down below</string>
 
     <string name="HomeActivity_Button_Logout">Log out</string>
-    <string name="appName">To much to do to Day</string>
+    <string name="appName">To much to do To Day</string>
 
 
 </resources>
