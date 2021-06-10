@@ -37,7 +37,10 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view_tasks);
+
+        /*recyclerView = (RecyclerView) findViewById(R.id.recycler_view_tasks);
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         UserDatabase.getExecutor().execute(() -> {
             tasks = new ArrayList<Task>(
@@ -49,11 +52,9 @@ public class HomeActivity extends AppCompatActivity {
 
             taskAdapter = new TaskAdapter(getApplicationContext(), tasks);
             recyclerView.setAdapter(taskAdapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()
-                    , RecyclerView.VERTICAL
-                    , false));
 
-        });
+
+        });*/
 
         user = (User) getIntent().getSerializableExtra("User");
         userName = findViewById(R.id.displayUserName);
@@ -73,7 +74,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        /*ListView listView = findViewById(R.id.listViewTask);
+        ListView listView = findViewById(R.id.listViewTask);
         UserDatabase.getExecutor().execute(()->{
             tasks = new ArrayList<Task>(
                     UserDatabase
@@ -88,7 +89,7 @@ public class HomeActivity extends AppCompatActivity {
                     tasks);
 
             runOnUiThread(()-> listView.setAdapter(adapter));
-        });*/
+        });
     }
 
 
