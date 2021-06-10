@@ -28,18 +28,14 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-
-
-
         UserDatabase.getExecutor().execute(()->{
-            emailList = new ArrayList<String>(
+            emailList = new ArrayList<>(
                     UserDatabase
-                    .getDatabase(getApplicationContext())
-                    .getUserDao()
-                    .getAllEmailFromUsers()
+                            .getDatabase(getApplicationContext())
+                            .getUserDao()
+                            .getAllEmailFromUsers()
             );
         });
-
     }
 
     public void addUser(View view) {
@@ -98,6 +94,5 @@ public class RegisterActivity extends AppCompatActivity {
     public static boolean isValidEmail(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
-
 
 }
