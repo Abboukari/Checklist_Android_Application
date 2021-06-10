@@ -72,7 +72,6 @@ public class RegisterActivity extends AppCompatActivity {
                 UserDatabase.getExecutor().execute(()->{
                     UserDatabase.getDatabase(getApplicationContext()).getUserDao().insert(user);
                 });
-                //userDao.insert(user);
                 Toast.makeText(getApplicationContext(), "Registration Succesful", Toast.LENGTH_SHORT).show();
                 Intent moveToLogin = new Intent(RegisterActivity.this, LoginScreenActivity.class);
                 startActivity(moveToLogin);

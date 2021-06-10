@@ -1,5 +1,7 @@
 package com.example.apeptodaygroep4;
 
+import com.example.apeptodaygroep4.Models.User;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -11,14 +13,7 @@ public class RegisterActivityTest {
         // Arrange
 
         // Act
-        // Assert
-    }
 
-    @Test
-    public void isValidEmail() {
-        // Arrange
-        String email = "ab.ab.nl";
-        // Act
         // Assert
     }
 }
