@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.apeptodaygroep4.Database.UserDatabase;
 import com.example.apeptodaygroep4.HomeActivity;
 import com.example.apeptodaygroep4.Models.Task;
+import com.example.apeptodaygroep4.Models.User;
 import com.example.apeptodaygroep4.R;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -30,7 +31,9 @@ public class AddTask extends AppCompatActivity {
     private int tDay;
     private int tHour;
     private int tMinute;
+
     private int userId;
+    private User user;
 
 
     @Override
@@ -38,6 +41,7 @@ public class AddTask extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
         userId = (int) getIntent().getSerializableExtra("userId");
+        user = (User) getIntent().getSerializableExtra("User");
     }
 
     public void addLabel(View view){
@@ -89,7 +93,9 @@ public class AddTask extends AppCompatActivity {
         String descriptionTask = taskDiscription.getText().toString();
         Date dueDateTask = myCalander.getTime();
 
-        Intent toHomeIntent = new Intent(getApplicationContext(), HomeActivity.class);
+       Intent toHomeIntent = new Intent(getApplicationContext(),HomeActivity.class);
+       toHomeIntent.putExtra("User", user);
+
 
 
         //TODO:  add task to DB if all fields are filled
@@ -110,5 +116,7 @@ public class AddTask extends AppCompatActivity {
         }
     }
 
-    //TODO: attach Floating action button to label list
+    //TODO: attach Floating action button to label list ofzo
+    //TODO: clickable maken van listview
+
 }

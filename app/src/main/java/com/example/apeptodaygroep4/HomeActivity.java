@@ -70,6 +70,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent startTaskIntent = new Intent(HomeActivity.this, AddTask.class);
                 startTaskIntent.putExtra("userId", userId);
+                startTaskIntent.putExtra("User", user);
                 startActivity(startTaskIntent);
             }
         });
