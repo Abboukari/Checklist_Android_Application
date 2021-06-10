@@ -33,6 +33,7 @@ public abstract class UserDatabase extends RoomDatabase {
 
     //TODO: TaskDao and LAbelDao
     public abstract TaskDao taskDao();
+    public abstract LabelDao labelDao();
 
     public static ExecutorService getExecutor(){
         return dbExecutor;

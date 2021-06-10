@@ -89,6 +89,8 @@ public class AddTask extends AppCompatActivity {
         String descriptionTask = taskDiscription.getText().toString();
         Date dueDateTask = myCalander.getTime();
 
+        Intent toHomeIntent = new Intent(getApplicationContext(), HomeActivity.class);
+
 
         //TODO:  add task to DB if all fields are filled
         if (titleTask.equals("") || descriptionTask.equals("")|| dueDateTask == null){
@@ -98,15 +100,14 @@ public class AddTask extends AppCompatActivity {
 
             UserDatabase.getExecutor().execute(()->{
                 UserDatabase.getDatabase(getApplicationContext()).taskDao().addTask(task);
-                runOnUiThread(()-> Snackbar.make(getApplicationContext(),view,"Your task as been added",
-                        Snackbar.LENGTH_SHORT).show());  //UiThread andere draad
+                runOnUiThread(()-> Toast.makeText(getApplicationContext(), "Your task has been added", Toast.LENGTH_SHORT).show());//UiThread andere draad
+
+                startActivity(toHomeIntent);
+
             });
-
-            //TODO: moet ergens heen
-
-            //Toast.makeText(getApplicationContext(), "Your task has been added", Toast.LENGTH_SHORT).show();
+           /* Snackbar.make(getApplicationContext(),view,"Your task as been added",
+                    Snackbar.LENGTH_SHORT).show());*/
         }
-        //TODO: Snackbar task is added plus undo option
     }
 
     //TODO: attach Floating action button to label list
