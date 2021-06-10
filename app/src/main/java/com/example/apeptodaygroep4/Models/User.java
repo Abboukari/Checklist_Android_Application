@@ -54,11 +54,15 @@ public class User implements Serializable {
         this.password = password;
         this.email = email;
     }
+
     @Ignore
     public User(String email,String password){
         this.password = password;
         this.email = email;
     }
+
+    @Ignore
+    public User(){};
 
     @NotNull
     @Override
