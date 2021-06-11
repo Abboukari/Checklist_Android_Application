@@ -7,109 +7,109 @@
     tools:context=".UserActivity.EditTask">
 
 
-
-    <EditText
-        android:id="@+id/editTextTitle"
+    <TextView
+        android:id="@+id/textViewTitleEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="@string/title"
-        app:layout_constraintBottom_toTopOf="@+id/editTextDiscription"
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="177dp"
+        android:text="@string/edit_taskString"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextDiscription"
+        android:id="@+id/editTASKTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:autofillHints="@string/title"
         android:ems="10"
+        android:text=""
         android:inputType="textPersonName"
-        android:hint="@string/discription"
-        app:layout_constraintBottom_toTopOf="@+id/editTextDate"
-        app:layout_constraintStart_toStartOf="@+id/editTextTitle"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTitle" />
+        app:layout_constraintBottom_toTopOf="@+id/editTASKDiscription"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextDate"
-        android:layout_width="151dp"
-        android:layout_height="53dp"
-        android:ems="10"
-        android:inputType="date"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintEnd_toStartOf="@+id/editTextTime"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDiscription" />
-
-    <EditText
-        android:id="@+id/editTextTime"
-        android:layout_width="148dp"
-        android:layout_height="51dp"
-        android:ems="10"
-        android:inputType="time"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextDate"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/editTextDate"
-        app:layout_constraintTop_toTopOf="@+id/editTextDate" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/editTASKDiscription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:autofillHints="@string/discription"
+        android:ems="10"
+        android:text=""
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/dateTimeButnEDIT"
+        app:layout_constraintEnd_toEndOf="@+id/editTASKTitle"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="@+id/textView"
-        app:srcCompat="@drawable/mariohead" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/choose_label"
-        app:layout_constraintBottom_toTopOf="@+id/addLabelBtn"
-        app:layout_constraintEnd_toStartOf="@+id/floatingActionButton"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
+        app:layout_constraintStart_toStartOf="@+id/editTASKTitle"
+        app:layout_constraintTop_toBottomOf="@+id/editTASKTitle" />
 
     <Button
-        android:id="@+id/addLabelBtn"
+        android:id="@+id/addLabelBtnEDIT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="200dp"
+        android:layout_marginBottom="32dp"
         android:drawableLeft="@drawable/ic_mario_white"
         android:onClick="addLabel"
         android:text="@string/add_label"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <Button
-        android:id="@+id/editTaskBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_mario_white"
-        android:text="@string/edit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/deleteBtn"
-        tools:layout_editor_absoluteY="619dp" />
-
-    <Button
-        android:id="@+id/deleteBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_mario_white"
-        android:text="@string/delete"
-        app:layout_constraintBottom_toBottomOf="@+id/editTaskBtn"
-        app:layout_constraintEnd_toStartOf="@+id/editTaskBtn"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerEDIT"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editTaskBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/dateTimeButnEDIT" />
+
+    <Button
+        android:id="@+id/editTaskBtnEDIT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:drawableLeft="@drawable/ic_mario_white"
+        android:onClick="updateFieldBtn"
+        android:text="@string/edit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/dateTimeButnEDIT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_mario_white"
+        android:onClick="buttonDateTimePickerDialog"
+        android:text="@string/date_and_time"
+        app:layout_constraintBottom_toTopOf="@+id/addLabelBtnEDIT"
+        app:layout_constraintEnd_toEndOf="@+id/editTASKDiscription"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/editTASKDiscription"
+        app:layout_constraintTop_toBottomOf="@+id/editTASKDiscription" />
+
+    <Spinner
+        android:id="@+id/spinnerEDIT"
+        android:layout_width="178dp"
+        android:layout_height="40dp"
+        android:entries="@android:array/phoneTypes"
+        app:layout_constraintBottom_toBottomOf="@+id/addLabelBtnEDIT"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/addLabelBtnEDIT"
+        app:layout_constraintTop_toTopOf="@+id/addLabelBtnEDIT" />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="24dp"
+        android:drawableLeft="@drawable/ic_mario_white"
+        android:onClick="deleteFieldBtn"
+        android:text="@string/delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

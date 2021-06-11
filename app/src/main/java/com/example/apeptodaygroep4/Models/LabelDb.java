@@ -1,5 +1,6 @@
 package com.example.apeptodaygroep4.Models;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -7,7 +8,8 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class LabelDb {
-    @PrimaryKey (autoGenerate = true) Integer uIdLabel;
+    @PrimaryKey @NonNull
+    String uIdLabel;
     @ColumnInfo String label;
 
     @Ignore
@@ -17,11 +19,11 @@ public class LabelDb {
         this.label = label;
     }
 
-    public Integer getuIdLabel() {
+    public String getuIdLabel() {
         return uIdLabel;
     }
 
-    public void setuIdLabel(Integer uIdLabel) {
+    public void setuIdLabel(String uIdLabel) {
         this.uIdLabel = uIdLabel;
     }
 

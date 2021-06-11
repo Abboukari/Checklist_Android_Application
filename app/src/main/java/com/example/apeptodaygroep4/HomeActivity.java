@@ -7,29 +7,34 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.apeptodaygroep4.Database.UserDatabase;
 import com.example.apeptodaygroep4.Models.Task;
 import com.example.apeptodaygroep4.Models.User;
 import com.example.apeptodaygroep4.UserActivity.AddTask;
 
+import com.example.apeptodaygroep4.UserActivity.EditTask;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity  {
 
-
-
+    private static final String TAG = "HomeActivity";
     private User user;
     private TextView userName;
     private int userId;
     private ArrayList<Task> tasks;
     RecyclerView recyclerView;
+    private Task task;
 
 
     @SuppressLint("SetTextI18n")
@@ -37,24 +42,6 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        /*recyclerView = (RecyclerView) findViewById(R.id.recycler_view_tasks);
-        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
-
-        UserDatabase.getExecutor().execute(() -> {
-            tasks = new ArrayList<Task>(
-                    UserDatabase
-                            .getDatabase(getApplicationContext())
-                            .taskDao()
-                            .getTaskList(userId)
-            );
-
-            taskAdapter = new TaskAdapter(getApplicationContext(), tasks);
-            recyclerView.setAdapter(taskAdapter);
-
-
-        });*/
 
         user = (User) getIntent().getSerializableExtra("User");
         userName = findViewById(R.id.displayUserName);
@@ -76,6 +63,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         ListView listView = findViewById(R.id.listViewTask);
+
         UserDatabase.getExecutor().execute(()->{
             tasks = new ArrayList<Task>(
                     UserDatabase
@@ -84,6 +72,11 @@ public class HomeActivity extends AppCompatActivity {
                         .getTilteTasks(userId)
             );
 
+            CustomAdapter adaptert = new CustomAdapter(
+                    getApplicationContext(),
+                    R.layout.item_task,
+                    tasks);
+
             ArrayAdapter<Task> adapter = new ArrayAdapter<>(
                     getApplication(),
                     android.R.layout.simple_list_item_1,
@@ -91,6 +84,33 @@ public class HomeActivity extends AppCompatActivity {
 
             runOnUiThread(()-> listView.setAdapter(adapter));
         });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                task = tasks.get(position);
+                Integer taskId = task.getuIdTask();
+                Log.d(TAG,"you clickedz:" + task.getTitle());
+                Toast.makeText(getApplicationContext(),
+                        "you clicked on " + task.getTitle(),
+                        Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(getApplicationContext(), EditTask.class);
+                intent.putExtra("User", user);
+                intent.putExtra("taskId", taskId);
+
+                startActivity(intent);
+            }
+        });
+
+
+    }
+
+    public void setCompletedStatus(View view){
+    }
+
+    public void setTitleClickToEdit(View view){
+        Toast.makeText(getApplicationContext(),"you Clicked: " + view.getTag(),Toast.LENGTH_LONG).show();
     }
 
 
@@ -98,6 +118,7 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
     }
+
 
 
 }

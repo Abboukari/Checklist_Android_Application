@@ -52,6 +52,7 @@
 
     <string name="HomeActivity_Button_Logout">Log out</string>
     <string name="appName">To much to do To Day</string>
+    <string name="edit_taskString">edit task</string>
 
 
 </resources>

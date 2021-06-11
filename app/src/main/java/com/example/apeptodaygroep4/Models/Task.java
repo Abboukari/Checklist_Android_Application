@@ -29,19 +29,25 @@ import java.util.Date;
 public class Task{
     @PrimaryKey (autoGenerate = true) public Integer uIdTask;
     @ColumnInfo public Integer uIdUser;
-    @ColumnInfo private String Title;
+    @ColumnInfo private String title;
     @ColumnInfo private String Description;
-    @ColumnInfo public String uIdLabel; //TODO: set to labelName
-    @ColumnInfo private Boolean completed;
+    @ColumnInfo public String uIdLabel;
+    @ColumnInfo private Boolean completed = false;
     public Date dateTime;
 
     public Task(){}
     public Task(Integer uIdUser, String title, String description, Date dateTime) {
         this.uIdUser = uIdUser;
-        Title = title;
+        Task.this.title = title;
         Description = description;
         this.completed = false;
         this.dateTime = dateTime;
+    }
+
+    public Task(String title, String label, Boolean completed) {
+        this.title = title;
+        this.uIdLabel = label;
+        this.completed = completed;
     }
 
     public Integer getuIdTask() {
@@ -61,11 +67,11 @@ public class Task{
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public void setTitle(String title) {
-        Title = title;
+        Task.this.title = title;
     }
 
     public String getDescription() {
@@ -102,6 +108,6 @@ public class Task{
 
     @Override
     public String toString() {
-        return Title;
+        return title;
     }
 }

@@ -7,13 +7,13 @@
     tools:context=".UserActivity.AddTask">
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textViewTitleEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="176dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="177dp"
-        android:text="add task"
+        android:text="@string/add_task"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
