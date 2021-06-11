@@ -69,7 +69,7 @@ public class HomeActivity extends AppCompatActivity  {
                     UserDatabase
                         .getDatabase(getApplicationContext())
                         .taskDao()
-                        .getTilteTasks(userId)
+                        .getTaskList(userId)
             );
 
             CustomAdapter adaptert = new CustomAdapter(
