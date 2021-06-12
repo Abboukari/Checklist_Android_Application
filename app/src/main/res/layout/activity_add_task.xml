@@ -10,14 +10,13 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="176dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="177dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="99dp"
+        android:layout_marginEnd="141dp"
         android:text="add task"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.481"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,87 +24,80 @@
         android:id="@+id/editTextTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginEnd="169dp"
+        android:layout_marginBottom="34dp"
         android:autofillHints="@string/title"
         android:ems="10"
         android:hint="@string/title"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/editTextDiscription"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/editTextDiscription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="33dp"
+        android:layout_marginEnd="169dp"
         android:autofillHints="@string/discription"
         android:ems="10"
         android:hint="@string/discription"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/dateTimeButn"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTitle"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/editTextTitle"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTitle" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="262dp" />
 
     <Button
         android:id="@+id/addLabelBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="53dp"
         android:drawableLeft="@drawable/ic_mario_white"
         android:onClick="addLabel"
         android:text="@string/add_label"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/spinner"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dateTimeButn" />
+        app:layout_constraintBottom_toTopOf="@+id/editTaskBtn"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/editTaskBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginStart="271dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="32dp"
         android:drawableLeft="@drawable/ic_mario_white"
         android:onClick="addTaskToDb"
         android:text="@string/add"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/dateTimeButn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="34dp"
+        android:layout_marginEnd="197dp"
         android:drawableLeft="@drawable/ic_mario_white"
         android:onClick="buttonDateTimePickerDialog"
         android:text="@string/date_and_time"
-        app:layout_constraintBottom_toTopOf="@+id/addLabelBtn"
-        app:layout_constraintEnd_toEndOf="@+id/editTextDiscription"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/editTextDiscription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextDiscription" />
 
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="178dp"
         android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="36dp"
         android:entries="@android:array/phoneTypes"
-        app:layout_constraintBottom_toBottomOf="@+id/addLabelBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/addLabelBtn"
-        app:layout_constraintTop_toTopOf="@+id/addLabelBtn" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="returnToHome"
-        android:text="Button"
-        tools:layout_editor_absoluteX="43dp"
-        tools:layout_editor_absoluteY="646dp" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/addLabelBtn"
+        app:layout_constraintEnd_toStartOf="@+id/addLabelBtn"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -54,4 +54,8 @@
     <string name="appName">To much to do To Day</string>
 
 
+    <string name="finishTask">Done</string>
+    <string name="EditTask">Edit</string>
+    <string name="deleteTask">Delete</string>
+
 </resources>
