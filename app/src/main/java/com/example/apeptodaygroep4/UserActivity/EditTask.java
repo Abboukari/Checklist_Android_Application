@@ -8,22 +8,27 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.apeptodaygroep4.Database.UserDatabase;
 import com.example.apeptodaygroep4.HomeActivity;
+import com.example.apeptodaygroep4.Models.LabelDb;
 import com.example.apeptodaygroep4.Models.Task;
 import com.example.apeptodaygroep4.Models.User;
 import com.example.apeptodaygroep4.R;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class EditTask extends AppCompatActivity {
+public class EditTask extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private int tYear;
     private int tMonth;
@@ -33,7 +38,8 @@ public class EditTask extends AppCompatActivity {
 
     private Integer taskId;
     private User user;
-    Task task;
+    private Task task;
+    private ArrayList<LabelDb> labelList;
 
 
 
@@ -46,6 +52,12 @@ public class EditTask extends AppCompatActivity {
         taskId = (Integer) getIntent().getSerializableExtra("taskId");
         UserDatabase.getExecutor().execute(()->{
                     task = UserDatabase.getDatabase(getApplicationContext()).taskDao().getTask(taskId);
+            labelList = new ArrayList<LabelDb>(
+                        UserDatabase
+                            .getDatabase(getApplicationContext())
+                            .labelDao()
+                            .getAllLabels()
+            );
                 });
 
         EditText taskTitle = findViewById(R.id.editTASKTitle);
@@ -57,10 +69,19 @@ public class EditTask extends AppCompatActivity {
         String discription = task.getDescription();
         Date date = task.getDateTime();
 
-
         taskTitle.setText(title);
         taskDiscription.setText(discription);
         myCalander.setTime(date);
+
+        //TODO: populate spinner
+        Spinner spinner = findViewById(R.id.spinnerEDIT);
+        ArrayAdapter<LabelDb> spinAdapter = new ArrayAdapter<>(
+                getApplicationContext(),android.R.layout.simple_spinner_item, labelList);
+        runOnUiThread(()-> spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item));
+        runOnUiThread(()-> spinner.setAdapter(spinAdapter));
+        spinner.setOnItemSelectedListener(this);
+
+
 
 
     }
@@ -149,5 +170,19 @@ public class EditTask extends AppCompatActivity {
 
             });
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        /*String text = parent.getItemAtPosition(position).toString();
+        Toast.makeText(getApplicationContext(),text,Toast.LENGTH_LONG).show();*/
+
+        LabelDb selectLabel = (LabelDb) parent.getItemAtPosition(position);
+        task.setlabelName(selectLabel.getLabel());
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
