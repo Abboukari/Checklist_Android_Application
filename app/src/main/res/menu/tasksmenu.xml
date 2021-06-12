@@ -14,4 +14,10 @@
         android:title="@string/EditTask"
         android:id="@+id/editTaskAction"
         />
+
+    <item
+        android:title="@string/showTask"
+        android:id="@+id/showTask"
+        />
+
 </menu>

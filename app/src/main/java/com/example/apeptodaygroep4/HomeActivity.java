@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.apeptodaygroep4.Dao.TaskDao;
 import com.example.apeptodaygroep4.Database.UserDatabase;
+import com.example.apeptodaygroep4.Models.DoneTask;
 import com.example.apeptodaygroep4.Models.Task;
 import com.example.apeptodaygroep4.Models.User;
 import com.example.apeptodaygroep4.UserActivity.AddTask;
@@ -38,6 +39,7 @@ public class HomeActivity extends AppCompatActivity {
     private ArrayAdapter<Task> adapter;
     private ListView listView;
     private Task task;
+    DoneTask doneTask = new DoneTask();
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -49,7 +51,7 @@ public class HomeActivity extends AppCompatActivity {
         userName = findViewById(R.id.displayUserName);
 
         if (user != null) {
-            userName.setText("Reay for ToDay " + user.getUserName() + "?");
+            userName.setText("Ready for ToDay " + user.getUserName() + "?");
             userId = user.getId();
         }
 
@@ -65,14 +67,14 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         listView = findViewById(R.id.listViewTask);
-        UserDatabase.getExecutor().execute(()->{
+        UserDatabase.getExecutor().execute(() -> {
             user = (User) getIntent().getSerializableExtra("User");
             userId = user.getId();
             tasks = new ArrayList<Task>(
                     UserDatabase
-                        .getDatabase(getApplicationContext())
-                        .taskDao()
-                        .getTilteTasks(userId)
+                            .getDatabase(getApplicationContext())
+                            .taskDao()
+                            .getTilteTasks(userId)
             );
 
             adapter = new ArrayAdapter<>(
@@ -80,7 +82,7 @@ public class HomeActivity extends AppCompatActivity {
                     android.R.layout.simple_list_item_1,
                     tasks);
 
-            runOnUiThread(()-> listView.setAdapter(adapter));
+            runOnUiThread(() -> listView.setAdapter(adapter));
         });
         registerForContextMenu(listView);
     }
@@ -101,44 +103,69 @@ public class HomeActivity extends AppCompatActivity {
 
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
-        if (item.getItemId() == R.id.finishedTaskAction){
-            Toast.makeText(this, "Good job!", Toast.LENGTH_SHORT).show();
-            return true;
-        } else if (item.getItemId() == R.id.deletedTaskAction){
-
-            UserDatabase.getExecutor().execute(()->{
-
+        if (item.getItemId() == R.id.finishedTaskAction) {
+            //almost
+            UserDatabase.getExecutor().execute(() -> {
                 task = UserDatabase.getDatabase(getApplicationContext())
                         .taskDao().getTask(userId);
 
-                deleteTask(task);
+                doneTask.setDoneUserIdTask(task.getuIdTask());
+                doneTask.setDoneTitle(task.getTitle());
+                doneTask.setDoneDescription(task.getDescription());
+                doneTask.setDoneUserIdUser(task.getuIdUser());
 
-                runOnUiThread(()-> {
-                    Toast.makeText(this, "Tasks Deleted", Toast.LENGTH_SHORT).show();
+                UserDatabase.getDatabase(getApplicationContext()).doneTaskDao().addTaskDone(doneTask);
+
+                deleteTaskClick(task);
+
+                runOnUiThread(() -> {
+                    Toast.makeText(this, "Good job!", Toast.LENGTH_SHORT).show();
                     tasks.remove(info.position);
                     adapter.notifyDataSetChanged();
                 });
             });
 
-            // Delete task from user database
-
             return true;
-        } else if (item.getItemId() == R.id.editTaskAction){
+        } else if (item.getItemId() == R.id.deletedTaskAction) {
+            // DONE
+            UserDatabase.getExecutor().execute(() -> {
+
+                task = UserDatabase.getDatabase(getApplicationContext())
+                        .taskDao().getTask(userId);
+                // Delete task from user database
+                deleteTaskClick(task);
+
+                runOnUiThread(() -> {
+                    Toast.makeText(this, "Tasks Deleted", Toast.LENGTH_SHORT).show();
+                    tasks.remove(info.position);
+                    adapter.notifyDataSetChanged();
+                });
+            });
+            return true;
+
+        } else if (item.getItemId() == R.id.editTaskAction) {
             Toast.makeText(this, "Edit Task", Toast.LENGTH_SHORT).show();
+        } else if (item.getItemId() == R.id.showTask) {
+            Toast.makeText(this, "Moving to Task Screen", Toast.LENGTH_SHORT).show();
         } else {
             return false;
         }
         return super.onContextItemSelected(item);
     }
 
-    public void deleteTask(final Task task){
+    public void deleteTaskClick(final Task task) {
         UserDatabase.getDatabase(getApplicationContext()).taskDao().deleteTask(task);
     }
 
-    public void logOut(View view){
-        Intent intent = new Intent(this,MainActivity.class);
+    public void logOut(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
+    public void moveToDoneTask(View view) {
+        Intent intent = new Intent(this, FinishedTasks.class);
+        intent.putExtra("User", user);
+        startActivity(intent);
+    }
 
 }
