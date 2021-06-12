@@ -95,7 +95,7 @@ public class AddTask extends AppCompatActivity {
 
        Intent toHomeIntent = new Intent(getApplicationContext(),HomeActivity.class);
        toHomeIntent.putExtra("User", user);
-
+       userId = user.getId();
 
 
         //TODO:  add task to DB if all fields are filled
