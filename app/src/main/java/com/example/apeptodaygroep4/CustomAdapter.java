@@ -51,14 +51,14 @@ public class CustomAdapter extends ArrayAdapter<Task> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         //get info
         String title = getItem(position).getTitle();
-        String label = getItem(position).getuIdLabel();
+        String label = getItem(position).getlabelName();
         Boolean checked = getItem(position).isCompleted();
 
         //Create Task object with info
         Task task = new Task(title,label,checked);
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        convertView = inflater.inflate(mResource, parent, false);
+        convertView = inflater.inflate(mResource, parent, false); //Viewholder pattern
 
         TextView tvTitle = (TextView) convertView.findViewById(R.id.text_view_name);
         TextView tvLabel = (TextView) convertView.findViewById(R.id.label);

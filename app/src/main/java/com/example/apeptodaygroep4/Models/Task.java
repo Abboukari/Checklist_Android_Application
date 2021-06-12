@@ -31,8 +31,9 @@ public class Task{
     @ColumnInfo public Integer uIdUser;
     @ColumnInfo private String title;
     @ColumnInfo private String Description;
-    @ColumnInfo public String uIdLabel;
+    @ColumnInfo public String labelName;
     @ColumnInfo private Boolean completed = false;
+    @ColumnInfo public Integer uIdLabel;
     public Date dateTime;
 
     public Task(){}
@@ -46,7 +47,7 @@ public class Task{
 
     public Task(String title, String label, Boolean completed) {
         this.title = title;
-        this.uIdLabel = label;
+        this.labelName = label;
         this.completed = completed;
     }
 
@@ -82,12 +83,12 @@ public class Task{
         Description = description;
     }
 
-    public String getuIdLabel() {
-        return uIdLabel;
+    public String getlabelName() {
+        return labelName;
     }
 
-    public void setuIdLabel(String uIdLabel) {
-        this.uIdLabel = uIdLabel;
+    public void setlabelName(String labelName) {
+        this.labelName = labelName;
     }
 
     public Boolean isCompleted() {
@@ -109,5 +110,13 @@ public class Task{
     @Override
     public String toString() {
         return title;
+    }
+
+    public Integer getuIdLabel() {
+        return uIdLabel;
+    }
+
+    public void setuIdLabel(Integer uIdLabel) {
+        this.uIdLabel = uIdLabel;
     }
 }

@@ -8,9 +8,9 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class LabelDb {
-    @PrimaryKey @NonNull
-    String uIdLabel;
-    @ColumnInfo String label;
+    @PrimaryKey (autoGenerate = true)
+    public Integer uIdLabel;
+    @ColumnInfo public String label;
 
     @Ignore
     public LabelDb(){}
@@ -19,11 +19,11 @@ public class LabelDb {
         this.label = label;
     }
 
-    public String getuIdLabel() {
+    public Integer getuIdLabel() {
         return uIdLabel;
     }
 
-    public void setuIdLabel(String uIdLabel) {
+    public void setuIdLabel(Integer uIdLabel) {
         this.uIdLabel = uIdLabel;
     }
 
