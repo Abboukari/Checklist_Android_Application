@@ -38,24 +38,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        /*recyclerView = (RecyclerView) findViewById(R.id.recycler_view_tasks);
-        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
-
-        UserDatabase.getExecutor().execute(() -> {
-            tasks = new ArrayList<Task>(
-                    UserDatabase
-                            .getDatabase(getApplicationContext())
-                            .taskDao()
-                            .getTaskList(userId)
-            );
-
-            taskAdapter = new TaskAdapter(getApplicationContext(), tasks);
-            recyclerView.setAdapter(taskAdapter);
-
-
-        });*/
-
         user = (User) getIntent().getSerializableExtra("User");
         userName = findViewById(R.id.displayUserName);
 
@@ -77,6 +59,8 @@ public class HomeActivity extends AppCompatActivity {
 
         ListView listView = findViewById(R.id.listViewTask);
         UserDatabase.getExecutor().execute(()->{
+            user = (User) getIntent().getSerializableExtra("User");
+            userId = user.getId();
             tasks = new ArrayList<Task>(
                     UserDatabase
                         .getDatabase(getApplicationContext())

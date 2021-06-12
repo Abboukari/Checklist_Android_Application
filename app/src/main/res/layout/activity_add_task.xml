@@ -99,4 +99,13 @@
         app:layout_constraintStart_toEndOf="@+id/addLabelBtn"
         app:layout_constraintTop_toTopOf="@+id/addLabelBtn" />
 
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="returnToHome"
+        android:text="Button"
+        tools:layout_editor_absoluteX="43dp"
+        tools:layout_editor_absoluteY="646dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
