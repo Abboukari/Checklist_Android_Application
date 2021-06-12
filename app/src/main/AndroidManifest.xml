@@ -11,7 +11,7 @@
         android:theme="@style/Theme.APEPToDayGroep4">
         <activity
             android:name=".FinishedTasks"
-            android:parentActivityName=".HomeActivity" />
+            />
         <activity
             android:name=".UserActivity.AddTask"
             android:parentActivityName=".HomeActivity" />
