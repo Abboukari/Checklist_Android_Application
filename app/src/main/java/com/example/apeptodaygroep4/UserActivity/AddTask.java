@@ -60,12 +60,12 @@ public class AddTask extends AppCompatActivity implements AdapterView.OnItemSele
             );
         });
 
-        Spinner spinner = findViewById(R.id.spinner);
+       /* Spinner spinner = findViewById(R.id.spinner);
         ArrayAdapter<LabelDb> spinAdapter = new ArrayAdapter<>(
                 getApplicationContext(),android.R.layout.simple_spinner_item, labelList);
-        runOnUiThread(()-> spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item));
-        runOnUiThread(()-> spinner.setAdapter(spinAdapter));
-        spinner.setOnItemSelectedListener(this);
+        spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spinAdapter);
+        spinner.setOnItemSelectedListener(this);*/
 
     }
 
