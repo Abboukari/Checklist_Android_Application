@@ -16,7 +16,7 @@ public interface DoneTaskDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addTaskDone(DoneTask task);
 
-    @Query("SELECT DoneTitle, DoneUserIdUser FROM DoneTask WHERE DoneUserIdUser = :userId")
+    @Query("SELECT doneTitle, doneUserIdUser FROM doneTask WHERE doneUserIdUser = :userId")
     List<DoneTask> getTitleTasksDone(int userId);
 
 }

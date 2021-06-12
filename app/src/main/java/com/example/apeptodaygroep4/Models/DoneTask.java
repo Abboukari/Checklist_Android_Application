@@ -10,72 +10,66 @@ import java.io.Serializable;
 public class DoneTask implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    private Integer DoneUserIdTask;
-    @ColumnInfo public Integer DoneUserIdUser;
-    @ColumnInfo private String DoneTitle;
-    @ColumnInfo private String DoneDescription;
-    @ColumnInfo public String DoneUserIdLabel; //TODO: set to labelName
+    private Integer doneUserIdTask;
+    @ColumnInfo public Integer doneUserIdUser;
+    @ColumnInfo private String doneTitle;
+    @ColumnInfo private String doneDescription;
+    @ColumnInfo public String doneUserIdLabel; //TODO: set to labelName
 
 
     public DoneTask(Integer doneUserIdTask, Integer doneUserIdUser, String doneTitle, String doneDescription, String doneUserIdLabel) {
-        DoneUserIdTask = doneUserIdTask;
-        DoneUserIdUser = doneUserIdUser;
-        DoneTitle = doneTitle;
-        DoneDescription = doneDescription;
-        DoneUserIdLabel = doneUserIdLabel;
+        this.doneUserIdTask = doneUserIdTask;
+        this.doneUserIdUser = doneUserIdUser;
+        this.doneTitle = doneTitle;
+        this.doneDescription = doneDescription;
+        this.doneUserIdLabel = doneUserIdLabel;
     }
 
     public DoneTask(){}
 
     public Integer getDoneUserIdTask() {
-        return DoneUserIdTask;
+        return doneUserIdTask;
     }
 
     public void setDoneUserIdTask(Integer doneUserIdTask) {
-        DoneUserIdTask = doneUserIdTask;
+        this.doneUserIdTask = doneUserIdTask;
     }
 
     public Integer getDoneUserIdUser() {
-        return DoneUserIdUser;
+        return doneUserIdUser;
     }
 
     public void setDoneUserIdUser(Integer doneUserIdUser) {
-        DoneUserIdUser = doneUserIdUser;
+        this.doneUserIdUser = doneUserIdUser;
     }
 
     public String getDoneTitle() {
-        return DoneTitle;
+        return doneTitle;
     }
 
     public void setDoneTitle(String doneTitle) {
-        DoneTitle = doneTitle;
+        this.doneTitle = doneTitle;
     }
 
     public String getDoneDescription() {
-        return DoneDescription;
+        return doneDescription;
     }
 
     public void setDoneDescription(String doneDescription) {
-        DoneDescription = doneDescription;
+        this.doneDescription = doneDescription;
     }
 
     public String getDoneUserIdLabel() {
-        return DoneUserIdLabel;
+        return doneUserIdLabel;
     }
 
     public void setDoneUserIdLabel(String doneUserIdLabel) {
-        DoneUserIdLabel = doneUserIdLabel;
+        this.doneUserIdLabel = doneUserIdLabel;
     }
 
     @Override
     public String toString() {
-        return "DoneTask{" +
-                "DoneUserIdTask=" + DoneUserIdTask +
-                ", DoneUserIdUser=" + DoneUserIdUser +
-                ", DoneTitle='" + DoneTitle + '\'' +
-                ", DoneDescription='" + DoneDescription + '\'' +
-                ", DoneUserIdLabel='" + DoneUserIdLabel + '\'' +
-                '}';
+        return doneTitle;
     }
 
 }
