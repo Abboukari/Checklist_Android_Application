@@ -37,7 +37,7 @@ public class FinishedTasks extends AppCompatActivity {
             doneTasks = new ArrayList<>(
                     UserDatabase.getDatabase(getApplicationContext())
                     .doneTaskDao()
-                    .getTasksDone(userId)
+                    .getTitleTasksDone(userId)
             );
 
             adapter = new ArrayAdapter<>(
@@ -47,7 +47,7 @@ public class FinishedTasks extends AppCompatActivity {
             );
             runOnUiThread(() -> listView.setAdapter(adapter));
         });
-        registerForContextMenu(listView);
+       registerForContextMenu(listView);
     }
 
     public void returnToHome (View view) {
