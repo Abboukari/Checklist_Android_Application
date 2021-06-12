@@ -12,9 +12,14 @@ import java.util.List;
 
 @Dao
 public interface TaskDao {
+    @Query("SELECT * FROM task WHERE uIdUser = :userId ") //AND completed = false
+    List<Task> getTaskList(int userId);
+
+    @Query("SELECT Title, uIdUser FROM Task WHERE uIdUser = :userId")
+    List<Task> getTilteTasks(int userId);
 
     @Query("SELECT * FROM Task WHERE uIdUser = :userId")
-    List<Task> getAllDetailsFromTasks(int userId);
+    Task getTask(int userId);
 
     @Insert
     void addTask(Task task);
@@ -22,8 +27,6 @@ public interface TaskDao {
     @Delete
     void deleteTask(Task task);
 
-    @Update()
+    @Update
     void updateTask(Task task);
-
 }
-

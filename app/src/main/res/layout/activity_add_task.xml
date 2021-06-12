@@ -23,32 +23,31 @@
     <EditText
         android:id="@+id/editTextTitle"
         android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="57dp"
-        android:layout_marginEnd="101dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="33dp"
+        android:layout_marginEnd="169dp"
+        android:layout_marginBottom="34dp"
         android:autofillHints="@string/title"
         android:ems="10"
         android:hint="@string/title"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/editTextDiscription"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/editTextDiscription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="57dp"
-        android:layout_marginEnd="101dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginEnd="169dp"
         android:autofillHints="@string/discription"
         android:ems="10"
         android:hint="@string/discription"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTitle" />
+        tools:layout_editor_absoluteY="262dp" />
 
     <Button
         android:id="@+id/addLabelBtn"
@@ -80,9 +79,9 @@
         android:id="@+id/dateTimeButn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="114dp"
-        android:layout_marginTop="57dp"
-        android:layout_marginEnd="115dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="34dp"
+        android:layout_marginEnd="197dp"
         android:drawableLeft="@drawable/ic_mario_white"
         android:onClick="buttonDateTimePickerDialog"
         android:text="@string/date_and_time"
@@ -100,14 +99,5 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/addLabelBtn"
         app:layout_constraintEnd_toStartOf="@+id/addLabelBtn"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="returnToHome"
-        android:text="Button"
-        tools:layout_editor_absoluteX="43dp"
-        tools:layout_editor_absoluteY="646dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
