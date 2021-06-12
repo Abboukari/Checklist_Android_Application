@@ -65,21 +65,21 @@ public class EditTask extends AppCompatActivity implements AdapterView.OnItemSel
         Calendar myCalander = new GregorianCalendar(tYear,tMonth,tDay,tHour,tMinute);
 
         //TODO: set text in fields
-        String title = task.getTitle();
+      /*  String title = task.getTitle();
         String discription = task.getDescription();
         Date date = task.getDateTime();
 
         taskTitle.setText(title);
         taskDiscription.setText(discription);
-        myCalander.setTime(date);
+        myCalander.setTime(date);*/
 
         //TODO: populate spinner
-        Spinner spinner = findViewById(R.id.spinnerEDIT);
+       /* Spinner spinner = findViewById(R.id.spinnerEDIT);
         ArrayAdapter<LabelDb> spinAdapter = new ArrayAdapter<>(
                 getApplicationContext(),android.R.layout.simple_spinner_item, labelList);
         runOnUiThread(()-> spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item));
         runOnUiThread(()-> spinner.setAdapter(spinAdapter));
-        spinner.setOnItemSelectedListener(this);
+        spinner.setOnItemSelectedListener(this);*/
 
 
 
