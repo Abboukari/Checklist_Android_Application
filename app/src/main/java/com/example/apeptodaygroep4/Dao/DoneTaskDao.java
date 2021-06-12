@@ -6,6 +6,8 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.example.apeptodaygroep4.Models.DoneTask;
+import com.example.apeptodaygroep4.Models.Task;
+
 import java.util.List;
 
 @Dao
@@ -14,7 +16,7 @@ public interface DoneTaskDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addTaskDone(DoneTask task);
 
-    @Query("SELECT Title, uIdLabel FROM Task WHERE uIdUser = :userId")
-    List<DoneTask> getTasksDone(int userId);
+    @Query("SELECT DoneTitle, DoneUserIdUser FROM DoneTask WHERE DoneUserIdUser = :userId")
+    List<DoneTask> getTitleTasksDone(int userId);
 
 }
