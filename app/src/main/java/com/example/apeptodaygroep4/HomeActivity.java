@@ -36,7 +36,6 @@ public class HomeActivity extends AppCompatActivity  {
     RecyclerView recyclerView;
     private Task task;
 
-
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,14 +51,11 @@ public class HomeActivity extends AppCompatActivity  {
         }
 
         FloatingActionButton fabButton = findViewById(R.id.fabHome);
-        fabButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent startTaskIntent = new Intent(HomeActivity.this, AddTask.class);
-                startTaskIntent.putExtra("userId", userId);
-                startTaskIntent.putExtra("User", user);
-                startActivity(startTaskIntent);
-            }
+        fabButton.setOnClickListener(v -> {
+            Intent startTaskIntent = new Intent(HomeActivity.this, AddTask.class);
+            startTaskIntent.putExtra("userId", userId);
+            startTaskIntent.putExtra("User", user);
+            startActivity(startTaskIntent);
         });
 
         ListView listView = findViewById(R.id.listViewTask);
@@ -85,22 +81,19 @@ public class HomeActivity extends AppCompatActivity  {
             runOnUiThread(()-> listView.setAdapter(adapter));
         });
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                task = tasks.get(position);
-                Integer taskId = task.getuIdTask();
-                Log.d(TAG,"you clickedz:" + task.getTitle());
-                Toast.makeText(getApplicationContext(),
-                        "you clicked on " + task.getTitle(),
-                        Toast.LENGTH_LONG).show();
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            task = tasks.get(position);
+            Integer taskId = task.getuIdTask();
+            Log.d(TAG,"you clickedz:" + task.getTitle());
+            Toast.makeText(getApplicationContext(),
+                    "you clicked on " + task.getTitle(),
+                    Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(getApplicationContext(), EditTask.class);
-                intent.putExtra("User", user);
-                intent.putExtra("taskId", taskId);
+            Intent intent = new Intent(getApplicationContext(), EditTask.class);
+            intent.putExtra("User", user);
+            intent.putExtra("taskId", taskId);
 
-                startActivity(intent);
-            }
+            startActivity(intent);
         });
 
 

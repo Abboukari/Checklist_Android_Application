@@ -52,11 +52,11 @@ public class AddTask extends AppCompatActivity implements AdapterView.OnItemSele
         user = (User) getIntent().getSerializableExtra("User");
 
         UserDatabase.getExecutor().execute(()->{
-            labelList = new ArrayList<LabelDb>(
+            labelList = new ArrayList<>(
                     UserDatabase
-                    .getDatabase(getApplicationContext())
-                    .labelDao()
-                    .getAllLabels()
+                            .getDatabase(getApplicationContext())
+                            .labelDao()
+                            .getAllLabels()
             );
         });
 
@@ -79,25 +79,19 @@ public class AddTask extends AppCompatActivity implements AdapterView.OnItemSele
         final String TAG = "DIA_CAL";
 
         DatePickerDialog datePicker = new DatePickerDialog(this,
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        Log.i(TAG, "Date chosen: " + dayOfMonth + "-" + month + "-" + year);
-                        tYear = year;
-                        tMonth = month;
-                        tDay = dayOfMonth;
-                    }
+                (view1, year, month, dayOfMonth) -> {
+                    Log.i(TAG, "Date chosen: " + dayOfMonth + "-" + month + "-" + year);
+                    tYear = year;
+                    tMonth = month;
+                    tDay = dayOfMonth;
                 },cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH));
 
 
         TimePickerDialog timePicker = new TimePickerDialog(this,
-                new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        Log.i(TAG,"Time chosen: " + hourOfDay + ":" + minute);
-                        tHour = hourOfDay;
-                        tMinute = minute;
-                    }
+                (view12, hourOfDay, minute) -> {
+                    Log.i(TAG,"Time chosen: " + hourOfDay + ":" + minute);
+                    tHour = hourOfDay;
+                    tMinute = minute;
                 }, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE),true);
 
         datePicker.setTitle("Choose a Date");
@@ -120,7 +114,7 @@ public class AddTask extends AppCompatActivity implements AdapterView.OnItemSele
 
        Intent toHomeIntent = new Intent(getApplicationContext(),HomeActivity.class);
        toHomeIntent.putExtra("User", user);
-
+       userId = user.getId();
 
 
         //TODO:  add task to DB if all fields are filled
