@@ -105,17 +105,11 @@ public class AddTask extends AppCompatActivity {
             UserDatabase.getExecutor().execute(()->{
                 UserDatabase.getDatabase(getApplicationContext()).taskDao().addTask(task);
                 runOnUiThread(()-> Toast.makeText(getApplicationContext(), "Your task has been added", Toast.LENGTH_SHORT).show());//UiThread andere draad
-
-                // Hier start je de intent zonder er wat aan met te gegeven.
-                // Er moet hier dus wat aan meegegeven worden.
                 toHomeIntent.putExtra("User", user);
                 startActivity(toHomeIntent);
 
             });
-           /* Snackbar.make(getApplicationContext(),view,"Your task as been added",
-                    Snackbar.LENGTH_SHORT).show());*/
         }
     }
 
-    //TODO: attach Floating action button to label list
 }

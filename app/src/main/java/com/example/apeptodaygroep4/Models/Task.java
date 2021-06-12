@@ -31,6 +31,7 @@ public class Task {
     public Date dateTime;
 
     public Task(){}
+
     public Task(Integer uIdUser, String title, String description, Date dateTime) {
         this.uIdUser = uIdUser;
         Title = title;
