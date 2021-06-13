@@ -28,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        UserDatabase.getExecutor().execute(()->{
+        UserDatabase.getExecutor().execute(() -> {
             emailList = new ArrayList<>(
                     UserDatabase
                             .getDatabase(getApplicationContext())
@@ -64,27 +64,30 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
 
-            if  (emailFound) {
+            if (emailFound) {
                 Toast.makeText(this, "Email already exist", Toast.LENGTH_SHORT).show();
                 Toast.makeText(this, "Please try again or move to login", Toast.LENGTH_SHORT).show();
             } else {
                 User user = new User(userName, password, email);
-                UserDatabase.getExecutor().execute(()->{
+                UserDatabase.getExecutor().execute(() -> {
                     UserDatabase.getDatabase(getApplicationContext()).getUserDao().insert(user);
                 });
                 Toast.makeText(getApplicationContext(), "Registration Succesful", Toast.LENGTH_SHORT).show();
                 Intent moveToLogin = new Intent(RegisterActivity.this, LoginScreenActivity.class);
                 startActivity(moveToLogin);
             }
-
-        } if (password.length() < lengthUserPassword) {
+        }
+        if (userName.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Don't you have a name?", Toast.LENGTH_SHORT).show();
+        }
+        if (password.length() < lengthUserPassword) {
             Toast.makeText(getApplicationContext(), "You need a longer password!", Toast.LENGTH_SHORT).show();
             Toast.makeText(getApplicationContext(), "At least 6 characters!", Toast.LENGTH_SHORT).show();
-        } if (!emailValid) {
+        }
+        if (!emailValid) {
             Toast.makeText(getApplicationContext(), "Email is not valid", Toast.LENGTH_SHORT).show();
-        } if (userName.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Don't you have a name?", Toast.LENGTH_SHORT).show();
-        } if (!password.equals(passwordCheck)){
+        }
+        if (!password.equals(passwordCheck)) {
             Toast.makeText(getApplicationContext(), "Password is not matching", Toast.LENGTH_SHORT).show();
         }
     }
@@ -93,5 +96,4 @@ public class RegisterActivity extends AppCompatActivity {
     public static boolean isValidEmail(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
-
 }

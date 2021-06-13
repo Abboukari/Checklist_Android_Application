@@ -29,13 +29,14 @@
     <string name="date_and_time">Date and time</string>
 
 
-
     <string name="mainActivity_welcome">Welcome by To-day</string>
     <string name="mainActivity_welcome1">Are you ready to make your day awesome?</string>
     <string name="mainActivity_welcome_register">Click down below to get started!</string>
     <string name="mainActivity_buttonRegister">Register</string>
     <string name="mainActivity_alreadyAccount">Already have a account?</string>
     <string name="mainActivity_buttonLogin">Login</string>
+    <string name="mainActivity_doneTasks">Done tasks</string>
+    <string name="mainActivity_LongClikMessage">Long click on tasks to see options</string>
 
 
     <string name="registerActivity_Title">Registration form</string>
@@ -51,7 +52,15 @@
     <string name="LoginActivity_Welcome_Text">Login down below</string>
 
     <string name="HomeActivity_Button_Logout">Log out</string>
+
+
+    <string name="FinishedActivity_homeButton">Home</string>
     <string name="appName">To much to do To Day</string>
 
+
+    <string name="finishTask">Done</string>
+    <string name="EditTask">Edit</string>
+    <string name="deleteTask">Delete</string>
+    <string name="showTask">Show</string>
 
 </resources>

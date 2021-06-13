@@ -31,8 +31,8 @@ public class AddTask extends AppCompatActivity {
     private int tDay;
     private int tHour;
     private int tMinute;
-
     private int userId;
+
     private User user;
 
 
@@ -41,7 +41,6 @@ public class AddTask extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
         userId = (int) getIntent().getSerializableExtra("userId");
-        user = (User) getIntent().getSerializableExtra("User");
     }
 
     public void addLabel(View view){
@@ -92,31 +91,25 @@ public class AddTask extends AppCompatActivity {
         String titleTask = taskTitle.getText().toString();
         String descriptionTask = taskDiscription.getText().toString();
         Date dueDateTask = myCalander.getTime();
+        // Hier maak je de intent aan.
+        Intent toHomeIntent = new Intent(getApplicationContext(), HomeActivity.class);
 
-       Intent toHomeIntent = new Intent(getApplicationContext(),HomeActivity.class);
-       toHomeIntent.putExtra("User", user);
-
-
+        user = (User) getIntent().getSerializableExtra("User");
+        userId = user.getId();
 
         //TODO:  add task to DB if all fields are filled
         if (titleTask.equals("") || descriptionTask.equals("")|| dueDateTask == null){
             Toast.makeText(getApplicationContext(), "not all fields are filled", Toast.LENGTH_SHORT).show();
         } else {
             Task task = new Task(userId,titleTask,descriptionTask,dueDateTask);
-
             UserDatabase.getExecutor().execute(()->{
                 UserDatabase.getDatabase(getApplicationContext()).taskDao().addTask(task);
                 runOnUiThread(()-> Toast.makeText(getApplicationContext(), "Your task has been added", Toast.LENGTH_SHORT).show());//UiThread andere draad
-
+                toHomeIntent.putExtra("User", user);
                 startActivity(toHomeIntent);
 
             });
-           /* Snackbar.make(getApplicationContext(),view,"Your task as been added",
-                    Snackbar.LENGTH_SHORT).show());*/
         }
     }
-
-    //TODO: attach Floating action button to label list ofzo
-    //TODO: clickable maken van listview
 
 }

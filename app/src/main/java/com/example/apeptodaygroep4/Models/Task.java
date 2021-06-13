@@ -36,6 +36,7 @@ public class Task{
     public Date dateTime;
 
     public Task(){}
+
     public Task(Integer uIdUser, String title, String description, Date dateTime) {
         this.uIdUser = uIdUser;
         Title = title;
@@ -103,5 +104,15 @@ public class Task{
     @Override
     public String toString() {
         return Title;
+    }
+
+    public String detailsToString() {
+        return "Task" +
+                ", Title='" + Title + '\'' +
+                ", Description='" + Description + '\'' +
+                ", uIdLabel='" + uIdLabel + '\'' +
+                ", completed=" + completed +
+                ", dateTime=" + dateTime +
+                '}';
     }
 }

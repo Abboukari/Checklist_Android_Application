@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="@string/finishTask"
+        android:id="@+id/finishedTaskAction"
+        />
+
+    <item
+        android:title="@string/deleteTask"
+        android:id="@+id/deletedTaskAction"
+        />
+
+    <item
+        android:title="@string/EditTask"
+        android:id="@+id/editTaskAction"
+        />
+
+    <item
+        android:title="@string/showTask"
+        android:id="@+id/showTask"
+        />
+
+</menu>
