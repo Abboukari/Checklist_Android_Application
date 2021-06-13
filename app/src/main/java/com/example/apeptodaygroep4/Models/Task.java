@@ -100,4 +100,14 @@ public class Task {
     public String toString() {
         return Title;
     }
+
+    public String detailsToString() {
+        return "Task" +
+                ", Title='" + Title + '\'' +
+                ", Description='" + Description + '\'' +
+                ", uIdLabel='" + uIdLabel + '\'' +
+                ", completed=" + completed +
+                ", dateTime=" + dateTime +
+                '}';
+    }
 }

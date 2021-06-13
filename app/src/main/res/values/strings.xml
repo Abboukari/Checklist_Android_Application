@@ -36,6 +36,7 @@
     <string name="mainActivity_alreadyAccount">Already have a account?</string>
     <string name="mainActivity_buttonLogin">Login</string>
     <string name="mainActivity_doneTasks">Done tasks</string>
+    <string name="mainActivity_LongClikMessage">Long click on tasks to see options</string>
 
 
     <string name="registerActivity_Title">Registration form</string>
