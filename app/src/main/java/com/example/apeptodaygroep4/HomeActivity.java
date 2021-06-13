@@ -35,6 +35,7 @@ public class HomeActivity extends AppCompatActivity {
     private User user;
     private TextView userName;
     private int userId;
+    private int idTask;
     private ArrayList<Task> tasks;
     private ArrayAdapter<Task> adapter;
     private ListView listView;
@@ -104,8 +105,10 @@ public class HomeActivity extends AppCompatActivity {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
         if (item.getItemId() == R.id.finishedTaskAction) {
-            //almost
+            //TODO: FIXE WITH TASK ID
+
             UserDatabase.getExecutor().execute(() -> {
+
                 task = UserDatabase.getDatabase(getApplicationContext())
                         .taskDao().getTask(userId);
 
@@ -132,6 +135,8 @@ public class HomeActivity extends AppCompatActivity {
 
                 task = UserDatabase.getDatabase(getApplicationContext())
                         .taskDao().getTask(userId);
+
+
                 // Delete task from user database
                 deleteTaskClick(task);
 
@@ -144,16 +149,33 @@ public class HomeActivity extends AppCompatActivity {
             return true;
 
         } else if (item.getItemId() == R.id.editTaskAction) {
+            //TODO: STILL TO DO
             Toast.makeText(this, "Edit Task", Toast.LENGTH_SHORT).show();
+
         } else if (item.getItemId() == R.id.showTask) {
-            Toast.makeText(this, "Moving to Task Screen", Toast.LENGTH_SHORT).show();
+            //TODO: In progres
+
+            UserDatabase.getExecutor().execute(()->{
+
+                task = UserDatabase.getDatabase(getApplicationContext()).taskDao().getTask(userId);
+                idTask = task.getuIdTask();
+                task = UserDatabase.getDatabase(getApplicationContext()).taskDao().getDetailTask(idTask);
+
+                runOnUiThread(()->{
+                    Toast.makeText(this, "Moving to Task Screen", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(this,ShowTaskActivity.class);
+                    intent.putExtra("Task",  task.detailsToString());
+                    startActivity(intent);
+                });
+            });
+
         } else {
             return false;
         }
         return super.onContextItemSelected(item);
     }
 
-    public void deleteTaskClick(final Task task) {
+    public void deleteTaskClick(Task task) {
         UserDatabase.getDatabase(getApplicationContext()).taskDao().deleteTask(task);
     }
 

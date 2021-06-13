@@ -100,4 +100,14 @@ public class Task implements Serializable {
                 "Label: " + uIdLabel + "\n\n" +
                 "Date and Time: " + dateTime;
     }
+
+    public String detailsToString() {
+        return "Task" +
+                ", Title='" + Title + '\'' +
+                ", Description='" + Description + '\'' +
+                ", uIdLabel='" + uIdLabel + '\'' +
+                ", completed=" + completed +
+                ", dateTime=" + dateTime +
+                '}';
+    }
 }
