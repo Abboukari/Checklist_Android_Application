@@ -78,7 +78,6 @@ public class AddTask extends AppCompatActivity {
         datePicker.show();
         timePicker.setTitle("Choose a time");
         timePicker.show();
-
     }
 
 

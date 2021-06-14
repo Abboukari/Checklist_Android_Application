@@ -17,11 +17,13 @@ public interface TaskDao {
     @Query("SELECT * FROM task WHERE uIdUser = :userId") //AND completed = false
     List<Task> getTaskList(int userId);
 
-    @Query("SELECT Title, uIdUser FROM Task WHERE uIdUser = :userId")
-    List<Task> getTilteTasks(int userId);
+    @Query("SELECT * FROM Task WHERE uIdUser = :userId")
+    List<Task> getAllDetailsFromTasks(int userId);
 
-    @Query("SELECT * FROM Task WHERE uIdTask = :userId")
-    Task getTask(int userId);
+    // hier een aanpassing gemaakt om in de arrayList dus ook de UidTask op te halen
+
+    @Query("SELECT uIdTask FROM Task WHERE uIdTask = :userIdTask")
+    Task getTask(int userIdTask);
 
     @Query("SELECT uIdTask FROM Task WHERE uIdUser = :userId")
     int getTaskId(int userId);
