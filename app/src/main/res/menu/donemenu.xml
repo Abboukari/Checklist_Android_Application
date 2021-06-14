@@ -6,4 +6,9 @@
         android:id="@+id/UnDoTaskAction"
         />
 
+    <item
+        android:title="@string/deleteTask"
+        android:id="@+id/deletedDoneTaskAction"
+        />
+
 </menu>

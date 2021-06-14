@@ -2,12 +2,10 @@ package com.example.apeptodaygroep4;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
@@ -19,7 +17,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.apeptodaygroep4.Dao.TaskDao;
 import com.example.apeptodaygroep4.Database.UserDatabase;
 import com.example.apeptodaygroep4.Models.DoneTask;
 import com.example.apeptodaygroep4.Models.Task;
@@ -32,15 +29,13 @@ import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
 
+    private ArrayList<Task> tasks;
+    private ArrayAdapter<Task> adapter;
     private User user;
     private TextView userName;
     private int userId;
-    private int idTask;
-    private ArrayList<Task> tasks;
-    private ArrayAdapter<Task> adapter;
     private ListView listView;
-    private Task task;
-    private final DoneTask doneTask = new DoneTask();
+    private DoneTask doneTask = new DoneTask();
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -142,7 +137,7 @@ public class HomeActivity extends AppCompatActivity {
         } else if (item.getItemId() == R.id.editTaskAction) {
             //TODO: STILL TO DO
             Toast.makeText(this, "Edit Task", Toast.LENGTH_SHORT).show();
-
+            return true;
         } else if (item.getItemId() == R.id.showTask) {
 
                 Task taskPosition = tasks.get(info.position);
@@ -152,11 +147,10 @@ public class HomeActivity extends AppCompatActivity {
                     intent.putExtra("Task",  taskPosition.detailsToString());
                     startActivity(intent);
                 });
-
+            return true;
         } else {
             return false;
         }
-        return super.onContextItemSelected(item);
     }
 
     public void deleteTaskClick(Task task) {

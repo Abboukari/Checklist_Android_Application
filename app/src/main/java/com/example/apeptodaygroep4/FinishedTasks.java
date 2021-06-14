@@ -20,20 +20,22 @@ import com.example.apeptodaygroep4.Models.Task;
 import com.example.apeptodaygroep4.Models.User;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class FinishedTasks extends AppCompatActivity {
 
-    private List<DoneTask> doneTasks;
+    private ArrayList<DoneTask> doneTasks;
     private ArrayAdapter<DoneTask> adapter;
     private User user;
     private int userId;
-    private final Task task = new Task();
+    private Task task = new Task();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finished_tasks);
+
+        user = (User) getIntent().getSerializableExtra("User");
 
         ListView listView = findViewById(R.id.doneTasksListView);
 
@@ -41,7 +43,7 @@ public class FinishedTasks extends AppCompatActivity {
             user = (User) getIntent().getSerializableExtra("User");
             userId = user.getId();
 
-            doneTasks = new ArrayList<>(
+            doneTasks = new ArrayList<DoneTask>(
                     UserDatabase.getDatabase(getApplicationContext())
                     .doneTaskDao()
                     .getTitleTasksDone(userId)
@@ -85,6 +87,7 @@ public class FinishedTasks extends AppCompatActivity {
                 task.setDateTime(doneTaskPosition.getDateTime());
 
                 UserDatabase.getDatabase(getApplicationContext()).taskDao().addTask(task);
+
                 deleteDoneTask(doneTaskPosition);
 
                 runOnUiThread(()->{
@@ -94,10 +97,27 @@ public class FinishedTasks extends AppCompatActivity {
                 });
 
             });
-            return true;
-        }
 
-        return super.onContextItemSelected(item);
+            return true;
+        } else if (item.getItemId() == R.id.deletedDoneTaskAction){
+            UserDatabase.getExecutor().execute(()->{
+                DoneTask doneTaskPosition = doneTasks.get(info.position);
+                deleteDoneTask(doneTaskPosition);
+
+                runOnUiThread(()->{
+                    Toast.makeText(this, "Task is deleted", Toast.LENGTH_SHORT).show();
+                    doneTasks.remove(info.position);
+                    adapter.notifyDataSetChanged();
+                });
+            });
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void deleteDoneTask(DoneTask doneTask){
+        UserDatabase.getDatabase(getApplicationContext()).doneTaskDao().deleteDoneTask(doneTask);
     }
 
     public void returnToHome (View view) {
@@ -105,19 +125,6 @@ public class FinishedTasks extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
         intent.putExtra("User",user);
         startActivity(intent);
-    }
-
-    public void deleteDoneTasks(View view){
-        UserDatabase.getExecutor().execute(()->{
-            UserDatabase.getDatabase(getApplicationContext()).doneTaskDao().deleteAllData();
-            runOnUiThread(()->{
-                Toast.makeText(this, "All tasks are deleted", Toast.LENGTH_SHORT).show();
-            });
-        });
-    }
-
-    public void deleteDoneTask(DoneTask doneTask){
-        UserDatabase.getDatabase(getApplicationContext()).doneTaskDao().deleteDoneTask(doneTask);
     }
 
 }

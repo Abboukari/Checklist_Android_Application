@@ -13,14 +13,11 @@ import java.util.List;
 @Dao
 public interface DoneTaskDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     void addTaskDone(DoneTask task);
 
-    @Query("SELECT doneTitle, doneUserIdUser FROM doneTask WHERE doneUserIdUser = :userId")
+    @Query("SELECT * FROM doneTask WHERE doneUserIdUser = :userId")
     List<DoneTask> getTitleTasksDone(int userId);
-
-    @Query("DELETE FROM DoneTask")
-    void deleteAllData();
 
     @Delete
     void deleteDoneTask(DoneTask doneTask);
