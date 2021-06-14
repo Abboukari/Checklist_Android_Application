@@ -6,7 +6,6 @@ import androidx.room.Query;
 
 import com.example.apeptodaygroep4.Models.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Dao
