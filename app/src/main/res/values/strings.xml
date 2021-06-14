@@ -64,5 +64,7 @@
     <string name="deleteTask">Delete</string>
     <string name="showTask">Show</string>
         <string name="undoTask">Undo</string>
+    <string name="update_task">update task</string>
+    <string name="update">Update</string>
 
 </resources>

@@ -23,6 +23,7 @@ import com.example.apeptodaygroep4.Models.Task;
 import com.example.apeptodaygroep4.Models.User;
 import com.example.apeptodaygroep4.UserActivity.AddTask;
 
+import com.example.apeptodaygroep4.UserActivity.EditTask;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -65,12 +66,12 @@ public class HomeActivity extends AppCompatActivity {
         listView = findViewById(R.id.listViewTask);
         UserDatabase.getExecutor().execute(() -> {
             user = (User) getIntent().getSerializableExtra("User");
-            userId = user.getId();
+
             tasks = new ArrayList<Task>(
                     UserDatabase
                             .getDatabase(getApplicationContext())
                             .taskDao()
-                            .getAllDetailsFromTasks(userId)
+                            .getAllDetailsFromTasks(user.getId())
             );
 
             adapter = new ArrayAdapter<>(
@@ -136,7 +137,14 @@ public class HomeActivity extends AppCompatActivity {
 
         } else if (item.getItemId() == R.id.editTaskAction) {
             //TODO: STILL TO DO
+
             Toast.makeText(this, "Edit Task", Toast.LENGTH_SHORT).show();
+            Task taskposition = tasks.get(info.position);
+
+            Intent intent = new Intent(getApplicationContext(), EditTask.class);
+            intent.putExtra("Task", taskposition);
+            startActivity(intent);
+
             return true;
         } else if (item.getItemId() == R.id.showTask) {
 
@@ -144,7 +152,7 @@ public class HomeActivity extends AppCompatActivity {
 
                 runOnUiThread(()->{
                     Intent intent = new Intent(this,ShowTaskActivity.class);
-                    intent.putExtra("Task",  taskPosition.detailsToString());
+                    intent.putExtra("TaskDetail", taskPosition.detailsToString());
                     startActivity(intent);
                 });
             return true;

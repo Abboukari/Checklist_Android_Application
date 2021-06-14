@@ -36,10 +36,11 @@ public interface TaskDao {
     @Delete
     void deleteTask(Task task);
 
+
     @Query("DELETE FROM Task WHERE uIdTask = :userIdTask")
     void deleteTaskFromDatabase(int userIdTask);
 
-
-    @Update
+    @Update()
     void updateTask(Task task);
+    
 }

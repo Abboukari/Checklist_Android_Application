@@ -19,7 +19,7 @@ public class ShowTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_task);
 
         TextView textView = findViewById(R.id.showTaskDetails);
-        String detailedTask = (String) getIntent().getSerializableExtra("Task");
+        String detailedTask = (String) getIntent().getSerializableExtra("TaskDetail");
         textView.setText(detailedTask);
     }
 }
