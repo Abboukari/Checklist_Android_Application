@@ -6,6 +6,7 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -21,7 +22,7 @@ import java.util.Date;
         })
 
 
-public class Task {
+public class Task implements Serializable {
     @PrimaryKey (autoGenerate = true) public Integer uIdTask;
     @ColumnInfo public Integer uIdUser;
     @ColumnInfo private String Title;
@@ -93,6 +94,13 @@ public class Task {
     }
 
     public void setDateTime(Date dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public void editTask(Integer uIdTask, String  title,String description,Date dateTime){
+        this.uIdTask = uIdTask;
+        this.Title = title;
+        this.Description = description;
         this.dateTime = dateTime;
     }
 
