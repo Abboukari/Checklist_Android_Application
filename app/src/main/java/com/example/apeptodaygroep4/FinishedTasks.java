@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.apeptodaygroep4.Database.UserDatabase;
 import com.example.apeptodaygroep4.Models.DoneTask;
@@ -18,10 +19,10 @@ import java.util.List;
 
 public class FinishedTasks extends AppCompatActivity {
 
-    List<DoneTask> doneTasks;
-    ArrayAdapter<DoneTask> adapter;
-    User user;
-    int userId;
+    private List<DoneTask> doneTasks;
+    private ArrayAdapter<DoneTask> adapter;
+    private User user;
+    private int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,4 +58,19 @@ public class FinishedTasks extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void deleteDoneTasks(View view){
+        UserDatabase.getExecutor().execute(()->{
+            UserDatabase.getDatabase(getApplicationContext()).doneTaskDao().deleteAllData();
+            runOnUiThread(()->{
+                Toast.makeText(this, "All done tasks are deleted", Toast.LENGTH_SHORT).show();
+                notifyAdaptar();
+            });
+        });
+
+    }
+
+    // TODO: Why is it not updating adaptar?
+    public void notifyAdaptar(){
+        adapter.notifyDataSetChanged();
+    }
 }

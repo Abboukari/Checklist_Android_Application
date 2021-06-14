@@ -40,7 +40,7 @@ public class HomeActivity extends AppCompatActivity {
     private ArrayAdapter<Task> adapter;
     private ListView listView;
     private Task task;
-    DoneTask doneTask = new DoneTask();
+    private DoneTask doneTask = new DoneTask();
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -105,19 +105,13 @@ public class HomeActivity extends AppCompatActivity {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
         if (item.getItemId() == R.id.finishedTaskAction) {
-            //TODO: DONE!!! FINAL DO NOT TOUCH
-
             UserDatabase.getExecutor().execute(() -> {
-
                 Task taskPosition = tasks.get(info.position);
-
                 doneTask.setDoneUserIdTask(taskPosition.getuIdTask());
                 doneTask.setDoneTitle(taskPosition.getTitle());
                 doneTask.setDoneDescription(taskPosition.getDescription());
                 doneTask.setDoneUserIdUser(taskPosition.getuIdUser());
-
                 UserDatabase.getDatabase(getApplicationContext()).doneTaskDao().addTaskDone(doneTask);
-
                 deleteTaskClick(taskPosition);
 
                 runOnUiThread(() -> {
@@ -129,20 +123,15 @@ public class HomeActivity extends AppCompatActivity {
 
             return true;
         } else if (item.getItemId() == R.id.deletedTaskAction) {
-            // DONE FINAL
-
             UserDatabase.getExecutor().execute(()->{
-
                 Task taskPosition = tasks.get(info.position);
                 deleteTaskClick(taskPosition);
-
 
                 runOnUiThread(()->{
                     Toast.makeText(this, "Tasks Deleted", Toast.LENGTH_SHORT).show();
                     tasks.remove(info.position);
                     adapter.notifyDataSetChanged();
                 });
-
             });
 
             return true;
@@ -151,27 +140,15 @@ public class HomeActivity extends AppCompatActivity {
             //TODO: STILL TO DO
             Toast.makeText(this, "Edit Task", Toast.LENGTH_SHORT).show();
 
-            for (int i = 0; i < tasks.size(); i++){
-                System.out.println(tasks.get(i).getuIdTask());
-            }
-
-
         } else if (item.getItemId() == R.id.showTask) {
-            //TODO: In progres
 
-            UserDatabase.getExecutor().execute(()->{
-
-                task = UserDatabase.getDatabase(getApplicationContext()).taskDao().getTask(userId);
-                idTask = task.getuIdTask();
-                task = UserDatabase.getDatabase(getApplicationContext()).taskDao().getDetailTask(idTask);
+                Task taskPosition = tasks.get(info.position);
 
                 runOnUiThread(()->{
-                    Toast.makeText(this, "Moving to Task Screen", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(this,ShowTaskActivity.class);
-                    intent.putExtra("Task",  task.detailsToString());
+                    intent.putExtra("Task",  taskPosition.detailsToString());
                     startActivity(intent);
                 });
-            });
 
         } else {
             return false;
@@ -182,6 +159,7 @@ public class HomeActivity extends AppCompatActivity {
     public void deleteTaskClick(Task task) {
         UserDatabase.getDatabase(getApplicationContext()).taskDao().deleteTask(task);
     }
+
 
     public void logOut(View view) {
         Intent intent = new Intent(this, MainActivity.class);
