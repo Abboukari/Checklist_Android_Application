@@ -1,6 +1,7 @@
 package com.example.apeptodaygroep4.Dao;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -21,4 +22,6 @@ public interface DoneTaskDao {
     @Query("DELETE FROM DoneTask")
     void deleteAllData();
 
+    @Delete
+    void deleteDoneTask(DoneTask doneTask);
 }
