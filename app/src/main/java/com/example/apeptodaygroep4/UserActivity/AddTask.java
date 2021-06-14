@@ -93,7 +93,8 @@ public class AddTask extends AppCompatActivity {
         userId = user.getId();
 
         //TODO:  add task to DB if all fields are filled
-        if (titleTask.isEmpty() || descriptionTask.isEmpty()){
+        if (titleTask.isEmpty() || descriptionTask.isEmpty() ){
+
             Toast.makeText(getApplicationContext(), "not all fields are filled", Toast.LENGTH_SHORT).show();
         } else {
             Task task = new Task(userId,titleTask,descriptionTask,dueDateTask);

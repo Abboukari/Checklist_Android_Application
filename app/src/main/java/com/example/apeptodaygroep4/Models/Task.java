@@ -1,13 +1,12 @@
 package com.example.apeptodaygroep4.Models;
 
-
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+
 import java.util.Date;
 
 @Entity(foreignKeys = {@ForeignKey(
@@ -25,19 +24,17 @@ import java.util.Date;
 public class Task implements Serializable {
     @PrimaryKey (autoGenerate = true) public Integer uIdTask;
     @ColumnInfo public Integer uIdUser;
-    @ColumnInfo private String Title;
-    @ColumnInfo private String Description;
+    @ColumnInfo private String title;
+    @ColumnInfo private String description;
     @ColumnInfo public String uIdLabel; //TODO: set to labelName
-    @ColumnInfo private Boolean completed;
     public Date dateTime;
 
     public Task(){}
 
     public Task(Integer uIdUser, String title, String description, Date dateTime) {
         this.uIdUser = uIdUser;
-        Title = title;
-        Description = description;
-        this.completed = false;
+        this.title = title;
+        this.description = description;
         this.dateTime = dateTime;
     }
 
@@ -58,19 +55,19 @@ public class Task implements Serializable {
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public void setTitle(String title) {
-        Title = title;
+        this.title = title;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     public String getuIdLabel() {
@@ -79,14 +76,6 @@ public class Task implements Serializable {
 
     public void setuIdLabel(String uIdLabel) {
         this.uIdLabel = uIdLabel;
-    }
-
-    public Boolean isCompleted() {
-        return completed;
-    }
-
-    public void setCompleted(Boolean completed) {
-        this.completed = completed;
     }
 
     public Date getDateTime() {
@@ -99,20 +88,20 @@ public class Task implements Serializable {
 
     public void editTask(Integer uIdTask, String  title,String description,Date dateTime){
         this.uIdTask = uIdTask;
-        this.Title = title;
-        this.Description = description;
+        this.title = title;
+        this.description = description;
         this.dateTime = dateTime;
     }
 
     @Override
     public String toString() {
-        return Title + " " + dateTime;
+        return title;
     }
 
     public String detailsToString() {
         return "Task" +
-                "Title: " + Title + "\n\n" +
-                "Description: " + Description + "\n\n" +
+                "Title: " + title + "\n\n" +
+                "Description: " + description + "\n\n" +
                 "Label: " + uIdLabel + "\n\n" +
                 "Date and Time: " + dateTime;
     }

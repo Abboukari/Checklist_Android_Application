@@ -136,16 +136,14 @@ public class HomeActivity extends AppCompatActivity {
             return true;
 
         } else if (item.getItemId() == R.id.editTaskAction) {
-            //TODO: STILL TO DO
-
             Toast.makeText(this, "Edit Task", Toast.LENGTH_SHORT).show();
             Task taskposition = tasks.get(info.position);
 
             Intent intent = new Intent(getApplicationContext(), EditTask.class);
             intent.putExtra("Task", taskposition);
             startActivity(intent);
-
             return true;
+
         } else if (item.getItemId() == R.id.showTask) {
 
                 Task taskPosition = tasks.get(info.position);
