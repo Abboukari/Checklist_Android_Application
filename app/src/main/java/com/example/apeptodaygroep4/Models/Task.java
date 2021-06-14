@@ -1,47 +1,35 @@
 package com.example.apeptodaygroep4.Models;
 
-
-
-
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-import com.example.apeptodaygroep4.Models.LabelDb;
-import com.example.apeptodaygroep4.Models.User;
+import java.io.Serializable;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity(foreignKeys = {@ForeignKey(
         entity = User.class,
         parentColumns = "id",
         childColumns = "uIdUser"),
-        @ForeignKey(
-                entity = LabelDb.class,
-                parentColumns = "uIdLabel",
-                childColumns = "uIdLabel"
-        )
         })
 
 
-public class Task{
+public class Task implements Serializable {
     @PrimaryKey (autoGenerate = true) public Integer uIdTask;
     @ColumnInfo public Integer uIdUser;
-    @ColumnInfo private String Title;
-    @ColumnInfo private String Description;
+    @ColumnInfo private String title;
+    @ColumnInfo private String description;
     @ColumnInfo public String uIdLabel; //TODO: set to labelName
-    @ColumnInfo private Boolean completed;
     public Date dateTime;
 
     public Task(){}
 
     public Task(Integer uIdUser, String title, String description, Date dateTime) {
         this.uIdUser = uIdUser;
-        Title = title;
-        Description = description;
-        this.completed = false;
+        this.title = title;
+        this.description = description;
         this.dateTime = dateTime;
     }
 
@@ -62,19 +50,19 @@ public class Task{
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public void setTitle(String title) {
-        Title = title;
+        this.title = title;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     public String getuIdLabel() {
@@ -85,14 +73,6 @@ public class Task{
         this.uIdLabel = uIdLabel;
     }
 
-    public Boolean isCompleted() {
-        return completed;
-    }
-
-    public void setCompleted(Boolean completed) {
-        this.completed = completed;
-    }
-
     public Date getDateTime() {
         return dateTime;
     }
@@ -101,18 +81,23 @@ public class Task{
         this.dateTime = dateTime;
     }
 
+    public void editTask(Integer uIdTask, String  title,String description,Date dateTime){
+        this.uIdTask = uIdTask;
+        this.title = title;
+        this.description = description;
+        this.dateTime = dateTime;
+    }
+
     @Override
     public String toString() {
-        return Title;
+        return title;
     }
 
     public String detailsToString() {
         return "Task" +
-                ", Title='" + Title + '\'' +
-                ", Description='" + Description + '\'' +
-                ", uIdLabel='" + uIdLabel + '\'' +
-                ", completed=" + completed +
-                ", dateTime=" + dateTime +
-                '}';
+                "Title: " + title + "\n\n" +
+                "Description: " + description + "\n\n" +
+                "Label: " + uIdLabel + "\n\n" +
+                "Date and Time: " + dateTime;
     }
 }

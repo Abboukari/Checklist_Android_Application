@@ -6,7 +6,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
@@ -19,8 +19,6 @@ import com.example.apeptodaygroep4.HomeActivity;
 import com.example.apeptodaygroep4.Models.Task;
 import com.example.apeptodaygroep4.Models.User;
 import com.example.apeptodaygroep4.R;
-import com.google.android.material.snackbar.Snackbar;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -34,7 +32,6 @@ public class AddTask extends AppCompatActivity {
     private int userId;
 
     private User user;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +75,6 @@ public class AddTask extends AppCompatActivity {
         datePicker.show();
         timePicker.setTitle("Choose a time");
         timePicker.show();
-
     }
 
 
@@ -98,7 +94,8 @@ public class AddTask extends AppCompatActivity {
         userId = user.getId();
 
         //TODO:  add task to DB if all fields are filled
-        if (titleTask.equals("") || descriptionTask.equals("")|| dueDateTask == null){
+        if (titleTask.isEmpty() || descriptionTask.isEmpty() ){
+
             Toast.makeText(getApplicationContext(), "not all fields are filled", Toast.LENGTH_SHORT).show();
         } else {
             Task task = new Task(userId,titleTask,descriptionTask,dueDateTask);
