@@ -75,7 +75,7 @@ public class HomeActivity extends AppCompatActivity {
                     UserDatabase
                             .getDatabase(getApplicationContext())
                             .taskDao()
-                            .getTilteTasks(userId)
+                            .getAllDetailsFromTasks(userId)
             );
 
             adapter = new ArrayAdapter<>(
@@ -105,21 +105,20 @@ public class HomeActivity extends AppCompatActivity {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
         if (item.getItemId() == R.id.finishedTaskAction) {
-            //TODO: FIXE WITH TASK ID
+            //TODO: DONE!!! FINAL DO NOT TOUCH
 
             UserDatabase.getExecutor().execute(() -> {
 
-                task = UserDatabase.getDatabase(getApplicationContext())
-                        .taskDao().getTask(userId);
+                Task taskPosition = tasks.get(info.position);
 
-                doneTask.setDoneUserIdTask(task.getuIdTask());
-                doneTask.setDoneTitle(task.getTitle());
-                doneTask.setDoneDescription(task.getDescription());
-                doneTask.setDoneUserIdUser(task.getuIdUser());
+                doneTask.setDoneUserIdTask(taskPosition.getuIdTask());
+                doneTask.setDoneTitle(taskPosition.getTitle());
+                doneTask.setDoneDescription(taskPosition.getDescription());
+                doneTask.setDoneUserIdUser(taskPosition.getuIdUser());
 
                 UserDatabase.getDatabase(getApplicationContext()).doneTaskDao().addTaskDone(doneTask);
 
-                deleteTaskClick(task);
+                deleteTaskClick(taskPosition);
 
                 runOnUiThread(() -> {
                     Toast.makeText(this, "Good job!", Toast.LENGTH_SHORT).show();
@@ -130,27 +129,32 @@ public class HomeActivity extends AppCompatActivity {
 
             return true;
         } else if (item.getItemId() == R.id.deletedTaskAction) {
-            // DONE
-            UserDatabase.getExecutor().execute(() -> {
+            // DONE FINAL
 
-                task = UserDatabase.getDatabase(getApplicationContext())
-                        .taskDao().getTask(userId);
+            UserDatabase.getExecutor().execute(()->{
+
+                Task taskPosition = tasks.get(info.position);
+                deleteTaskClick(taskPosition);
 
 
-                // Delete task from user database
-                deleteTaskClick(task);
-
-                runOnUiThread(() -> {
+                runOnUiThread(()->{
                     Toast.makeText(this, "Tasks Deleted", Toast.LENGTH_SHORT).show();
                     tasks.remove(info.position);
                     adapter.notifyDataSetChanged();
                 });
+
             });
+
             return true;
 
         } else if (item.getItemId() == R.id.editTaskAction) {
             //TODO: STILL TO DO
             Toast.makeText(this, "Edit Task", Toast.LENGTH_SHORT).show();
+
+            for (int i = 0; i < tasks.size(); i++){
+                System.out.println(tasks.get(i).getuIdTask());
+            }
+
 
         } else if (item.getItemId() == R.id.showTask) {
             //TODO: In progres
