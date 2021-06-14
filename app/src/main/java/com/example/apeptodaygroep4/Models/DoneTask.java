@@ -5,16 +5,17 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 public class DoneTask implements Serializable {
 
-    @PrimaryKey(autoGenerate = true)
-    private Integer doneUserIdTask;
+    @PrimaryKey(autoGenerate = true) private Integer doneUserIdTask;
     @ColumnInfo public Integer doneUserIdUser;
     @ColumnInfo private String doneTitle;
     @ColumnInfo private String doneDescription;
     @ColumnInfo public String doneUserIdLabel; //TODO: set to labelName
+    public Date dateTime;
 
 
     public DoneTask(Integer doneUserIdTask, Integer doneUserIdUser, String doneTitle, String doneDescription, String doneUserIdLabel) {
@@ -26,6 +27,14 @@ public class DoneTask implements Serializable {
     }
 
     public DoneTask(){}
+
+    public Date getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(Date dateTime) {
+        this.dateTime = dateTime;
+    }
 
     public Integer getDoneUserIdTask() {
         return doneUserIdTask;

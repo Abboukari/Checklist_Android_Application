@@ -8,6 +8,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.apeptodaygroep4.Models.DoneTask;
 import com.example.apeptodaygroep4.Models.Task;
 
 import java.util.List;
@@ -19,8 +20,6 @@ public interface TaskDao {
 
     @Query("SELECT * FROM Task WHERE uIdUser = :userId")
     List<Task> getAllDetailsFromTasks(int userId);
-
-    // hier een aanpassing gemaakt om in de arrayList dus ook de UidTask op te halen
 
     @Query("SELECT uIdTask FROM Task WHERE uIdTask = :userIdTask")
     Task getTask(int userIdTask);

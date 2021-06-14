@@ -40,7 +40,7 @@ public class HomeActivity extends AppCompatActivity {
     private ArrayAdapter<Task> adapter;
     private ListView listView;
     private Task task;
-    private DoneTask doneTask = new DoneTask();
+    private final DoneTask doneTask = new DoneTask();
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -111,6 +111,9 @@ public class HomeActivity extends AppCompatActivity {
                 doneTask.setDoneTitle(taskPosition.getTitle());
                 doneTask.setDoneDescription(taskPosition.getDescription());
                 doneTask.setDoneUserIdUser(taskPosition.getuIdUser());
+                doneTask.setDoneUserIdLabel(taskPosition.getuIdLabel());
+                doneTask.setDateTime(taskPosition.getDateTime());
+
                 UserDatabase.getDatabase(getApplicationContext()).doneTaskDao().addTaskDone(doneTask);
                 deleteTaskClick(taskPosition);
 
