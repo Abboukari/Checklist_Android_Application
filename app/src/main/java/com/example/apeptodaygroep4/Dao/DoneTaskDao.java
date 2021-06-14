@@ -6,7 +6,6 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.example.apeptodaygroep4.Models.DoneTask;
-import com.example.apeptodaygroep4.Models.Task;
 
 import java.util.List;
 
@@ -18,5 +17,8 @@ public interface DoneTaskDao {
 
     @Query("SELECT doneTitle, doneUserIdUser FROM doneTask WHERE doneUserIdUser = :userId")
     List<DoneTask> getTitleTasksDone(int userId);
+
+    @Query("DELETE FROM DoneTask")
+    void deleteAllData();
 
 }

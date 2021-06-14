@@ -55,6 +55,7 @@
 
 
     <string name="FinishedActivity_homeButton">Home</string>
+    <string name="FinishedActivity_DeleteButton">Delete All</string>
     <string name="appName">To much to do To Day</string>
 
 

@@ -103,11 +103,9 @@ public class Task implements Serializable {
 
     public String detailsToString() {
         return "Task" +
-                ", Title='" + Title + '\'' +
-                ", Description='" + Description + '\'' +
-                ", uIdLabel='" + uIdLabel + '\'' +
-                ", completed=" + completed +
-                ", dateTime=" + dateTime +
-                '}';
+                "Title: " + Title + "\n\n" +
+                "Description: " + Description + "\n\n" +
+                "Label: " + uIdLabel + "\n\n" +
+                "Date and Time: " + dateTime;
     }
 }
