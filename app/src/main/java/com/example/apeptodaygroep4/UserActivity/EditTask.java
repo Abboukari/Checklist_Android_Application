@@ -31,6 +31,7 @@ public class EditTask extends AppCompatActivity {
     private int tHour;
     private int tMinute;
     private Task task = new Task();
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class EditTask extends AppCompatActivity {
         setContentView(R.layout.activity_edit_task);
 
         task = (Task) getIntent().getSerializableExtra("Task");
+        user = (User) getIntent().getSerializableExtra("User");
 
         EditText taskTitle = findViewById(R.id.editTitleUpdate);
         EditText taskDescription = findViewById(R.id.editTextDiscriptionUpdate);
@@ -102,7 +104,7 @@ public class EditTask extends AppCompatActivity {
         if (titleTask.isEmpty() || descriptionTask.isEmpty()|| dueDateTask == null){
             Toast.makeText(getApplicationContext(), "Not all fields are filled", Toast.LENGTH_SHORT).show();
         } else {
-            User user = (User) getIntent().getSerializableExtra("User");
+
             task.editTask(task.getuIdTask(),titleTask,descriptionTask,dueDateTask);
 
             UserDatabase.getExecutor().execute(()->{
