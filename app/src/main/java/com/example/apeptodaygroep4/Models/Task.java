@@ -98,7 +98,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return Title;
+        return Title + " " + dateTime;
     }
 
     public String detailsToString() {
