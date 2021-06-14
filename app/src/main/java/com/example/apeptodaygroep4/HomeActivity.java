@@ -140,6 +140,7 @@ public class HomeActivity extends AppCompatActivity {
             Task taskposition = tasks.get(info.position);
 
             Intent intent = new Intent(getApplicationContext(), EditTask.class);
+            intent.putExtra("User", user);
             intent.putExtra("Task", taskposition);
             startActivity(intent);
             return true;

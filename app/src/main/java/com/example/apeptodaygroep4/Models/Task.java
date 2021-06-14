@@ -13,11 +13,6 @@ import java.util.Date;
         entity = User.class,
         parentColumns = "id",
         childColumns = "uIdUser"),
-        @ForeignKey(
-                entity = LabelDb.class,
-                parentColumns = "uIdLabel",
-                childColumns = "uIdLabel"
-        )
         })
 
 
