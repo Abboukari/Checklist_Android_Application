@@ -31,11 +31,13 @@ public class AddTask extends AppCompatActivity {
     private int tMinute;
     private int userId;
     private User user;
+    private Task task = new Task();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
+        user = (User) getIntent().getSerializableExtra("User");
         userId = (int) getIntent().getSerializableExtra("userId");
     }
 
@@ -43,6 +45,7 @@ public class AddTask extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), AddLabel.class);
         user = (User) getIntent().getSerializableExtra("User");
         intent.putExtra("User",user);
+        intent.putExtra("Task", task);
         startActivity(intent);
     }
 
@@ -99,11 +102,18 @@ public class AddTask extends AppCompatActivity {
 
             Toast.makeText(getApplicationContext(), "not all fields are filled", Toast.LENGTH_SHORT).show();
         } else {
-            Task task = new Task(userId,titleTask,descriptionTask,dueDateTask);
+            task = (Task) getIntent().getSerializableExtra("FilledLabelTask");
+
+            task.setuIdUser(userId);
+            task.setTitle(titleTask);
+            task.setDescription(descriptionTask);
+            task.setDateTime(dueDateTask);
+
             UserDatabase.getExecutor().execute(()->{
                 UserDatabase.getDatabase(getApplicationContext()).taskDao().addTask(task);
-                runOnUiThread(()-> Toast.makeText(getApplicationContext(), "Your task has been added", Toast.LENGTH_SHORT).show());//UiThread andere draad
+                runOnUiThread(()-> Toast.makeText(getApplicationContext(), "Your task has been added", Toast.LENGTH_SHORT).show());
                 toHomeIntent.putExtra("User", user);
+
                 startActivity(toHomeIntent);
 
             });

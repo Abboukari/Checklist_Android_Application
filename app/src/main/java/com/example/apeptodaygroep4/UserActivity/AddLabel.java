@@ -3,11 +3,13 @@ package com.example.apeptodaygroep4.UserActivity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.apeptodaygroep4.Database.UserDatabase;
 import com.example.apeptodaygroep4.Models.Label;
+import com.example.apeptodaygroep4.Models.Task;
 import com.example.apeptodaygroep4.Models.User;
 import com.example.apeptodaygroep4.R;
 import java.util.ArrayList;
@@ -25,6 +28,7 @@ public class AddLabel extends AppCompatActivity {
     private ArrayAdapter<Label> adapter;
     private User user;
     private int userId;
+    private Task task;
 
 
     @Override
@@ -73,9 +77,29 @@ public class AddLabel extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
 
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
         if (item.getItemId() == R.id.SelectLabelAction){
 
-        } else if(item.getItemId() == R.id.deletedLabelAction){
+            UserDatabase.getExecutor().execute(()->{
+                task = (Task) getIntent().getSerializableExtra("Task");
+                user = (User) getIntent().getSerializableExtra("User");
+                userId = user.getId();
+
+                Label label = allUserLabels.get(info.position);
+                task.setuIdLabel(label.toString());
+
+                runOnUiThread(()->{
+                    Intent intent = new Intent(this,AddTask.class);
+                    intent.putExtra("FilledLabelTask",task);
+                    intent.putExtra("User",user);
+                    intent.putExtra("userId",userId);
+                    startActivity(intent);
+                    Toast.makeText(this, "Label is selected", Toast.LENGTH_SHORT).show();
+                });
+            });
+
+        } else if (item.getItemId() == R.id.deletedLabelAction){
 
         } else if (item.getItemId() == R.id.EditLabelAction){
 
