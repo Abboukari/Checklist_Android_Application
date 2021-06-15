@@ -89,6 +89,13 @@ public class EditTask extends AppCompatActivity {
         timePicker.show();
     }
 
+    public void updateLabel(View view){
+        Intent intent = new Intent(getApplicationContext(), EditLabel.class);
+        user = (User) getIntent().getSerializableExtra("User");
+        intent.putExtra("User",user);
+        intent.putExtra("Task", task);
+        startActivity(intent);
+    }
 
     public void updateTaskToDatebase(View view){
 
@@ -105,7 +112,9 @@ public class EditTask extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Not all fields are filled", Toast.LENGTH_SHORT).show();
         } else {
 
-            task.editTask(task.getuIdTask(),titleTask,descriptionTask,dueDateTask);
+            String newLabelName = (String) getIntent().getSerializableExtra("NewLabel");
+
+            task.editTask(task.getuIdTask(),titleTask,descriptionTask,dueDateTask,newLabelName);
 
             UserDatabase.getExecutor().execute(()->{
                 UserDatabase.getDatabase(getApplicationContext()).taskDao().updateTask(task);
