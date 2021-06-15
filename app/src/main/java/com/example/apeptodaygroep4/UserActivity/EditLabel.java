@@ -35,7 +35,6 @@ public class EditLabel extends AppCompatActivity {
 
     public void updateLabelFromTask(View view){
 
-
         EditText editText = findViewById(R.id.getNewLabelUpdateButton);
         String labelChange = editText.getText().toString().trim();
 
