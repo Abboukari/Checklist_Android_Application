@@ -40,7 +40,9 @@ public class AddTask extends AppCompatActivity {
     }
 
     public void addLabel(View view){
-        Intent intent = new Intent(getApplicationContext(), Addlabel.class);
+        Intent intent = new Intent(getApplicationContext(), AddLabel.class);
+        user = (User) getIntent().getSerializableExtra("User");
+        intent.putExtra("User",user);
         startActivity(intent);
     }
 
