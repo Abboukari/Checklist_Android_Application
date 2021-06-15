@@ -9,16 +9,14 @@
         android:roundIcon="@drawable/mariohead"
         android:supportsRtl="true"
         android:theme="@style/Theme.APEPToDayGroep4">
-        <activity android:name=".ShowTaskActivity"></activity>
+        <activity android:name=".UserActivity.AddLabel"></activity>
+        <activity android:name=".ShowTaskActivity" />
         <activity android:name=".FinishedTasks" />
         <activity
             android:name=".UserActivity.AddTask"
             android:parentActivityName=".HomeActivity" />
         <activity
             android:name=".UserActivity.EditTask"
-            android:parentActivityName=".HomeActivity" />
-        <activity
-            android:name=".UserActivity.Label"
             android:parentActivityName=".HomeActivity" />
         <activity android:name=".HomeActivity" />
         <activity

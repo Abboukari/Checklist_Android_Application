@@ -97,7 +97,7 @@ public class Task implements Serializable {
         return "Task" +
                 "Title: " + title + "\n\n" +
                 "Description: " + description + "\n\n" +
-                "Label: " + uIdLabel + "\n\n" +
+                "Addlabel: " + uIdLabel + "\n\n" +
                 "Date and Time: " + dateTime;
     }
 }
