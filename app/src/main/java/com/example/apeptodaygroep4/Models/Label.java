@@ -1,11 +1,21 @@
 package com.example.apeptodaygroep4.Models;
 
-public class Label {
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-    private String labelName;
+import java.io.Serializable;
 
-    public Label(String labelName) {
+@Entity
+public class Label implements Serializable {
+
+    @PrimaryKey (autoGenerate = true) private int labelId;
+    @ColumnInfo private int userId;
+    @ColumnInfo private String labelName;
+
+    public Label(int userId, String labelName) {
         this.labelName = labelName;
+        this.userId = userId;
     }
 
     public String getLabelName() {
@@ -14,5 +24,26 @@ public class Label {
 
     public void setLabelName(String labelName) {
         this.labelName = labelName;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getLabelId() {
+        return labelId;
+    }
+
+    public void setLabelId(int labelId) {
+        this.labelId = labelId;
+    }
+
+    @Override
+    public String toString() {
+        return labelName;
     }
 }

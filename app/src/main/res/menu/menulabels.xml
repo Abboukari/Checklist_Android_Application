@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="@string/selectLabel"
+        android:id="@+id/SelectLabelAction"
+        />
+
+    <item
+        android:title="@string/deleteLabel"
+        android:id="@+id/deletedLabelAction"
+        />
+
+    <item
+        android:title="@string/editLabel"
+        android:id="@+id/EditLabelAction"
+        />
+
+</menu>

@@ -68,5 +68,11 @@
     <string name="update">Update</string>
     <string name="select_label">Select Label</string>
     <string name="delelteLabel">Delete</string>
+    <string name="selectLabel">Select</string>
+    <string name="deleteLabel">Delete</string>
+    <string name="editLabel">Edit</string>
+    <string name="addNewLabel">Add New Label</string>
+    <string name="HintNewLabel">Fill in new label name</string>
+
 
 </resources>

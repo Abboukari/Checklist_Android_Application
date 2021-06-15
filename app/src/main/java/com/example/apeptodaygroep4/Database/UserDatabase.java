@@ -9,10 +9,12 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import com.example.apeptodaygroep4.Dao.DoneTaskDao;
+import com.example.apeptodaygroep4.Dao.LabelDao;
 import com.example.apeptodaygroep4.Dao.TaskDao;
 import com.example.apeptodaygroep4.Dao.UserDao;
 import com.example.apeptodaygroep4.Models.Converters;
 import com.example.apeptodaygroep4.Models.DoneTask;
+import com.example.apeptodaygroep4.Models.Label;
 import com.example.apeptodaygroep4.Models.Task;
 import com.example.apeptodaygroep4.Models.User;
 
@@ -21,7 +23,7 @@ import com.example.apeptodaygroep4.Models.User;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class, Task.class, DoneTask.class}, version = 1, exportSchema = false)
+@Database(entities = {User.class, Task.class, DoneTask.class, Label.class}, version = 1, exportSchema = false)
 
 @TypeConverters(Converters.class)
 
@@ -31,6 +33,7 @@ public abstract class UserDatabase extends RoomDatabase {
 
     public abstract UserDao getUserDao();
     public abstract TaskDao taskDao();
+    public abstract LabelDao labelDao();
     public abstract DoneTaskDao doneTaskDao();
 
     public static ExecutorService getExecutor(){
