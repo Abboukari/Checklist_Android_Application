@@ -11,10 +11,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="140dp"
-        android:layout_marginTop="99dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="141dp"
-        android:text="add task"
-        android:textSize="34sp"
+        android:text="@string/Add_Task_Welkom"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,45 +25,44 @@
         android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="57dp"
-        android:layout_marginEnd="101dp"
+        android:layout_marginEnd="102dp"
+        android:layout_marginBottom="35dp"
         android:autofillHints="@string/title"
         android:ems="10"
         android:hint="@string/title"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/editTextDiscription"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/editTextDiscription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="57dp"
-        android:layout_marginEnd="101dp"
+        android:layout_marginEnd="102dp"
+        android:layout_marginBottom="67dp"
         android:autofillHints="@string/discription"
         android:ems="10"
         android:hint="@string/discription"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/dateTimeButn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTitle" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/addLabelBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="132dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="131dp"
         android:drawableLeft="@drawable/ic_mario_white"
         android:onClick="addLabel"
         android:text="@string/add_label"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dateTimeButn" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <Button
         android:id="@+id/editTaskBtn"
@@ -84,13 +83,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="114dp"
-        android:layout_marginTop="57dp"
         android:layout_marginEnd="115dp"
+        android:layout_marginBottom="208dp"
         android:drawableLeft="@drawable/ic_mario_white"
         android:onClick="buttonDateTimePickerDialog"
         android:text="@string/date_and_time"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="99dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="99dp"
+        android:text="@string/Add_Task_Welkom2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDiscription" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

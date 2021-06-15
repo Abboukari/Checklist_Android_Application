@@ -100,6 +100,17 @@ public class AddLabel extends AppCompatActivity {
             });
 
         } else if (item.getItemId() == R.id.deletedLabelAction){
+            UserDatabase.getExecutor().execute(()->{
+                Label label = allUserLabels.get(info.position);
+                deleteLabel(label);
+
+                runOnUiThread(()->{
+                    Toast.makeText(this, "Label Deleted", Toast.LENGTH_SHORT).show();
+                    allUserLabels.remove(label);
+                    adapter.notifyDataSetChanged();
+                });
+            });
+
 
         } else if (item.getItemId() == R.id.EditLabelAction){
 
@@ -132,5 +143,9 @@ public class AddLabel extends AppCompatActivity {
             finish();
             startActivity(getIntent());
         }
+    }
+
+    public void deleteLabel(Label label){
+        UserDatabase.getDatabase(getApplicationContext()).labelDao().deleteLabel(label);
     }
 }
