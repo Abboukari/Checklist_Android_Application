@@ -52,7 +52,8 @@
     <string name="LoginActivity_Welcome_Text">Login down below</string>
 
     <string name="HomeActivity_Button_Logout">Log out</string>
-
+    <string name="Add_Task_Welkom">Add your task down below</string>
+    <string name="Add_Task_Welkom2">Work your way from top to bottom</string>
 
     <string name="FinishedActivity_homeButton">Home</string>
     <string name="FinishedActivity_DeleteButton">Delete All</string>

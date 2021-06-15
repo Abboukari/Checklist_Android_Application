@@ -1,6 +1,7 @@
 package com.example.apeptodaygroep4.Dao;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -16,5 +17,8 @@ public interface LabelDao {
 
     @Insert
     void addLabel (Label label);
+
+    @Delete
+    void deleteLabel (Label label);
 
 }
