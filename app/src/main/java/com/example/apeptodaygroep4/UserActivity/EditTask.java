@@ -101,11 +101,18 @@ public class EditTask extends AppCompatActivity {
         Date dueDateTask = updateMyCalander.getTime();
 
         //TODO:  add task to DB if all fields are filled
-        if (titleTask.isEmpty() || descriptionTask.isEmpty()|| dueDateTask == null){
+       boolean check = checkEditFields(titleTask,descriptionTask,dueDateTask);
+    }
+
+    public boolean checkEditFields(String title, String description, Date dueDate){
+        boolean status;
+
+        if (title.isEmpty() || description.isEmpty()|| dueDate == null){
             Toast.makeText(getApplicationContext(), "Not all fields are filled", Toast.LENGTH_SHORT).show();
+            status = false;
         } else {
 
-            task.editTask(task.getuIdTask(),titleTask,descriptionTask,dueDateTask);
+            task.editTask(task.getuIdTask(),title,description,dueDate);
 
             UserDatabase.getExecutor().execute(()->{
                 UserDatabase.getDatabase(getApplicationContext()).taskDao().updateTask(task);
@@ -117,6 +124,10 @@ public class EditTask extends AppCompatActivity {
                     startActivity(toHomeIntent);
                 });
             });
+            status = true;
         }
+
+
+        return status;
     }
 }
