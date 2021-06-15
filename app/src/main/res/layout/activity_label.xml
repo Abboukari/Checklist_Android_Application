@@ -4,29 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserActivity.Label">
+    tools:context=".UserActivity.Addlabel">
 
     <Button
         android:id="@+id/addLabelToDbBtn"
-        android:drawableLeft="@drawable/ic_mario_white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="158dp"
+        android:layout_marginEnd="158dp"
+        android:layout_marginBottom="112dp"
+        android:drawableLeft="@drawable/ic_mario_white"
         android:text="@string/add"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/editTextLabelName"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/editTextLabelName"
-        app:layout_constraintTop_toBottomOf="@+id/editTextLabelName" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/editTextLabelName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="@string/label_name"
-        app:layout_constraintBottom_toTopOf="@+id/addLabelToDbBtn"
+    <ListView
+        android:id="@+id/listViewLabels"
+        android:layout_width="252dp"
+        android:layout_height="344dp"
+        android:layout_marginStart="79dp"
+        android:layout_marginTop="164dp"
+        android:layout_marginEnd="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
