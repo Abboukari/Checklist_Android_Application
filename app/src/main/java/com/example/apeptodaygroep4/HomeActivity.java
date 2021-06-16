@@ -151,7 +151,7 @@ public class HomeActivity extends AppCompatActivity {
 
                 runOnUiThread(()->{
                     Intent intent = new Intent(this,ShowTaskActivity.class);
-                    intent.putExtra("TaskDetail", taskPosition.detailsToString());
+                    intent.putExtra("TaskDetail", taskPosition);
                     startActivity(intent);
                 });
             return true;
