@@ -24,13 +24,13 @@
         android:id="@+id/listViewLabels"
         android:layout_width="266dp"
         android:layout_height="102dp"
-        android:layout_marginStart="79dp"
+        android:layout_marginStart="66dp"
         android:layout_marginTop="60dp"
-        android:layout_marginEnd="80dp"
+        android:layout_marginEnd="66dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/welcomeMessageLabels" />
 
     <EditText
         android:id="@+id/getFilledInLabel"
@@ -45,5 +45,19 @@
         app:layout_constraintBottom_toTopOf="@+id/addLabelToDbBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/welcomeMessageLabels"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="87dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="88dp"
+        android:text="@string/AddLabel_LongClikMessage"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

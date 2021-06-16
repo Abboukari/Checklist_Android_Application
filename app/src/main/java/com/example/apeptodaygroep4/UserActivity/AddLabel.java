@@ -20,6 +20,7 @@ import com.example.apeptodaygroep4.Models.Label;
 import com.example.apeptodaygroep4.Models.Task;
 import com.example.apeptodaygroep4.Models.User;
 import com.example.apeptodaygroep4.R;
+
 import java.util.ArrayList;
 
 public class AddLabel extends AppCompatActivity {
@@ -41,7 +42,7 @@ public class AddLabel extends AppCompatActivity {
 
         ListView listView = findViewById(R.id.listViewLabels);
 
-        UserDatabase.getExecutor().execute(()->{
+        UserDatabase.getExecutor().execute(() -> {
 
             user = (User) getIntent().getSerializableExtra("User");
             userId = user.getId();
@@ -58,7 +59,7 @@ public class AddLabel extends AppCompatActivity {
                     allUserLabels
             );
 
-            runOnUiThread(()->{
+            runOnUiThread(() -> {
                 listView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
             });
@@ -82,9 +83,9 @@ public class AddLabel extends AppCompatActivity {
 
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
-        if (item.getItemId() == R.id.SelectLabelAction){
+        if (item.getItemId() == R.id.SelectLabelAction) {
 
-            UserDatabase.getExecutor().execute(()->{
+            UserDatabase.getExecutor().execute(() -> {
                 task = (Task) getIntent().getSerializableExtra("Task");
                 user = (User) getIntent().getSerializableExtra("User");
                 userId = user.getId();
@@ -92,58 +93,60 @@ public class AddLabel extends AppCompatActivity {
                 Label label = allUserLabels.get(info.position);
                 task.setuIdLabel(label.toString());
 
-                runOnUiThread(()->{
-                    Intent intent = new Intent(this,AddTask.class);
-                    intent.putExtra("FilledLabelTask",task);
-                    intent.putExtra("User",user);
-                    intent.putExtra("userId",userId);
+                runOnUiThread(() -> {
+                    Intent intent = new Intent(this, AddTask.class);
+                    intent.putExtra("FilledLabelTask", task);
+                    intent.putExtra("User", user);
+                    intent.putExtra("userId", userId);
                     startActivity(intent);
                     Toast.makeText(this, "Label is selected", Toast.LENGTH_SHORT).show();
                 });
             });
             return true;
-        } else if (item.getItemId() == R.id.deletedLabelAction){
-            UserDatabase.getExecutor().execute(()->{
+        } else if (item.getItemId() == R.id.deletedLabelAction) {
+            UserDatabase.getExecutor().execute(() -> {
                 Label label = allUserLabels.get(info.position);
                 deleteLabel(label);
 
-                runOnUiThread(()->{
+                runOnUiThread(() -> {
                     Toast.makeText(this, "Label Deleted", Toast.LENGTH_SHORT).show();
                     allUserLabels.remove(label);
                     adapter.notifyDataSetChanged();
                 });
             });
             return true;
-        } else if (item.getItemId() == R.id.EditLabelAction){
+        } else if (item.getItemId() == R.id.EditLabelAction) {
             Label selectedLabel = allUserLabels.get(info.position);
-            Intent intent = new Intent(getApplicationContext(),UpdateLabel.class);
-            intent.putExtra("Label",selectedLabel);
-            intent.putExtra("User",user);
+            Intent intent = new Intent(getApplicationContext(), UpdateLabel.class);
+            intent.putExtra("Label", selectedLabel);
+            intent.putExtra("User", user);
             intent.putExtra("Task", task);
 
             startActivity(intent);
             return true;
         } else {
-        return false;
+            return false;
         }
     }
 
-    public void addLabelToArrayList(View view){
+    public void addLabelToArrayList(View view) {
 
         EditText labelName = findViewById(R.id.getFilledInLabel);
         String userAddLabel = labelName.getText().toString().trim();
 
-
         user = (User) getIntent().getSerializableExtra("User");
         userId = user.getId();
 
-        if (userAddLabel.isEmpty()){
+        if (userAddLabel.isEmpty()) {
             Toast.makeText(getApplicationContext(), "Please fill in a label", Toast.LENGTH_SHORT).show();
+        }
+        if (userAddLabel.matches(".*\\d.*")) {
+            Toast.makeText(getApplicationContext(), "Please only use letters", Toast.LENGTH_SHORT).show();
         } else {
-            Label label = new Label(userId,userAddLabel);
-            UserDatabase.getExecutor().execute(()->{
+            Label label = new Label(userId, userAddLabel);
+            UserDatabase.getExecutor().execute(() -> {
                 UserDatabase.getDatabase(getApplicationContext()).labelDao().addLabel(label);
-                runOnUiThread(()->{
+                runOnUiThread(() -> {
                     Toast.makeText(getApplicationContext(), "Label is added", Toast.LENGTH_SHORT).show();
                 });
             });
@@ -152,7 +155,7 @@ public class AddLabel extends AppCompatActivity {
         }
     }
 
-    public void deleteLabel(Label label){
+    public void deleteLabel(Label label) {
         UserDatabase.getDatabase(getApplicationContext()).labelDao().deleteLabel(label);
     }
 }

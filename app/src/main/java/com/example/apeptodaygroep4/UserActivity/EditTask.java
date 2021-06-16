@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.apeptodaygroep4.Database.UserDatabase;
 import com.example.apeptodaygroep4.HomeActivity;
+import com.example.apeptodaygroep4.Models.Label;
 import com.example.apeptodaygroep4.Models.Task;
 import com.example.apeptodaygroep4.Models.User;
 import com.example.apeptodaygroep4.R;
@@ -49,7 +50,9 @@ public class EditTask extends AppCompatActivity {
         String titel = task.getTitle();
         String description = task.getDescription();
         Date date = task.getDateTime();
+        String label = task.getuIdLabel();
 
+        task.setuIdLabel(label);
         taskTitle.setText(titel);
         taskDescription.setText(description);
         myCalender.setTime(date);
@@ -97,38 +100,51 @@ public class EditTask extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void updateTaskToDatebase(View view){
+       public void updateTaskToDatebase(View view){
 
         EditText updateTaskTitle = findViewById(R.id.editTitleUpdate);
         EditText updateTaskDiscription = findViewById(R.id.editTextDiscriptionUpdate);
         Calendar updateMyCalander= new GregorianCalendar(tYear,tMonth,tDay,tHour,tMinute);
-        boolean dateHasPassed = checkIfDateHasPassed(updateMyCalander);
-        if (dateHasPassed){
-            Toast.makeText(getApplicationContext(),"the date you picked is in the past", Toast.LENGTH_LONG).show();
-        } else {
-            String titleTask = updateTaskTitle.getText().toString();
-            String descriptionTask = updateTaskDiscription.getText().toString();
-            Date dueDateTask = updateMyCalander.getTime();
 
-            boolean checkIfFilled = checkEditFields(titleTask,descriptionTask);
-            if (checkIfFilled){
-                String newLabelName = (String) getIntent().getSerializableExtra("NewLabel");
+        String titleTask = updateTaskTitle.getText().toString();
+        String descriptionTask = updateTaskDiscription.getText().toString();
+        Date dueDateTask = updateMyCalander.getTime();
 
-                task.editTask(task.getuIdTask(),titleTask,descriptionTask,dueDateTask,newLabelName);
+        String newLabelName = (String) getIntent().getSerializableExtra("NewLabel");
 
-                UserDatabase.getExecutor().execute(()->{
-                    UserDatabase.getDatabase(getApplicationContext()).taskDao().updateTask(task);
+        if (titleTask.isEmpty() || descriptionTask.isEmpty()|| dueDateTask == null){
+            Toast.makeText(getApplicationContext(), "Not all fields are filled", Toast.LENGTH_SHORT).show();
 
-                    runOnUiThread(()->{
-                        Toast.makeText(getApplicationContext(), "Your task has been updated", Toast.LENGTH_SHORT).show();
-                        Intent toHomeIntent = new Intent(getApplicationContext(), HomeActivity.class);
-                        toHomeIntent.putExtra("User", user);
-                        startActivity(toHomeIntent);
-                    });
+        } else if (newLabelName == null){
+            String label = task.getuIdLabel();
+            task.setuIdLabel(label);
+            task.editTask(task.getuIdTask(),titleTask,descriptionTask,dueDateTask,label);
+
+            UserDatabase.getExecutor().execute(()->{
+                UserDatabase.getDatabase(getApplicationContext()).taskDao().updateTask(task);
+
+                runOnUiThread(()->{
+                    Toast.makeText(getApplicationContext(), "Your task has been updated", Toast.LENGTH_SHORT).show();
+                    Intent toHomeIntent = new Intent(getApplicationContext(), HomeActivity.class);
+                    toHomeIntent.putExtra("User", user);
+                    startActivity(toHomeIntent);
                 });
-            }
-        }
+            });
 
+        } else {
+
+            task.editTask(task.getuIdTask(),titleTask,descriptionTask,dueDateTask,newLabelName);
+            UserDatabase.getExecutor().execute(()->{
+                UserDatabase.getDatabase(getApplicationContext()).taskDao().updateTask(task);
+
+                runOnUiThread(()->{
+                    Toast.makeText(getApplicationContext(), "Your task has been updated", Toast.LENGTH_SHORT).show();
+                    Intent toHomeIntent = new Intent(getApplicationContext(), HomeActivity.class);
+                    toHomeIntent.putExtra("User", user);
+                    startActivity(toHomeIntent);
+                });
+            });
+        }
     }
 
     public boolean checkEditFields(String title, String description){
