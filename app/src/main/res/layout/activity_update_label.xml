@@ -4,74 +4,82 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserActivity.EditLabel">
+    tools:context=".UserActivity.UpdateLabel">
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/showCurrentLabelUpdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="179dp"
+        android:layout_marginStart="26dp"
         android:layout_marginTop="105dp"
-        android:layout_marginEnd="175dp"
-        android:text="@string/Current_Label_Name"
+        android:layout_marginEnd="26dp"
+        android:text="@string/Selected_Label_Name"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/currentLabel"
+        android:id="@+id/showLabelToUpdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="176dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="177dp"
+        android:layout_marginStart="171dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="183dp"
         android:text="TextView"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/showCurrentLabelUpdate" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/selectedUpdateLabelView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginBottom="49dp"
-        android:text="@string/Current_Label_Name_Change"
+        android:layout_marginStart="110dp"
+        android:layout_marginTop="135dp"
+        android:layout_marginEnd="110dp"
+        android:text="@string/Select_Label_Name_Change"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/getNewLabelUpdateButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/showLabelToUpdate" />
 
     <EditText
-        android:id="@+id/getNewLabelUpdateButton"
+        android:id="@+id/editTextNewLabelName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="105dp"
-        android:layout_marginEnd="97dp"
-        android:layout_marginBottom="294dp"
+        android:layout_marginStart="101dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="101dp"
+        android:layout_marginBottom="274dp"
         android:ems="10"
         android:hint="@string/New_Label_Name"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/selectedUpdateLabelView" />
 
     <Button
-        android:id="@+id/updateLabelButton"
+        android:id="@+id/updateNewLabelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="301dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
-        android:onClick="updateLabelFromTask"
-        android:text="@string/Change"
+        android:onClick="updateLabelInDatabase"
+        android:text="@string/Update_Label_button"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/backToLabelAddingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:text="@string/Back_Label_button"
+        app:layout_constraintBaseline_toBaselineOf="@+id/updateNewLabelButton"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

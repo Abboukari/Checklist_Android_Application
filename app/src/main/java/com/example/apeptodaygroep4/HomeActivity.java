@@ -127,7 +127,7 @@ public class HomeActivity extends AppCompatActivity {
                 deleteTaskClick(taskPosition);
 
                 runOnUiThread(()->{
-                    Toast.makeText(this, "Tasks Deleted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Task Deleted", Toast.LENGTH_SHORT).show();
                     tasks.remove(info.position);
                     adapter.notifyDataSetChanged();
                 });

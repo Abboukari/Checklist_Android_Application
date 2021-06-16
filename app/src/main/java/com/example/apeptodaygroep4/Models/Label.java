@@ -18,6 +18,8 @@ public class Label implements Serializable {
         this.userId = userId;
     }
 
+    public Label(){}
+
     public String getLabelName() {
         return labelName;
     }
@@ -40,6 +42,12 @@ public class Label implements Serializable {
 
     public void setLabelId(int labelId) {
         this.labelId = labelId;
+    }
+
+    public void updateLabel(int labelId, int userId ,String labelName){
+        this.labelId = labelId;
+        this.userId = userId;
+        this.labelName = labelName;
     }
 
     @Override

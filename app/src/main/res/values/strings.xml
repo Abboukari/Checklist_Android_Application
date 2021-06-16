@@ -24,11 +24,16 @@
     <string name="add_label">Add Label</string>
     <string name="update_label">Update Label</string>
     <string name="Current_Label_Name">Down below is your current label</string>
-    <string name="Current_Label_Name_Change">Changes your current label here</string>
+    <string name="Selected_Label_Name">Down below is your selected label</string>
+    <string name="Current_Label_Name_Change">Change your current label here</string>
+    <string name="Select_Label_Name_Change">Change your selected label here</string>
     <string name="New_Label_Name">New Label Name</string>
     <string name="New_Label_button">Done</string>
+    <string name="Update_Label_button">Update</string>
+    <string name="Back_Label_button">Cancel</string>
     <string name="add">Add</string>
     <string name="delete">Delete</string>
+    <string name="Change">Change</string>
     <string name="edit">Edit</string>
     <string name="label_name">Label Name</string>
     <string name="date_and_time">Date and time</string>

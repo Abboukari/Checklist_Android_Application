@@ -37,9 +37,12 @@ public class AddLabel extends AppCompatActivity {
         setContentView(R.layout.activity_label);
 
         user = (User) getIntent().getSerializableExtra("User");
+        task = (Task) getIntent().getSerializableExtra("Task");
+
         ListView listView = findViewById(R.id.listViewLabels);
 
         UserDatabase.getExecutor().execute(()->{
+
             user = (User) getIntent().getSerializableExtra("User");
             userId = user.getId();
 
@@ -98,7 +101,7 @@ public class AddLabel extends AppCompatActivity {
                     Toast.makeText(this, "Label is selected", Toast.LENGTH_SHORT).show();
                 });
             });
-
+            return true;
         } else if (item.getItemId() == R.id.deletedLabelAction){
             UserDatabase.getExecutor().execute(()->{
                 Label label = allUserLabels.get(info.position);
@@ -110,15 +113,19 @@ public class AddLabel extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
                 });
             });
-
-
+            return true;
         } else if (item.getItemId() == R.id.EditLabelAction){
+            Label selectedLabel = allUserLabels.get(info.position);
+            Intent intent = new Intent(getApplicationContext(),UpdateLabel.class);
+            intent.putExtra("Label",selectedLabel);
+            intent.putExtra("User",user);
+            intent.putExtra("Task", task);
 
+            startActivity(intent);
+            return true;
         } else {
-
+        return false;
         }
-
-        return super.onContextItemSelected(item);
     }
 
     public void addLabelToArrayList(View view){
