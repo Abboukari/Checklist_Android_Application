@@ -110,7 +110,7 @@ public class EditTask extends AppCompatActivity {
             String descriptionTask = updateTaskDiscription.getText().toString();
             Date dueDateTask = updateMyCalander.getTime();
 
-            boolean checkIfFilled = checkEditFields(titleTask,descriptionTask,dueDateTask);
+            boolean checkIfFilled = checkEditFields(titleTask,descriptionTask);
             if (checkIfFilled){
                 String newLabelName = (String) getIntent().getSerializableExtra("NewLabel");
 
@@ -131,10 +131,10 @@ public class EditTask extends AppCompatActivity {
 
     }
 
-    public boolean checkEditFields(String title, String description, Date dueDate){
+    public boolean checkEditFields(String title, String description){
         boolean status;
 
-        if (title.isEmpty() || description.isEmpty()|| dueDate == null){
+        if (title.isEmpty() || description.isEmpty()){
             Toast.makeText(getApplicationContext(), "Not all fields are filled", Toast.LENGTH_SHORT).show();
             status = false;
         } else {

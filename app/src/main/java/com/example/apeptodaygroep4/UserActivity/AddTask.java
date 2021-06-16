@@ -41,15 +41,15 @@ public class AddTask extends AppCompatActivity {
         userId = (int) getIntent().getSerializableExtra("userId");
     }
 
-    public void addLabel(View view){
+    public void addLabel(View view) {
         Intent intent = new Intent(getApplicationContext(), AddLabel.class);
         user = (User) getIntent().getSerializableExtra("User");
-        intent.putExtra("User",user);
+        intent.putExtra("User", user);
         intent.putExtra("Task", task);
         startActivity(intent);
     }
 
-    public void buttonDateTimePickerDialog(View view){
+    public void buttonDateTimePickerDialog(View view) {
         Calendar cal = new GregorianCalendar();
         final String TAG = "DIA_CAL";
 
@@ -62,18 +62,18 @@ public class AddTask extends AppCompatActivity {
                         tMonth = month;
                         tDay = dayOfMonth;
                     }
-                },cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH));
+                }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
 
 
         TimePickerDialog timePicker = new TimePickerDialog(this,
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        Log.i(TAG,"Time chosen: " + hourOfDay + ":" + minute);
+                        Log.i(TAG, "Time chosen: " + hourOfDay + ":" + minute);
                         tHour = hourOfDay;
                         tMinute = minute;
                     }
-                }, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE),true);
+                }, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true);
 
         datePicker.setTitle("Choose a Date");
         datePicker.show();
@@ -82,44 +82,70 @@ public class AddTask extends AppCompatActivity {
     }
 
 
-    public void addTaskToDb(View view){
+    public void addTaskToDb(View view) {
 
         EditText taskTitle = findViewById(R.id.editTextTitle);
         EditText taskDiscription = findViewById(R.id.editTextDiscription);
-        Calendar myCalander= new GregorianCalendar(tYear,tMonth,tDay,tHour,tMinute);
+        Calendar myCalander = new GregorianCalendar(tYear, tMonth, tDay, tHour, tMinute);
 
-        String titleTask = taskTitle.getText().toString();
-        String descriptionTask = taskDiscription.getText().toString();
-        Date dueDateTask = myCalander.getTime();
-        // Hier maak je de intent aan.
         Intent toHomeIntent = new Intent(getApplicationContext(), HomeActivity.class);
 
         user = (User) getIntent().getSerializableExtra("User");
         userId = user.getId();
 
-        //TODO:  add task to DB if all fields are filled
-        if (titleTask.isEmpty() || descriptionTask.isEmpty() ){
-
-            Toast.makeText(getApplicationContext(), "not all fields are filled", Toast.LENGTH_SHORT).show();
+        boolean dateHasPassed = checkIfDateHasPassed(myCalander);
+        if (dateHasPassed) {
+            Toast.makeText(getApplicationContext(), "the date you picked is in the past", Toast.LENGTH_LONG).show();
         } else {
-            task = (Task) getIntent().getSerializableExtra("FilledLabelTask");
+            String titleTask = taskTitle.getText().toString();
+            String descriptionTask = taskDiscription.getText().toString();
+            Date dueDateTask = myCalander.getTime();
 
-            task.setuIdUser(userId);
-            task.setTitle(titleTask);
-            task.setDescription(descriptionTask);
-            task.setDateTime(dueDateTask);
+            boolean checkIfFilled = checkEditFields(titleTask, descriptionTask);
+            if (checkIfFilled){
+                task = (Task) getIntent().getSerializableExtra("FilledLabelTask");
 
-            UserDatabase.getExecutor().execute(()->{
-                UserDatabase.getDatabase(getApplicationContext()).taskDao().addTask(task);
-                runOnUiThread(()-> Toast.makeText(getApplicationContext(), "Your task has been added", Toast.LENGTH_SHORT).show());
-                toHomeIntent.putExtra("User", user);
+                task.setuIdUser(userId);
+                task.setTitle(titleTask);
+                task.setDescription(descriptionTask);
+                task.setDateTime(dueDateTask);
 
-                startActivity(toHomeIntent);
+                UserDatabase.getExecutor().execute(() -> {
+                    UserDatabase.getDatabase(getApplicationContext()).taskDao().addTask(task);
+                    runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Your task has been added", Toast.LENGTH_SHORT).show());
+                    toHomeIntent.putExtra("User", user);
 
-            });
+                    startActivity(toHomeIntent);
+
+                });
+            }
+
+
+
         }
     }
 
+    public boolean checkEditFields(String title, String description) {
+        boolean status;
 
+        if (title.isEmpty() || description.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Not all fields are filled", Toast.LENGTH_SHORT).show();
+            status = false;
+        } else {
+            status = true;
+        }
+        return status;
+    }
 
+    public boolean checkIfDateHasPassed(Calendar cal) {
+        boolean hasPassed = true;
+        Calendar current = new GregorianCalendar();
+        current.getTime();
+
+        if (cal.compareTo(current) > 0) {
+            hasPassed = false;
+            //gekozen datum is NA de huidige datum
+        }
+        return hasPassed;
+    }
 }
