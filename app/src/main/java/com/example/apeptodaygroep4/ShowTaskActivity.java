@@ -8,11 +8,13 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.apeptodaygroep4.Database.UserDatabase;
+import com.example.apeptodaygroep4.Models.Checkers;
 import com.example.apeptodaygroep4.Models.Task;
 import com.example.apeptodaygroep4.Models.User;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class ShowTaskActivity extends AppCompatActivity {
 
@@ -27,19 +29,20 @@ public class ShowTaskActivity extends AppCompatActivity {
         TextView textDate = findViewById(R.id.showTaskDetailsTime);
 
         Task task = (Task) getIntent().getSerializableExtra("TaskDetail");
+        Checkers checkers = new Checkers();
 
-        String title = task.getTitle();
-        String description = task.getDescription();
-        String label = task.uIdLabel;
+        String title = "Title: " + task.getTitle();
+        String description = "Description: " + task.getDescription();
+        String label = "Label: " + task.uIdLabel;
         String showDate;
         Date date = task.getDateTime();
-        boolean datePassed = checkDate(date);
+        boolean datePassed = checkers.checkIfDateHasPassed(date);
 
         if (datePassed){
             showDate = "YOu misSed youR deadline fuCkFacE!";
         } else {
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            showDate = formatter.format(date);
+            showDate = "Due date: " + formatter.format(date);
         }
 
         textTitle.setText(title);
@@ -48,15 +51,4 @@ public class ShowTaskActivity extends AppCompatActivity {
         textDate.setText(showDate);
     }
 
-
-    public boolean checkDate(Date date){
-        boolean dateHasPassed = true;
-
-        Date currentDate = new Date();
-
-        if (date.compareTo(currentDate) > 0){
-            dateHasPassed = false;
-        }
-        return dateHasPassed;
-    }
 }
