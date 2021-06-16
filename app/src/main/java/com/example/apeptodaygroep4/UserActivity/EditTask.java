@@ -102,30 +102,56 @@ public class EditTask extends AppCompatActivity {
         EditText updateTaskTitle = findViewById(R.id.editTitleUpdate);
         EditText updateTaskDiscription = findViewById(R.id.editTextDiscriptionUpdate);
         Calendar updateMyCalander= new GregorianCalendar(tYear,tMonth,tDay,tHour,tMinute);
-
-        String titleTask = updateTaskTitle.getText().toString();
-        String descriptionTask = updateTaskDiscription.getText().toString();
-        Date dueDateTask = updateMyCalander.getTime();
-
-        //TODO:  add task to DB if all fields are filled
-        if (titleTask.isEmpty() || descriptionTask.isEmpty()|| dueDateTask == null){
-            Toast.makeText(getApplicationContext(), "Not all fields are filled", Toast.LENGTH_SHORT).show();
+        boolean dateHasPassed = checkIfDateHasPassed(updateMyCalander);
+        if (dateHasPassed){
+            Toast.makeText(getApplicationContext(),"the date you picked is in the past", Toast.LENGTH_LONG).show();
         } else {
+            String titleTask = updateTaskTitle.getText().toString();
+            String descriptionTask = updateTaskDiscription.getText().toString();
+            Date dueDateTask = updateMyCalander.getTime();
 
-            String newLabelName = (String) getIntent().getSerializableExtra("NewLabel");
+            boolean checkIfFilled = checkEditFields(titleTask,descriptionTask,dueDateTask);
+            if (checkIfFilled){
+                String newLabelName = (String) getIntent().getSerializableExtra("NewLabel");
 
-            task.editTask(task.getuIdTask(),titleTask,descriptionTask,dueDateTask,newLabelName);
+                task.editTask(task.getuIdTask(),titleTask,descriptionTask,dueDateTask,newLabelName);
 
-            UserDatabase.getExecutor().execute(()->{
-                UserDatabase.getDatabase(getApplicationContext()).taskDao().updateTask(task);
+                UserDatabase.getExecutor().execute(()->{
+                    UserDatabase.getDatabase(getApplicationContext()).taskDao().updateTask(task);
 
-                runOnUiThread(()->{
-                    Toast.makeText(getApplicationContext(), "Your task has been updated", Toast.LENGTH_SHORT).show();
-                    Intent toHomeIntent = new Intent(getApplicationContext(), HomeActivity.class);
-                    toHomeIntent.putExtra("User", user);
-                    startActivity(toHomeIntent);
+                    runOnUiThread(()->{
+                        Toast.makeText(getApplicationContext(), "Your task has been updated", Toast.LENGTH_SHORT).show();
+                        Intent toHomeIntent = new Intent(getApplicationContext(), HomeActivity.class);
+                        toHomeIntent.putExtra("User", user);
+                        startActivity(toHomeIntent);
+                    });
                 });
-            });
+            }
         }
+
+    }
+
+    public boolean checkEditFields(String title, String description, Date dueDate){
+        boolean status;
+
+        if (title.isEmpty() || description.isEmpty()|| dueDate == null){
+            Toast.makeText(getApplicationContext(), "Not all fields are filled", Toast.LENGTH_SHORT).show();
+            status = false;
+        } else {
+            status = true;
+        }
+        return status;
+    }
+
+    public boolean checkIfDateHasPassed(Calendar cal){
+        boolean hasPassed = true;
+        Calendar current = new GregorianCalendar();
+        current.getTime();
+
+        if (cal.compareTo(current) > 0){
+            hasPassed = false;
+            //gekozen datum is NA de huidige datum
+        }
+        return hasPassed;
     }
 }
