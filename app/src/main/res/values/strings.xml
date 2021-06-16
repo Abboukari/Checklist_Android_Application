@@ -84,6 +84,7 @@
     <string name="editLabel">Edit</string>
     <string name="addNewLabel">Add New Label</string>
     <string name="HintNewLabel">Fill in new label name</string>
+    <string name="AddLabel_LongClikMessage">Long click on label to see options</string>
 
 
 </resources>

@@ -27,6 +27,7 @@ import com.example.apeptodaygroep4.UserActivity.EditTask;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -78,7 +79,6 @@ public class HomeActivity extends AppCompatActivity {
                     getApplication(),
                     android.R.layout.simple_list_item_1,
                     tasks);
-
             runOnUiThread(() -> listView.setAdapter(adapter));
         });
         registerForContextMenu(listView);
