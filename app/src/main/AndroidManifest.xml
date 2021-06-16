@@ -9,7 +9,7 @@
         android:roundIcon="@drawable/mariohead"
         android:supportsRtl="true"
         android:theme="@style/Theme.APEPToDayGroep4">
-        <activity android:name=".UserActivity.UpdateLabel"></activity>
+        <activity android:name=".UserActivity.UpdateLabel" />
         <activity android:name=".UserActivity.EditLabel" />
         <activity android:name=".UserActivity.AddLabel" />
         <activity android:name=".ShowTaskActivity" />
@@ -35,9 +35,7 @@
             </intent-filter>
         </activity>
 
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
+
     </application>
 
 </manifest>

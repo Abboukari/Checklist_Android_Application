@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.apeptodaygroep4.Database.UserDatabase;
 import com.example.apeptodaygroep4.HomeActivity;
+import com.example.apeptodaygroep4.Models.Checkers;
 import com.example.apeptodaygroep4.Models.Task;
 import com.example.apeptodaygroep4.Models.User;
 import com.example.apeptodaygroep4.R;
@@ -84,6 +85,8 @@ public class AddTask extends AppCompatActivity {
 
     public void addTaskToDb(View view) {
 
+        Checkers checkers= new Checkers(); //TODO:
+
         EditText taskTitle = findViewById(R.id.editTextTitle);
         EditText taskDiscription = findViewById(R.id.editTextDiscription);
         Calendar myCalander = new GregorianCalendar(tYear, tMonth, tDay, tHour, tMinute);
@@ -93,7 +96,7 @@ public class AddTask extends AppCompatActivity {
         user = (User) getIntent().getSerializableExtra("User");
         userId = user.getId();
 
-        boolean dateHasPassed = checkIfDateHasPassed(myCalander);
+        boolean dateHasPassed = checkers.checkIfDateHasPassed(myCalander);
         if (dateHasPassed) {
             Toast.makeText(getApplicationContext(), "the date you picked is in the past", Toast.LENGTH_LONG).show();
         } else {
@@ -101,7 +104,7 @@ public class AddTask extends AppCompatActivity {
             String descriptionTask = taskDiscription.getText().toString();
             Date dueDateTask = myCalander.getTime();
 
-            boolean checkIfFilled = checkEditFields(titleTask, descriptionTask);
+            boolean checkIfFilled = checkers.checkEditFields(titleTask, descriptionTask);
             if (checkIfFilled){
                 task = (Task) getIntent().getSerializableExtra("FilledLabelTask");
 
@@ -118,6 +121,8 @@ public class AddTask extends AppCompatActivity {
                     startActivity(toHomeIntent);
 
                 });
+            } else {
+                Toast.makeText(getApplicationContext(), "Not all fields are filled", Toast.LENGTH_SHORT).show();
             }
 
 
@@ -125,7 +130,7 @@ public class AddTask extends AppCompatActivity {
         }
     }
 
-    public boolean checkEditFields(String title, String description) {
+    /*public boolean checkEditFields(String title, String description) {
         boolean status;
 
         if (title.isEmpty() || description.isEmpty()) {
@@ -147,5 +152,5 @@ public class AddTask extends AppCompatActivity {
             //gekozen datum is NA de huidige datum
         }
         return hasPassed;
-    }
+    }*/
 }

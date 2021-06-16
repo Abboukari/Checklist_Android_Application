@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.apeptodaygroep4.Database.UserDatabase;
 import com.example.apeptodaygroep4.HomeActivity;
+import com.example.apeptodaygroep4.Models.Checkers;
 import com.example.apeptodaygroep4.Models.Label;
 import com.example.apeptodaygroep4.Models.Task;
 import com.example.apeptodaygroep4.Models.User;
@@ -102,72 +103,55 @@ public class EditTask extends AppCompatActivity {
 
        public void updateTaskToDatebase(View view){
 
+        Checkers checkers = new Checkers();
+        String newLabelName = (String) getIntent().getSerializableExtra("NewLabel");
+
         EditText updateTaskTitle = findViewById(R.id.editTitleUpdate);
         EditText updateTaskDiscription = findViewById(R.id.editTextDiscriptionUpdate);
         Calendar updateMyCalander= new GregorianCalendar(tYear,tMonth,tDay,tHour,tMinute);
 
-        String titleTask = updateTaskTitle.getText().toString();
-        String descriptionTask = updateTaskDiscription.getText().toString();
-        Date dueDateTask = updateMyCalander.getTime();
-
-        String newLabelName = (String) getIntent().getSerializableExtra("NewLabel");
-
-        if (titleTask.isEmpty() || descriptionTask.isEmpty()|| dueDateTask == null){
-            Toast.makeText(getApplicationContext(), "Not all fields are filled", Toast.LENGTH_SHORT).show();
-
-        } else if (newLabelName == null){
-            String label = task.getuIdLabel();
-            task.setuIdLabel(label);
-            task.editTask(task.getuIdTask(),titleTask,descriptionTask,dueDateTask,label);
-
-            UserDatabase.getExecutor().execute(()->{
-                UserDatabase.getDatabase(getApplicationContext()).taskDao().updateTask(task);
-
-                runOnUiThread(()->{
-                    Toast.makeText(getApplicationContext(), "Your task has been updated", Toast.LENGTH_SHORT).show();
-                    Intent toHomeIntent = new Intent(getApplicationContext(), HomeActivity.class);
-                    toHomeIntent.putExtra("User", user);
-                    startActivity(toHomeIntent);
-                });
-            });
-
+        boolean dateHasPassed = checkers.checkIfDateHasPassed(updateMyCalander);
+        if(dateHasPassed){
+            Toast.makeText(getApplicationContext(), "the date you picked is in the past", Toast.LENGTH_LONG).show();
         } else {
+            String titleTask = updateTaskTitle.getText().toString();
+            String descriptionTask = updateTaskDiscription.getText().toString();
+            Date dueDateTask = updateMyCalander.getTime();
 
-            task.editTask(task.getuIdTask(),titleTask,descriptionTask,dueDateTask,newLabelName);
-            UserDatabase.getExecutor().execute(()->{
-                UserDatabase.getDatabase(getApplicationContext()).taskDao().updateTask(task);
+            boolean checkIfAllIsFilled = checkers.checkEditFields(titleTask,descriptionTask);
+            if (checkIfAllIsFilled && newLabelName == null){
+                String label = task.getuIdLabel();
+                task.setuIdLabel(label);
+                task.editTask(task.getuIdTask(),titleTask,descriptionTask,dueDateTask,label);
 
-                runOnUiThread(()->{
-                    Toast.makeText(getApplicationContext(), "Your task has been updated", Toast.LENGTH_SHORT).show();
-                    Intent toHomeIntent = new Intent(getApplicationContext(), HomeActivity.class);
-                    toHomeIntent.putExtra("User", user);
-                    startActivity(toHomeIntent);
+                UserDatabase.getExecutor().execute(()->{
+                    UserDatabase.getDatabase(getApplicationContext()).taskDao().updateTask(task);
+
+                    runOnUiThread(()->{
+                        Toast.makeText(getApplicationContext(), "Your task has been updated", Toast.LENGTH_SHORT).show();
+                        Intent toHomeIntent = new Intent(getApplicationContext(), HomeActivity.class);
+                        toHomeIntent.putExtra("User", user);
+                        startActivity(toHomeIntent);
+                    });
                 });
-            });
+            } else if (checkIfAllIsFilled){
+                task.editTask(task.getuIdTask(),titleTask,descriptionTask,dueDateTask,newLabelName);
+                UserDatabase.getExecutor().execute(()->{
+                    UserDatabase.getDatabase(getApplicationContext()).taskDao().updateTask(task);
+
+                    runOnUiThread(()->{
+                        Toast.makeText(getApplicationContext(), "Your task has been updated", Toast.LENGTH_SHORT).show();
+                        Intent toHomeIntent = new Intent(getApplicationContext(), HomeActivity.class);
+                        toHomeIntent.putExtra("User", user);
+                        startActivity(toHomeIntent);
+                    });
+                });
+            } else {
+                Toast.makeText(getApplicationContext(), "Not all fields are filled", Toast.LENGTH_SHORT).show();
+            }
+
         }
+
     }
 
-    public boolean checkEditFields(String title, String description){
-        boolean status;
-
-        if (title.isEmpty() || description.isEmpty()){
-            Toast.makeText(getApplicationContext(), "Not all fields are filled", Toast.LENGTH_SHORT).show();
-            status = false;
-        } else {
-            status = true;
-        }
-        return status;
-    }
-
-    public boolean checkIfDateHasPassed(Calendar cal){
-        boolean hasPassed = true;
-        Calendar current = new GregorianCalendar();
-        current.getTime();
-
-        if (cal.compareTo(current) > 0){
-            hasPassed = false;
-            //gekozen datum is NA de huidige datum
-        }
-        return hasPassed;
-    }
 }
