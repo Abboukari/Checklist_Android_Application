@@ -95,13 +95,31 @@ public class EditTask extends AppCompatActivity {
         EditText updateTaskTitle = findViewById(R.id.editTitleUpdate);
         EditText updateTaskDiscription = findViewById(R.id.editTextDiscriptionUpdate);
         Calendar updateMyCalander= new GregorianCalendar(tYear,tMonth,tDay,tHour,tMinute);
+        //TODO: check if calender is ok
+        boolean dateHasPassed = checkIfDateHasPassed(updateMyCalander);
+        if (dateHasPassed){
+            Toast.makeText(getApplicationContext(),"the date you picked is in the past", Toast.LENGTH_LONG).show();
+        } else {
+            String titleTask = updateTaskTitle.getText().toString();
+            String descriptionTask = updateTaskDiscription.getText().toString();
+            Date dueDateTask = updateMyCalander.getTime();
 
-        String titleTask = updateTaskTitle.getText().toString();
-        String descriptionTask = updateTaskDiscription.getText().toString();
-        Date dueDateTask = updateMyCalander.getTime();
+            boolean checkIfFilled = checkEditFields(titleTask, descriptionTask, dueDateTask);
+            if (checkIfFilled){
+                task.editTask(task.getuIdTask(),titleTask,descriptionTask,dueDateTask);
 
-        //TODO:  add task to DB if all fields are filled
-       boolean check = checkEditFields(titleTask,descriptionTask,dueDateTask);
+                UserDatabase.getExecutor().execute(()->{
+                    UserDatabase.getDatabase(getApplicationContext()).taskDao().updateTask(task);
+
+                    runOnUiThread(()->{
+                        Toast.makeText(getApplicationContext(), "Your task has been updated", Toast.LENGTH_SHORT).show();
+                        Intent toHomeIntent = new Intent(getApplicationContext(), HomeActivity.class);
+                        toHomeIntent.putExtra("User", user);
+                        startActivity(toHomeIntent);
+                    });
+                });
+            }
+        }
     }
 
     public boolean checkEditFields(String title, String description, Date dueDate){
@@ -111,23 +129,20 @@ public class EditTask extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Not all fields are filled", Toast.LENGTH_SHORT).show();
             status = false;
         } else {
-
-            task.editTask(task.getuIdTask(),title,description,dueDate);
-
-            UserDatabase.getExecutor().execute(()->{
-                UserDatabase.getDatabase(getApplicationContext()).taskDao().updateTask(task);
-
-                runOnUiThread(()->{
-                    Toast.makeText(getApplicationContext(), "Your task has been updated", Toast.LENGTH_SHORT).show();
-                    Intent toHomeIntent = new Intent(getApplicationContext(), HomeActivity.class);
-                    toHomeIntent.putExtra("User", user);
-                    startActivity(toHomeIntent);
-                });
-            });
             status = true;
         }
-
-
         return status;
+    }
+
+    public boolean checkIfDateHasPassed(Calendar cal){
+        boolean hasPassed = true;
+        Calendar current = new GregorianCalendar();
+        current.getTime();
+
+        if (cal.compareTo(current) > 0){
+            hasPassed = false;
+            //gekozen datum is NA de huidige datum
+        }
+        return hasPassed;
     }
 }

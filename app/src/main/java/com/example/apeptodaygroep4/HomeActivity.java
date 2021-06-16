@@ -27,6 +27,9 @@ import com.example.apeptodaygroep4.UserActivity.EditTask;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -37,6 +40,7 @@ public class HomeActivity extends AppCompatActivity {
     private int userId;
     private ListView listView;
     private DoneTask doneTask = new DoneTask();
+    private boolean dateHasPassed;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -174,6 +178,19 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = new Intent(this, FinishedTasks.class);
         intent.putExtra("User", user);
         startActivity(intent);
+    }
+
+    public boolean checkIfDateHasPassed(Calendar cal){
+        boolean hasPassed = true;
+        Calendar current = new GregorianCalendar();
+        current.getTime();
+
+        if (cal.compareTo(current) > 0){
+            hasPassed = false;
+        }else if (cal.compareTo(current) < 0){
+            hasPassed = true;
+        }
+        return hasPassed;
     }
 
 }
