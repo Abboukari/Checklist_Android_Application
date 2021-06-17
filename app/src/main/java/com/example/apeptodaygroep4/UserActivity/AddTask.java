@@ -86,7 +86,7 @@ public class AddTask extends AppCompatActivity {
 
     public void addTaskToDb(View view) {
 
-        Checkers checkers = new Checkers(); //TODO:
+        Checkers checkers = new Checkers();
 
         EditText taskTitle = findViewById(R.id.editTextTitle);
         EditText taskDiscription = findViewById(R.id.editTextDiscription);
@@ -96,17 +96,17 @@ public class AddTask extends AppCompatActivity {
 
         user = (User) getIntent().getSerializableExtra("User");
         userId = user.getId();
+        task = (Task) getIntent().getSerializableExtra("FilledLabelTask");
 
         String titleTask = taskTitle.getText().toString();
         String descriptionTask = taskDiscription.getText().toString();
         Date dueDateTask = myCalander.getTime();
-        task = (Task) getIntent().getSerializableExtra("FilledLabelTask");
 
-        boolean checkIfFilled = checkers.checkEditFields(titleTask, descriptionTask) && task.getuIdLabel() != null;
+        boolean checkIfFilled = checkers.checkEditFields(titleTask, descriptionTask);
         boolean dateHasPassed = checkers.checkIfDateHasPassed(myCalander);
 
-        if (task.getuIdLabel() == null) {
-            Toast.makeText(getApplicationContext(), "Please make sure to select a label", Toast.LENGTH_LONG).show();
+        if (!checkIfFilled){
+            Toast.makeText(getApplicationContext(), "Not all fields are filled", Toast.LENGTH_SHORT).show();
         }
 
         if (dateHasPassed) {
@@ -125,32 +125,6 @@ public class AddTask extends AppCompatActivity {
                 toHomeIntent.putExtra("User", user);
                 startActivity(toHomeIntent);
             });
-        } else {
-            Toast.makeText(getApplicationContext(), "Not all fields are filled", Toast.LENGTH_SHORT).show();
         }
     }
 }
-
-    /*public boolean checkEditFields(String title, String description) {
-        boolean status;
-
-        if (title.isEmpty() || description.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Not all fields are filled", Toast.LENGTH_SHORT).show();
-            status = false;
-        } else {
-            status = true;
-        }
-        return status;
-    }
-
-    public boolean checkIfDateHasPassed(Calendar cal) {
-        boolean hasPassed = true;
-        Calendar current = new GregorianCalendar();
-        current.getTime();
-
-        if (cal.compareTo(current) > 0) {
-            hasPassed = false;
-            //gekozen datum is NA de huidige datum
-        }
-        return hasPassed;
-    }*/
