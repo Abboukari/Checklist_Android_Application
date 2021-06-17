@@ -1,24 +1,21 @@
 package com.example.apeptodaygroep4;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
+
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.apeptodaygroep4.Dao.UserDao;
 import com.example.apeptodaygroep4.Database.UserDatabase;
 import com.example.apeptodaygroep4.Models.Checkers;
 import com.example.apeptodaygroep4.Models.User;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText editTextUserName, editTextEmail, editTextPassword, editTextPasswoordCheck;
@@ -41,7 +38,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void addUser(View view) {
 
-        Checkers check = new Checkers();
 
         editTextUserName = findViewById(R.id.RegisterEnterPersonName);
         editTextEmail = findViewById(R.id.RegisterEnterEmailAddress);
@@ -110,17 +106,4 @@ public class RegisterActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
     }
 
-//    public String isPasswordCorrect(String password1, String password2){
-//        int lengthUserPassword = 6;
-//
-//        if (!password1.equals(password2)){
-//            return "Password is not matching";
-//        }
-//
-//        if (password1.length() <= lengthUserPassword){
-//
-//           return  "You need a longer password!";
-//        }
-//        return "";
-//    }
 }

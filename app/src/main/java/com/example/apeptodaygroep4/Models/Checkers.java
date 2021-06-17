@@ -11,10 +11,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class Checkers {
-   /* private String title;
-    private String description;
-    private Calendar calendar;*/
-
 
     public Checkers() {
     }

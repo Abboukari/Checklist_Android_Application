@@ -2,19 +2,15 @@ package com.example.apeptodaygroep4;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
+
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
-import com.example.apeptodaygroep4.Database.UserDatabase;
 import com.example.apeptodaygroep4.Models.Checkers;
 import com.example.apeptodaygroep4.Models.Task;
-import com.example.apeptodaygroep4.Models.User;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 public class ShowTaskActivity extends AppCompatActivity {
 

@@ -28,13 +28,6 @@ public class DoneTask implements Serializable {
     public Date dateTime;
 
 
-    public DoneTask(Integer doneUserIdTask, Integer doneUserIdUser, String doneTitle, String doneDescription, String doneUserIdLabel) {
-        this.doneUserIdTask = doneUserIdTask;
-        this.doneUserIdUser = doneUserIdUser;
-        this.doneTitle = doneTitle;
-        this.doneDescription = doneDescription;
-        this.doneUserIdLabel = doneUserIdLabel;
-    }
 
     public DoneTask() {
     }

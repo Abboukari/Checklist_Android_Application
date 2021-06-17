@@ -27,14 +27,12 @@ import com.example.apeptodaygroep4.UserActivity.EditTask;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class HomeActivity extends AppCompatActivity {
 
     private ArrayList<Task> tasks;
     private ArrayAdapter<Task> adapter;
     private User user;
-    private TextView userName;
     private int userId;
     private ListView listView;
     private DoneTask doneTask = new DoneTask();
@@ -46,7 +44,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         user = (User) getIntent().getSerializableExtra("User");
-        userName = findViewById(R.id.displayUserName);
+        TextView userName = findViewById(R.id.displayUserName);
 
         if (user != null) {
             userName.setText("Ready for ToDay " + user.getUserName() + "?");
