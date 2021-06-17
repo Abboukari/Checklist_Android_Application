@@ -20,6 +20,7 @@ import com.example.apeptodaygroep4.Models.Checkers;
 import com.example.apeptodaygroep4.Models.Task;
 import com.example.apeptodaygroep4.Models.User;
 import com.example.apeptodaygroep4.R;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -85,7 +86,7 @@ public class AddTask extends AppCompatActivity {
 
     public void addTaskToDb(View view) {
 
-        Checkers checkers= new Checkers(); //TODO:
+        Checkers checkers = new Checkers(); //TODO:
 
         EditText taskTitle = findViewById(R.id.editTextTitle);
         EditText taskDiscription = findViewById(R.id.editTextDiscription);
@@ -96,39 +97,39 @@ public class AddTask extends AppCompatActivity {
         user = (User) getIntent().getSerializableExtra("User");
         userId = user.getId();
 
+        String titleTask = taskTitle.getText().toString();
+        String descriptionTask = taskDiscription.getText().toString();
+        Date dueDateTask = myCalander.getTime();
+        task = (Task) getIntent().getSerializableExtra("FilledLabelTask");
+
+        boolean checkIfFilled = checkers.checkEditFields(titleTask, descriptionTask) && task.getuIdLabel() != null;
         boolean dateHasPassed = checkers.checkIfDateHasPassed(myCalander);
+
+        if (task.getuIdLabel() == null) {
+            Toast.makeText(getApplicationContext(), "Please make sure to select a label", Toast.LENGTH_LONG).show();
+        }
+
         if (dateHasPassed) {
             Toast.makeText(getApplicationContext(), "the date you picked is in the past", Toast.LENGTH_LONG).show();
+        }
+
+        if (checkIfFilled) {
+            task.setuIdUser(userId);
+            task.setTitle(titleTask);
+            task.setDescription(descriptionTask);
+            task.setDateTime(dueDateTask);
+
+            UserDatabase.getExecutor().execute(() -> {
+                UserDatabase.getDatabase(getApplicationContext()).taskDao().addTask(task);
+                runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Your task has been added", Toast.LENGTH_SHORT).show());
+                toHomeIntent.putExtra("User", user);
+                startActivity(toHomeIntent);
+            });
         } else {
-            String titleTask = taskTitle.getText().toString();
-            String descriptionTask = taskDiscription.getText().toString();
-            Date dueDateTask = myCalander.getTime();
-
-            boolean checkIfFilled = checkers.checkEditFields(titleTask, descriptionTask);
-            if (checkIfFilled){
-                task = (Task) getIntent().getSerializableExtra("FilledLabelTask");
-
-                task.setuIdUser(userId);
-                task.setTitle(titleTask);
-                task.setDescription(descriptionTask);
-                task.setDateTime(dueDateTask);
-
-                UserDatabase.getExecutor().execute(() -> {
-                    UserDatabase.getDatabase(getApplicationContext()).taskDao().addTask(task);
-                    runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Your task has been added", Toast.LENGTH_SHORT).show());
-                    toHomeIntent.putExtra("User", user);
-
-                    startActivity(toHomeIntent);
-
-                });
-            } else {
-                Toast.makeText(getApplicationContext(), "Not all fields are filled", Toast.LENGTH_SHORT).show();
-            }
-
-
-
+            Toast.makeText(getApplicationContext(), "Not all fields are filled", Toast.LENGTH_SHORT).show();
         }
     }
+}
 
     /*public boolean checkEditFields(String title, String description) {
         boolean status;
@@ -153,4 +154,3 @@ public class AddTask extends AppCompatActivity {
         }
         return hasPassed;
     }*/
-}
