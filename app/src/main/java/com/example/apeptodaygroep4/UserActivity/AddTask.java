@@ -96,7 +96,7 @@ public class AddTask extends AppCompatActivity {
 
         user = (User) getIntent().getSerializableExtra("User");
         userId = user.getId();
-        task = (Task) getIntent().getSerializableExtra("FilledLabelTask");
+
 
         String titleTask = taskTitle.getText().toString();
         String descriptionTask = taskDiscription.getText().toString();
@@ -111,9 +111,8 @@ public class AddTask extends AppCompatActivity {
 
         if (dateHasPassed) {
             Toast.makeText(getApplicationContext(), "the date you picked is in the past", Toast.LENGTH_LONG).show();
-        }
-
-        if (checkIfFilled) {
+        } else {
+            task = (Task) getIntent().getSerializableExtra("FilledLabelTask");
             task.setuIdUser(userId);
             task.setTitle(titleTask);
             task.setDescription(descriptionTask);

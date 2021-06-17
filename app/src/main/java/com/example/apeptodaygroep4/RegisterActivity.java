@@ -53,7 +53,6 @@ public class RegisterActivity extends AppCompatActivity {
         boolean emailValid = isValidEmail(email);
         boolean emailFound = false;
 
-
         if (isPasswordCorrect(password,passwordCheck) && emailValid && !userName.isEmpty()) {
 
             for (int i = 0; i < emailList.size(); i++) {
@@ -64,32 +63,40 @@ public class RegisterActivity extends AppCompatActivity {
             }
 
             if (emailFound) {
-                Toast.makeText(this, "Email already exist", Toast.LENGTH_SHORT).show();
-                Toast.makeText(this, "Please try again or move to login", Toast.LENGTH_SHORT).show();
+                makeMeAToast("Email already exist");
+                makeMeAToast("Please try again or move to login");
             } else {
                 User user = new User(userName, password, email);
                 UserDatabase.getExecutor().execute(() -> {
                     UserDatabase.getDatabase(getApplicationContext()).getUserDao().insert(user);
+
+                    runOnUiThread(()->{
+                        makeMeAToast("Registration Succesful");
+                        Intent moveToLogin = new Intent(RegisterActivity.this, LoginScreenActivity.class);
+                        startActivity(moveToLogin);
+                    });
                 });
-                Toast.makeText(getApplicationContext(), "Registration Succesful", Toast.LENGTH_SHORT).show();
-                Intent moveToLogin = new Intent(RegisterActivity.this, LoginScreenActivity.class);
-                startActivity(moveToLogin);
             }
         }
         if (userName.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Don't you have a name?", Toast.LENGTH_SHORT).show();
+            makeMeAToast("Don't you have a name?");
         }
         if (!emailValid) {
-            Toast.makeText(getApplicationContext(), "Email is not valid", Toast.LENGTH_SHORT).show();
+            makeMeAToast("Email is not valid");
         }
         if (password.isEmpty()){
-            Toast.makeText(getApplicationContext(), "Please make sure to fill in letter/numbers/specials", Toast.LENGTH_SHORT).show();
+            makeMeAToast("Please make sure to fill in letter/numbers/specials");
         }
     }
 
     //Checks if email has an valid email pattern
     public static boolean isValidEmail(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
+    }
+
+
+    public void makeMeAToast(String text){
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
     }
 
     public boolean isPasswordCorrect(String password1, String password2){
