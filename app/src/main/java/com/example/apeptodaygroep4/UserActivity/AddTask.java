@@ -42,7 +42,13 @@ public class AddTask extends AppCompatActivity {
         userId = (int) getIntent().getSerializableExtra("userId");
     }
 
-
+    public void addLabel(View view) {
+        Intent intent = new Intent(getApplicationContext(), AddLabel.class);
+        user = (User) getIntent().getSerializableExtra("User");
+        intent.putExtra("User", user);
+        intent.putExtra("Task", task);
+        startActivity(intent);
+    }
 
     public void buttonDateTimePickerDialog(View view) {
         Calendar cal = new GregorianCalendar();
@@ -79,7 +85,7 @@ public class AddTask extends AppCompatActivity {
 
     public void addTaskToDb(View view) {
 
-        Checkers checkers= new Checkers();
+        Checkers checkers= new Checkers(); //TODO:
 
         EditText taskTitle = findViewById(R.id.editTextTitle);
         EditText taskDiscription = findViewById(R.id.editTextDiscription);
@@ -100,7 +106,7 @@ public class AddTask extends AppCompatActivity {
 
             boolean checkIfFilled = checkers.checkEditFields(titleTask, descriptionTask);
             if (checkIfFilled){
-
+                task = (Task) getIntent().getSerializableExtra("FilledLabelTask");
 
                 task.setuIdUser(userId);
                 task.setTitle(titleTask);
@@ -109,7 +115,6 @@ public class AddTask extends AppCompatActivity {
 
                 UserDatabase.getExecutor().execute(() -> {
                     UserDatabase.getDatabase(getApplicationContext()).taskDao().addTask(task);
-                    task = (Task) getIntent().getSerializableExtra("FilledLabelTask");//TODO: deze alleen toevoegen als label niet null is??
                     runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Your task has been added", Toast.LENGTH_SHORT).show());
                     toHomeIntent.putExtra("User", user);
 
@@ -125,12 +130,27 @@ public class AddTask extends AppCompatActivity {
         }
     }
 
-    public void addLabel(View view) {
-        Intent intent = new Intent(getApplicationContext(), AddLabel.class);
-        user = (User) getIntent().getSerializableExtra("User");
-        intent.putExtra("User", user);
-        intent.putExtra("Task", task);
-        startActivity(intent);
+    /*public boolean checkEditFields(String title, String description) {
+        boolean status;
+
+        if (title.isEmpty() || description.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Not all fields are filled", Toast.LENGTH_SHORT).show();
+            status = false;
+        } else {
+            status = true;
+        }
+        return status;
     }
 
+    public boolean checkIfDateHasPassed(Calendar cal) {
+        boolean hasPassed = true;
+        Calendar current = new GregorianCalendar();
+        current.getTime();
+
+        if (cal.compareTo(current) > 0) {
+            hasPassed = false;
+            //gekozen datum is NA de huidige datum
+        }
+        return hasPassed;
+    }*/
 }

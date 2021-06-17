@@ -36,7 +36,7 @@ public class ShowTaskActivity extends AppCompatActivity {
         String label = "Label: " + task.uIdLabel;
         String showDate;
         Date date = task.getDateTime();
-        boolean datePassed = checkers.checkIfDateHasPassed(date);
+        boolean datePassed = checkers.checkIfDateHasPassedDate(date);
 
         if (datePassed){
             showDate = "YOu misSed youR deadline fuCkFacE!";

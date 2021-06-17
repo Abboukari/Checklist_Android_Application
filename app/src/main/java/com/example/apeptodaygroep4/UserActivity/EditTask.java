@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import com.example.apeptodaygroep4.Models.Task;
 import com.example.apeptodaygroep4.Models.User;
 import com.example.apeptodaygroep4.R;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -34,6 +36,8 @@ public class EditTask extends AppCompatActivity {
     private int tMinute;
     private Task task = new Task();
     private User user;
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +49,8 @@ public class EditTask extends AppCompatActivity {
 
         EditText taskTitle = findViewById(R.id.editTitleUpdate);
         EditText taskDescription = findViewById(R.id.editTextDiscriptionUpdate);
+        TextView taskDateTime = findViewById(R.id.editTextDateTime);
 
-        Calendar myCalender = new GregorianCalendar(tYear,tMonth,tDay,tHour,tMinute);
 
         String titel = task.getTitle();
         String description = task.getDescription();
@@ -56,41 +60,41 @@ public class EditTask extends AppCompatActivity {
         task.setuIdLabel(label);
         taskTitle.setText(titel);
         taskDescription.setText(description);
-        myCalender.setTime(date);
+        taskDateTime.setText("Due date: " + formatter.format(date));
+
 
     }
 
 
     public void buttonDateTimePickerDialog(View view){
         Calendar cal = new GregorianCalendar();
+        TextView taskDateTime = findViewById(R.id.editTextDateTime);
+
+
         final String TAG = "DIA_CAL";
 
         DatePickerDialog datePicker = new DatePickerDialog(this,
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        Log.i(TAG, "Date chosen: " + dayOfMonth + "-" + month + "-" + year);
-                        tYear = year;
-                        tMonth = month;
-                        tDay = dayOfMonth;
-                    }
+                (view1, year, month, dayOfMonth) -> {
+                    Log.i(TAG, "Date chosen: " + dayOfMonth + "-" + month + "-" + year);
+                    tYear = year;
+                    tMonth = month;
+                    tDay = dayOfMonth;
                 },cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH));
 
 
         TimePickerDialog timePicker = new TimePickerDialog(this,
-                new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        Log.i(TAG,"Time chosen: " + hourOfDay + ":" + minute);
-                        tHour = hourOfDay;
-                        tMinute = minute;
-                    }
+                (view12, hourOfDay, minute) -> {
+                    Log.i(TAG,"Time chosen: " + hourOfDay + ":" + minute);
+                    tHour = hourOfDay;
+                    tMinute = minute;
                 }, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE),true);
 
         datePicker.setTitle("Choose a Date");
         datePicker.show();
         timePicker.setTitle("Choose a time");
         timePicker.show();
+        taskDateTime.setText("Due date: " + formatter.format(cal.getTime()));
+
     }
 
     public void updateLabel(View view){
@@ -111,7 +115,8 @@ public class EditTask extends AppCompatActivity {
         Calendar updateMyCalander= new GregorianCalendar(tYear,tMonth,tDay,tHour,tMinute);
 
         boolean dateHasPassed = checkers.checkIfDateHasPassed(updateMyCalander);
-        if(dateHasPassed){
+
+        if (dateHasPassed) {
             Toast.makeText(getApplicationContext(), "the date you picked is in the past", Toast.LENGTH_LONG).show();
         } else {
             String titleTask = updateTaskTitle.getText().toString();
@@ -119,6 +124,7 @@ public class EditTask extends AppCompatActivity {
             Date dueDateTask = updateMyCalander.getTime();
 
             boolean checkIfAllIsFilled = checkers.checkEditFields(titleTask,descriptionTask);
+
             if (checkIfAllIsFilled && newLabelName == null){
                 String label = task.getuIdLabel();
                 task.setuIdLabel(label);
