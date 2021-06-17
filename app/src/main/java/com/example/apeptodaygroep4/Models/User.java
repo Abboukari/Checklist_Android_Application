@@ -29,10 +29,6 @@ public class User implements Serializable {
         return userName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -43,10 +39,6 @@ public class User implements Serializable {
 
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public User(String userName, String password, String email) {
@@ -64,8 +56,6 @@ public class User implements Serializable {
     @Ignore
     public User() {
     }
-
-    ;
 
     @NotNull
     @Override

@@ -108,7 +108,7 @@ public class Task implements Serializable {
 
     @Override
     public String toString() {
-        return title;
+        return title + "    |     " + dateTime;
     }
 
     public String detailsToString() {
