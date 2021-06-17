@@ -56,9 +56,16 @@ public class CheckersTest {
         boolean date_is_current = check.checkIfDateHasPassedDate(dateCurrent);//true
         boolean date_is_in_the_future = check.checkIfDateHasPassedDate(dateFuture); //false
 
-        //assertTrue(date_has_passed);
+        //assertTrue(date_has_passed); //TODO: hier iets mee doen, en vragen
         assertTrue(date_is_current);
         assertFalse(date_is_in_the_future);
 
+    }
+
+    @Test
+    public void checkIfPasswordIsUpToStandard(){
+        Checkers check = new Checkers();
+
+        //boolean password_does_not_match = check.isPasswordCorrect()
     }
 }

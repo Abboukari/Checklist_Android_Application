@@ -106,7 +106,6 @@ public class AddTask extends AppCompatActivity {
 
             boolean checkIfFilled = checkers.checkEditFields(titleTask, descriptionTask);
             if (checkIfFilled){
-                task = (Task) getIntent().getSerializableExtra("FilledLabelTask");
 
                 task.setuIdUser(userId);
                 task.setTitle(titleTask);
@@ -115,6 +114,7 @@ public class AddTask extends AppCompatActivity {
 
                 UserDatabase.getExecutor().execute(() -> {
                     UserDatabase.getDatabase(getApplicationContext()).taskDao().addTask(task);
+                    task = (Task) getIntent().getSerializableExtra("FilledLabelTask");
                     runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Your task has been added", Toast.LENGTH_SHORT).show());
                     toHomeIntent.putExtra("User", user);
 

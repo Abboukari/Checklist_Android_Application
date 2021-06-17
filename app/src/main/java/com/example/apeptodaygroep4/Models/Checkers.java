@@ -1,6 +1,11 @@
 package com.example.apeptodaygroep4.Models;
 
 
+import android.content.Context;
+import android.widget.Toast;
+
+import com.example.apeptodaygroep4.RegisterActivity;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -45,5 +50,23 @@ public class Checkers {
             dateHasPassed = false;
         }
         return dateHasPassed;
+    }
+
+    public boolean isPasswordCorrect(String password1, String password2, Context context){
+        int lengthUserPassword = 6;
+
+        if (!password1.equals(password2)){
+            Toast.makeText(context, "Passwords do not match", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "Password is not matching", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (password1.length() <= lengthUserPassword){
+            Toast.makeText(context, "You need a longer password!", Toast.LENGTH_SHORT).show();
+           Toast.makeText(context, "At least 6 characters!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
     }
 }

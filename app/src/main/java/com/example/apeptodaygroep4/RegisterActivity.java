@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.apeptodaygroep4.Dao.UserDao;
 import com.example.apeptodaygroep4.Database.UserDatabase;
+import com.example.apeptodaygroep4.Models.Checkers;
 import com.example.apeptodaygroep4.Models.User;
 
 import java.util.ArrayList;
@@ -40,6 +41,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void addUser(View view) {
 
+        Checkers check = new Checkers();
+
         editTextUserName = findViewById(R.id.RegisterEnterPersonName);
         editTextEmail = findViewById(R.id.RegisterEnterEmailAddress);
         editTextPassword = findViewById(R.id.RegisterEnterPassword);
@@ -53,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
         boolean emailValid = isValidEmail(email);
         boolean emailFound = false;
 
-        if (isPasswordCorrect(password,passwordCheck) && emailValid && !userName.isEmpty()) {
+        if (isPasswordCorrect(password,passwordCheck) && emailValid && !userName.isEmpty()) { //TODO: check method
 
             for (int i = 0; i < emailList.size(); i++) {
                 if (emailList.get(i).equals(email)) {
