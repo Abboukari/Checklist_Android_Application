@@ -111,7 +111,8 @@ public class EditTask extends AppCompatActivity {
         Calendar updateMyCalander= new GregorianCalendar(tYear,tMonth,tDay,tHour,tMinute);
 
         boolean dateHasPassed = checkers.checkIfDateHasPassed(updateMyCalander);
-        if(dateHasPassed){
+
+        if (dateHasPassed) {
             Toast.makeText(getApplicationContext(), "the date you picked is in the past", Toast.LENGTH_LONG).show();
         } else {
             String titleTask = updateTaskTitle.getText().toString();
@@ -119,6 +120,7 @@ public class EditTask extends AppCompatActivity {
             Date dueDateTask = updateMyCalander.getTime();
 
             boolean checkIfAllIsFilled = checkers.checkEditFields(titleTask,descriptionTask);
+
             if (checkIfAllIsFilled && newLabelName == null){
                 String label = task.getuIdLabel();
                 task.setuIdLabel(label);
