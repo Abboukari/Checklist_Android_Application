@@ -58,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
         Checkers useMethod = new Checkers();
-        String checkPasswords = useMethod.isPasswordCorrect(password,passwordCheck);
+        String checkPasswords = useMethod.isPasswordCorrect(password, passwordCheck);
 
         if (checkPasswords.equals("") && emailValid && !userName.isEmpty()) {
 
@@ -77,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
                 UserDatabase.getExecutor().execute(() -> {
                     UserDatabase.getDatabase(getApplicationContext()).getUserDao().insert(user);
 
-                    runOnUiThread(()->{
+                    runOnUiThread(() -> {
                         makeMeAToast("Registration Succesful");
                         Intent moveToLogin = new Intent(RegisterActivity.this, LoginScreenActivity.class);
                         startActivity(moveToLogin);
@@ -91,10 +91,10 @@ public class RegisterActivity extends AppCompatActivity {
         if (!emailValid) {
             makeMeAToast("Email is not valid");
         }
-        if (password.isEmpty()){
+        if (password.isEmpty()) {
             makeMeAToast("Please make sure to fill in letter/numbers/specials");
         }
-        if (!password.equals(passwordCheck)){
+        if (!password.equals(passwordCheck)) {
             makeMeAToast("Password is not matching");
         }
 
@@ -106,7 +106,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
-    public void makeMeAToast(String text){
+    public void makeMeAToast(String text) {
         Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
     }
 

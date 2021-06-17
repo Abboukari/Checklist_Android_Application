@@ -13,15 +13,20 @@ import java.util.Date;
         entity = User.class,
         parentColumns = "id",
         childColumns = "uIdUser"),
-        })
+})
 
 
 public class Task implements Serializable {
-    @PrimaryKey (autoGenerate = true) public Integer uIdTask;
-    @ColumnInfo public Integer uIdUser;
-    @ColumnInfo private String title;
-    @ColumnInfo private String description;
-    @ColumnInfo public String uIdLabel;
+    @PrimaryKey(autoGenerate = true)
+    public Integer uIdTask;
+    @ColumnInfo
+    public Integer uIdUser;
+    @ColumnInfo
+    private String title;
+    @ColumnInfo
+    private String description;
+    @ColumnInfo
+    public String uIdLabel;
     public Date dateTime;
 
     public Task(Integer uIdTask, Integer uIdUser, String title, String description, String uIdLabel, Date dateTime) {
@@ -33,7 +38,8 @@ public class Task implements Serializable {
         this.dateTime = dateTime;
     }
 
-    public Task(){}
+    public Task() {
+    }
 
     public Task(Integer uIdUser, String title, String description, Date dateTime) {
         this.uIdUser = uIdUser;
@@ -43,8 +49,7 @@ public class Task implements Serializable {
     }
 
 
-
-    public void editTask(Integer uIdTask, String  title,String description,Date dateTime, String uIdLabel){
+    public void editTask(Integer uIdTask, String title, String description, Date dateTime, String uIdLabel) {
         this.uIdTask = uIdTask;
         this.title = title;
         this.description = description;

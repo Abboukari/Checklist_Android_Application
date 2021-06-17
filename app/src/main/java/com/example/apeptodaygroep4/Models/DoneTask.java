@@ -10,16 +10,21 @@ import java.util.Date;
 
 @Entity(foreignKeys = {@ForeignKey(
         entity = User.class,
-        parentColumns =  "id",
+        parentColumns = "id",
         childColumns = "doneUserIdUser"),
 })
 public class DoneTask implements Serializable {
 
-    @PrimaryKey(autoGenerate = true) private Integer doneUserIdTask;
-    @ColumnInfo public Integer doneUserIdUser;
-    @ColumnInfo private String doneTitle;
-    @ColumnInfo private String doneDescription;
-    @ColumnInfo public String doneUserIdLabel; //TODO: set to labelName
+    @PrimaryKey(autoGenerate = true)
+    private Integer doneUserIdTask;
+    @ColumnInfo
+    public Integer doneUserIdUser;
+    @ColumnInfo
+    private String doneTitle;
+    @ColumnInfo
+    private String doneDescription;
+    @ColumnInfo
+    public String doneUserIdLabel; //TODO: set to labelName
     public Date dateTime;
 
 
@@ -31,7 +36,8 @@ public class DoneTask implements Serializable {
         this.doneUserIdLabel = doneUserIdLabel;
     }
 
-    public DoneTask(){}
+    public DoneTask() {
+    }
 
     public Date getDateTime() {
         return dateTime;

@@ -16,7 +16,7 @@ public class Checkers {
     private Calendar calendar;*/
 
 
-    public Checkers(){
+    public Checkers() {
     }
 
     public boolean checkEditFields(String title, String description) {
@@ -42,24 +42,24 @@ public class Checkers {
         return hasPassed;
     }
 
-    public boolean checkIfDateHasPassedDate(Date date){
+    public boolean checkIfDateHasPassedDate(Date date) {
         boolean dateHasPassed = true;
         Date currentDate = new Date();
 
-        if (date.compareTo(currentDate) > 0){
+        if (date.compareTo(currentDate) > 0) {
             dateHasPassed = false;
         }
         return dateHasPassed;
     }
 
-    public String isPasswordCorrect(String password1, String password2){
+    public String isPasswordCorrect(String password1, String password2) {
         int lengthUserPassword = 6;
 
-        if (!password1.equals(password2)){
+        if (!password1.equals(password2)) {
             return "Password is not matching";
         }
 
-        if (password1.length() <= lengthUserPassword){
+        if (password1.length() <= lengthUserPassword) {
             return "You need a longer password!";
         }
         return "";

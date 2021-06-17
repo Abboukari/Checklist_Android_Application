@@ -39,14 +39,14 @@ public class FinishedTasks extends AppCompatActivity {
 
         ListView listView = findViewById(R.id.doneTasksListView);
 
-        UserDatabase.getExecutor().execute(()->{
+        UserDatabase.getExecutor().execute(() -> {
             user = (User) getIntent().getSerializableExtra("User");
             userId = user.getId();
 
             doneTasks = new ArrayList<DoneTask>(
                     UserDatabase.getDatabase(getApplicationContext())
-                    .doneTaskDao()
-                    .getTitleTasksDone(userId)
+                            .doneTaskDao()
+                            .getTitleTasksDone(userId)
             );
 
             adapter = new ArrayAdapter<>(
@@ -56,7 +56,7 @@ public class FinishedTasks extends AppCompatActivity {
             );
             runOnUiThread(() -> listView.setAdapter(adapter));
         });
-       registerForContextMenu(listView);
+        registerForContextMenu(listView);
     }
 
     @Override
@@ -75,8 +75,8 @@ public class FinishedTasks extends AppCompatActivity {
 
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
-        if (item.getItemId() == R.id.UnDoTaskAction){
-            UserDatabase.getExecutor().execute(()->{
+        if (item.getItemId() == R.id.UnDoTaskAction) {
+            UserDatabase.getExecutor().execute(() -> {
                 DoneTask doneTaskPosition = doneTasks.get(info.position);
 
                 task.setuIdTask(doneTaskPosition.getDoneUserIdTask());
@@ -90,7 +90,7 @@ public class FinishedTasks extends AppCompatActivity {
 
                 deleteDoneTask(doneTaskPosition);
 
-                runOnUiThread(()->{
+                runOnUiThread(() -> {
                     Toast.makeText(this, "Task is now not done", Toast.LENGTH_SHORT).show();
                     doneTasks.remove(info.position);
                     adapter.notifyDataSetChanged();
@@ -99,12 +99,12 @@ public class FinishedTasks extends AppCompatActivity {
             });
 
             return true;
-        } else if (item.getItemId() == R.id.deletedDoneTaskAction){
-            UserDatabase.getExecutor().execute(()->{
+        } else if (item.getItemId() == R.id.deletedDoneTaskAction) {
+            UserDatabase.getExecutor().execute(() -> {
                 DoneTask doneTaskPosition = doneTasks.get(info.position);
                 deleteDoneTask(doneTaskPosition);
 
-                runOnUiThread(()->{
+                runOnUiThread(() -> {
                     Toast.makeText(this, "Task is deleted", Toast.LENGTH_SHORT).show();
                     doneTasks.remove(info.position);
                     adapter.notifyDataSetChanged();
@@ -116,14 +116,14 @@ public class FinishedTasks extends AppCompatActivity {
         }
     }
 
-    public void deleteDoneTask(DoneTask doneTask){
+    public void deleteDoneTask(DoneTask doneTask) {
         UserDatabase.getDatabase(getApplicationContext()).doneTaskDao().deleteDoneTask(doneTask);
     }
 
-    public void returnToHome (View view) {
+    public void returnToHome(View view) {
         User user = (User) getIntent().getSerializableExtra("User");
-        Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
-        intent.putExtra("User",user);
+        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+        intent.putExtra("User", user);
         startActivity(intent);
     }
 

@@ -66,7 +66,7 @@ public class EditTask extends AppCompatActivity {
     }
 
 
-    public void buttonDateTimePickerDialog(View view){
+    public void buttonDateTimePickerDialog(View view) {
         Calendar cal = new GregorianCalendar();
         TextView taskDateTime = findViewById(R.id.editTextDateTime);
 
@@ -79,15 +79,15 @@ public class EditTask extends AppCompatActivity {
                     tYear = year;
                     tMonth = month;
                     tDay = dayOfMonth;
-                },cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH));
+                }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
 
 
         TimePickerDialog timePicker = new TimePickerDialog(this,
                 (view12, hourOfDay, minute) -> {
-                    Log.i(TAG,"Time chosen: " + hourOfDay + ":" + minute);
+                    Log.i(TAG, "Time chosen: " + hourOfDay + ":" + minute);
                     tHour = hourOfDay;
                     tMinute = minute;
-                }, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE),true);
+                }, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true);
 
         datePicker.setTitle("Choose a Date");
         datePicker.show();
@@ -97,22 +97,22 @@ public class EditTask extends AppCompatActivity {
 
     }
 
-    public void updateLabel(View view){
+    public void updateLabel(View view) {
         Intent intent = new Intent(getApplicationContext(), EditLabel.class);
         user = (User) getIntent().getSerializableExtra("User");
-        intent.putExtra("User",user);
+        intent.putExtra("User", user);
         intent.putExtra("Task", task);
         startActivity(intent);
     }
 
-       public void updateTaskToDatebase(View view){
+    public void updateTaskToDatebase(View view) {
 
         Checkers checkers = new Checkers();
         String newLabelName = (String) getIntent().getSerializableExtra("NewLabel");
 
         EditText updateTaskTitle = findViewById(R.id.editTitleUpdate);
         EditText updateTaskDiscription = findViewById(R.id.editTextDiscriptionUpdate);
-        Calendar updateMyCalander= new GregorianCalendar(tYear,tMonth,tDay,tHour,tMinute);
+        Calendar updateMyCalander = new GregorianCalendar(tYear, tMonth, tDay, tHour, tMinute);
 
         boolean dateHasPassed = checkers.checkIfDateHasPassed(updateMyCalander);
 
@@ -123,29 +123,29 @@ public class EditTask extends AppCompatActivity {
             String descriptionTask = updateTaskDiscription.getText().toString();
             Date dueDateTask = updateMyCalander.getTime();
 
-            boolean checkIfAllIsFilled = checkers.checkEditFields(titleTask,descriptionTask);
+            boolean checkIfAllIsFilled = checkers.checkEditFields(titleTask, descriptionTask);
 
-            if (checkIfAllIsFilled && newLabelName == null){
+            if (checkIfAllIsFilled && newLabelName == null) {
                 String label = task.getuIdLabel();
                 task.setuIdLabel(label);
-                task.editTask(task.getuIdTask(),titleTask,descriptionTask,dueDateTask,label);
+                task.editTask(task.getuIdTask(), titleTask, descriptionTask, dueDateTask, label);
 
-                UserDatabase.getExecutor().execute(()->{
+                UserDatabase.getExecutor().execute(() -> {
                     UserDatabase.getDatabase(getApplicationContext()).taskDao().updateTask(task);
 
-                    runOnUiThread(()->{
+                    runOnUiThread(() -> {
                         Toast.makeText(getApplicationContext(), "Your task has been updated", Toast.LENGTH_SHORT).show();
                         Intent toHomeIntent = new Intent(getApplicationContext(), HomeActivity.class);
                         toHomeIntent.putExtra("User", user);
                         startActivity(toHomeIntent);
                     });
                 });
-            } else if (checkIfAllIsFilled){
-                task.editTask(task.getuIdTask(),titleTask,descriptionTask,dueDateTask,newLabelName);
-                UserDatabase.getExecutor().execute(()->{
+            } else if (checkIfAllIsFilled) {
+                task.editTask(task.getuIdTask(), titleTask, descriptionTask, dueDateTask, newLabelName);
+                UserDatabase.getExecutor().execute(() -> {
                     UserDatabase.getDatabase(getApplicationContext()).taskDao().updateTask(task);
 
-                    runOnUiThread(()->{
+                    runOnUiThread(() -> {
                         Toast.makeText(getApplicationContext(), "Your task has been updated", Toast.LENGTH_SHORT).show();
                         Intent toHomeIntent = new Intent(getApplicationContext(), HomeActivity.class);
                         toHomeIntent.putExtra("User", user);

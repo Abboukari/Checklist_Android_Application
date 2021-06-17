@@ -122,11 +122,11 @@ public class HomeActivity extends AppCompatActivity {
 
             return true;
         } else if (item.getItemId() == R.id.deletedTaskAction) {
-            UserDatabase.getExecutor().execute(()->{
+            UserDatabase.getExecutor().execute(() -> {
                 Task taskPosition = tasks.get(info.position);
                 deleteTaskClick(taskPosition);
 
-                runOnUiThread(()->{
+                runOnUiThread(() -> {
                     Toast.makeText(this, "Task Deleted", Toast.LENGTH_SHORT).show();
                     tasks.remove(info.position);
                     adapter.notifyDataSetChanged();
@@ -147,13 +147,13 @@ public class HomeActivity extends AppCompatActivity {
 
         } else if (item.getItemId() == R.id.showTask) {
 
-                Task taskPosition = tasks.get(info.position);
+            Task taskPosition = tasks.get(info.position);
 
-                runOnUiThread(()->{
-                    Intent intent = new Intent(this,ShowTaskActivity.class);
-                    intent.putExtra("TaskDetail", taskPosition);
-                    startActivity(intent);
-                });
+            runOnUiThread(() -> {
+                Intent intent = new Intent(this, ShowTaskActivity.class);
+                intent.putExtra("TaskDetail", taskPosition);
+                startActivity(intent);
+            });
             return true;
         } else {
             return false;

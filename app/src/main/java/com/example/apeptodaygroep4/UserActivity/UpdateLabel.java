@@ -38,16 +38,16 @@ public class UpdateLabel extends AppCompatActivity {
 
     }
 
-    public void updateLabelInDatabase(View view){
+    public void updateLabelInDatabase(View view) {
 
         EditText editTextLabel = findViewById(R.id.editTextNewLabelName);
         String changeLabel = editTextLabel.getText().toString().trim();
 
-        if (changeLabel.isEmpty()){
+        if (changeLabel.isEmpty()) {
             Toast.makeText(this, "Please fill in the new label name", Toast.LENGTH_SHORT).show();
         } else {
 
-            UserDatabase.getExecutor().execute(()->{
+            UserDatabase.getExecutor().execute(() -> {
 
                 user = (User) getIntent().getSerializableExtra("User");
                 task = (Task) getIntent().getSerializableExtra("Task");
@@ -57,14 +57,14 @@ public class UpdateLabel extends AppCompatActivity {
                 label.updateLabel(label.getLabelId(), userId, changeLabel);
 
                 UserDatabase.getDatabase(getApplicationContext()).labelDao().updateLabel(label);
-                runOnUiThread(()->{
+                runOnUiThread(() -> {
 
                     Toast.makeText(getApplicationContext(), "Label has been updated", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(this,AddLabel.class);
-                    intent.putExtra("User",user);
+                    Intent intent = new Intent(this, AddLabel.class);
+                    intent.putExtra("User", user);
                     intent.putExtra("Task", task);
-                    intent.putExtra("userId",userId);
-                    intent.putExtra("Label",label);
+                    intent.putExtra("userId", userId);
+                    intent.putExtra("Label", label);
                     startActivity(intent);
                 });
             });

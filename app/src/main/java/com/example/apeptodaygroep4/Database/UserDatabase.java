@@ -19,7 +19,6 @@ import com.example.apeptodaygroep4.Models.Task;
 import com.example.apeptodaygroep4.Models.User;
 
 
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -32,18 +31,21 @@ public abstract class UserDatabase extends RoomDatabase {
     private static final ExecutorService dbExecutor = Executors.newFixedThreadPool(numberOfThreads);
 
     public abstract UserDao getUserDao();
+
     public abstract TaskDao taskDao();
+
     public abstract LabelDao labelDao();
+
     public abstract DoneTaskDao doneTaskDao();
 
-    public static ExecutorService getExecutor(){
+    public static ExecutorService getExecutor() {
         return dbExecutor;
     }
 
-    public static final UserDatabase getDatabase(final Context context){
+    public static final UserDatabase getDatabase(final Context context) {
         UserDatabase userDatabase;
 
-        synchronized (UserDatabase.class){
+        synchronized (UserDatabase.class) {
             userDatabase = Room.databaseBuilder(
                     context.getApplicationContext(),
                     UserDatabase.class,

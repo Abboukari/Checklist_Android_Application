@@ -16,13 +16,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void moveToRegisterActivity(View view){
-        Intent intent = new Intent(this,RegisterActivity.class);
+    public void moveToRegisterActivity(View view) {
+        Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
         Toast.makeText(this, "Please make sure to fill in your own email", Toast.LENGTH_SHORT).show();
     }
 
-    public  void moveToLoginActivity(View view){
+    public void moveToLoginActivity(View view) {
         Intent intent = new Intent(this, LoginScreenActivity.class);
         startActivity(intent);
     }

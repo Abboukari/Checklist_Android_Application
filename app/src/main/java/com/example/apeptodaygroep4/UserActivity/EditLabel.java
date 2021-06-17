@@ -33,18 +33,18 @@ public class EditLabel extends AppCompatActivity {
     }
 
 
-    public void updateLabelFromTask(View view){
+    public void updateLabelFromTask(View view) {
 
         EditText editText = findViewById(R.id.getNewLabelUpdateButton);
         String labelChange = editText.getText().toString().trim();
 
-        if (labelChange.isEmpty()){
+        if (labelChange.isEmpty()) {
             Toast.makeText(this, "You did not fill anything in", Toast.LENGTH_SHORT).show();
         } else {
-            Intent intent = new Intent(this,EditTask.class);
+            Intent intent = new Intent(this, EditTask.class);
             Toast.makeText(this, "Label is updated", Toast.LENGTH_SHORT).show();
             intent.putExtra("NewLabel", labelChange);
-            intent.putExtra("User",user);
+            intent.putExtra("User", user);
             intent.putExtra("Task", task);
             startActivity(intent);
         }
