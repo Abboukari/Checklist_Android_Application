@@ -37,7 +37,7 @@ public class Checkers {
         return hasPassed;
     }
 
-    public boolean checkIfDateHasPassed(Date date){
+    public boolean checkIfDateHasPassedDate(Date date){
         boolean dateHasPassed = true;
         Date currentDate = new Date();
 

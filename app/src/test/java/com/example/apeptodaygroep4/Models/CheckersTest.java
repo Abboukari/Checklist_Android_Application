@@ -16,7 +16,7 @@ public class CheckersTest {
     private Calendar calPassed = (Calendar) Calendar.getInstance();
     private Calendar calFuture = (Calendar) Calendar.getInstance();
     private Date dateCurrent = new Date();
-    private Date datePassed = new Date(2020,10,10);
+    private Date datePassed = new Date(2000,1,1);
     private Date dateFuture = new Date(2063,4,5);
 
 
@@ -52,9 +52,9 @@ public class CheckersTest {
     public void checkIfDateHasPassedDate() {
         Checkers check = new Checkers();
 
-        boolean date_has_passed = check.checkIfDateHasPassed(datePassed);//true
-        boolean date_is_current = check.checkIfDateHasPassed(dateCurrent);//true
-        boolean date_is_in_the_future = check.checkIfDateHasPassed(dateFuture); //false
+        boolean date_has_passed = check.checkIfDateHasPassedDate(datePassed);//true
+        boolean date_is_current = check.checkIfDateHasPassedDate(dateCurrent);//true
+        boolean date_is_in_the_future = check.checkIfDateHasPassedDate(dateFuture); //false
 
         //assertTrue(date_has_passed);
         assertTrue(date_is_current);
