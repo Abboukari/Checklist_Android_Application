@@ -102,14 +102,14 @@ public class AddTask extends AppCompatActivity {
         String descriptionTask = taskDiscription.getText().toString();
         Date dueDateTask = myCalander.getTime();
 
+
         boolean checkIfFilled = checkers.checkEditFields(titleTask, descriptionTask);
         boolean dateHasPassed = checkers.checkIfDateHasPassed(myCalander);
 
-        if (!checkIfFilled){
+        if (!checkIfFilled) {
             Toast.makeText(getApplicationContext(), "Not all fields are filled", Toast.LENGTH_SHORT).show();
         }
-
-        if (dateHasPassed) {
+        if (dateHasPassed && checkIfFilled) {
             Toast.makeText(getApplicationContext(), "the date you picked is in the past", Toast.LENGTH_LONG).show();
         } else {
             task = (Task) getIntent().getSerializableExtra("FilledLabelTask");
@@ -125,5 +125,8 @@ public class AddTask extends AppCompatActivity {
                 startActivity(toHomeIntent);
             });
         }
+
+
     }
 }
+
