@@ -24,6 +24,15 @@ public class Task implements Serializable {
     @ColumnInfo public String uIdLabel;
     public Date dateTime;
 
+    public Task(Integer uIdTask, Integer uIdUser, String title, String description, String uIdLabel, Date dateTime) {
+        this.uIdTask = uIdTask;
+        this.uIdUser = uIdUser;
+        this.title = title;
+        this.description = description;
+        this.uIdLabel = uIdLabel;
+        this.dateTime = dateTime;
+    }
+
     public Task(){}
 
     public Task(Integer uIdUser, String title, String description, Date dateTime) {
@@ -32,6 +41,8 @@ public class Task implements Serializable {
         this.description = description;
         this.dateTime = dateTime;
     }
+
+
 
     public void editTask(Integer uIdTask, String  title,String description,Date dateTime, String uIdLabel){
         this.uIdTask = uIdTask;
