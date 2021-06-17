@@ -15,8 +15,7 @@
         <activity android:name=".ShowTaskActivity" />
         <activity android:name=".FinishedTasks" />
         <activity
-            android:name=".UserActivity.AddTask"
-            android:parentActivityName=".HomeActivity" />
+            android:name=".UserActivity.AddTask" />
         <activity
             android:name=".UserActivity.EditTask"
             android:parentActivityName=".HomeActivity" />
