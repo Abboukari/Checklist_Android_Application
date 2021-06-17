@@ -52,11 +52,10 @@ public class RegisterActivity extends AppCompatActivity {
 
         boolean emailValid = isValidEmail(email);
         boolean emailFound = false;
-        int lengthUserPassword = 6;
 
-        // Happy of onhappy senario?
-        if (password.equals(passwordCheck) && password.length() >= lengthUserPassword && emailValid && !userName.isEmpty()) {
-            //Check if email already exist in de database, if yes move to if statement, if no make new user
+
+        if (isPasswordCorrect(password,passwordCheck) && emailValid && !userName.isEmpty()) {
+
             for (int i = 0; i < emailList.size(); i++) {
                 if (emailList.get(i).equals(email)) {
                     emailFound = true;
@@ -80,20 +79,33 @@ public class RegisterActivity extends AppCompatActivity {
         if (userName.isEmpty()) {
             Toast.makeText(getApplicationContext(), "Don't you have a name?", Toast.LENGTH_SHORT).show();
         }
-        if (password.length() < lengthUserPassword) {
-            Toast.makeText(getApplicationContext(), "You need a longer password!", Toast.LENGTH_SHORT).show();
-            Toast.makeText(getApplicationContext(), "At least 6 characters!", Toast.LENGTH_SHORT).show();
-        }
         if (!emailValid) {
             Toast.makeText(getApplicationContext(), "Email is not valid", Toast.LENGTH_SHORT).show();
         }
-        if (!password.equals(passwordCheck)) {
-            Toast.makeText(getApplicationContext(), "Password is not matching", Toast.LENGTH_SHORT).show();
+        if (password.isEmpty()){
+            Toast.makeText(getApplicationContext(), "Please make sure to fill in letter/numbers/specials", Toast.LENGTH_SHORT).show();
         }
     }
 
     //Checks if email has an valid email pattern
     public static boolean isValidEmail(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
+    }
+
+    public boolean isPasswordCorrect(String password1, String password2){
+        int lengthUserPassword = 6;
+
+        if (!password1.equals(password2)){
+            Toast.makeText(getApplicationContext(), "Password is not matching", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (password1.length() <= lengthUserPassword){
+            Toast.makeText(getApplicationContext(), "You need a longer password!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "At least 6 characters!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
     }
 }
