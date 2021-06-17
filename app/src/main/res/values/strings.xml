@@ -88,6 +88,7 @@
     <string name="time">Time</string>
     <string name="label">Label</string>
     <string name="description">Description</string>
+    <string name="editTextDateTime">Edit Date and Time</string>
 
 
 </resources>
