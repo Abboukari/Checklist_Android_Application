@@ -86,7 +86,7 @@ public class AddTask extends AppCompatActivity {
 
     public void addTaskToDb(View view) {
 
-        Checkers checkers = new Checkers(); //TODO:
+        Checkers checkers = new Checkers();
 
         EditText taskTitle = findViewById(R.id.editTextTitle);
         EditText taskDiscription = findViewById(R.id.editTextDiscription);
@@ -105,25 +105,31 @@ public class AddTask extends AppCompatActivity {
             String descriptionTask = taskDiscription.getText().toString();
             Date dueDateTask = myCalander.getTime();
 
-            boolean checkIfFilled = checkers.checkEditFields(titleTask, descriptionTask);
-            if (checkIfFilled) {
+            task = (Task) getIntent().getSerializableExtra("FilledLabelTask");
 
-                task.setuIdUser(userId);
-                task.setTitle(titleTask);
-                task.setDescription(descriptionTask);
-                task.setDateTime(dueDateTask);
-
-                UserDatabase.getExecutor().execute(() -> {
-                    UserDatabase.getDatabase(getApplicationContext()).taskDao().addTask(task);
-                    task = (Task) getIntent().getSerializableExtra("FilledLabelTask");
-                    runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Your task has been added", Toast.LENGTH_SHORT).show());
-                    toHomeIntent.putExtra("User", user);
-
-                    startActivity(toHomeIntent);
-
-                });
+            if (task == null) {
+                Toast.makeText(this, "please select a label", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(getApplicationContext(), "Not all fields are filled", Toast.LENGTH_SHORT).show();
+                boolean checkIfFilled = checkers.checkEditFields(titleTask, descriptionTask);
+                if (checkIfFilled) {
+
+                    task.setuIdUser(userId);
+                    task.setTitle(titleTask);
+                    task.setDescription(descriptionTask);
+                    task.setDateTime(dueDateTask);
+
+                    UserDatabase.getExecutor().execute(() -> {
+                        UserDatabase.getDatabase(getApplicationContext()).taskDao().addTask(task);
+                        runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Your task has been added", Toast.LENGTH_SHORT).show());
+                        toHomeIntent.putExtra("User", user);
+
+                        startActivity(toHomeIntent);
+
+                    });
+                } else {
+                    Toast.makeText(getApplicationContext(), "Not all fields are filled", Toast.LENGTH_SHORT).show();
+                }
+
             }
         }
     }
