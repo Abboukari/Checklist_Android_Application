@@ -52,21 +52,16 @@ public class Checkers {
         return dateHasPassed;
     }
 
-    public boolean isPasswordCorrect(String password1, String password2, Context context){
+    public String isPasswordCorrect(String password1, String password2){
         int lengthUserPassword = 6;
 
         if (!password1.equals(password2)){
-            Toast.makeText(context, "Passwords do not match", Toast.LENGTH_LONG).show();
-            //Toast.makeText(getApplicationContext(), "Password is not matching", Toast.LENGTH_SHORT).show();
-            return false;
+            return "Password is not matching";
         }
 
         if (password1.length() <= lengthUserPassword){
-            Toast.makeText(context, "You need a longer password!", Toast.LENGTH_SHORT).show();
-           Toast.makeText(context, "At least 6 characters!", Toast.LENGTH_SHORT).show();
-            return false;
+            return "You need a longer password!";
         }
-
-        return true;
+        return "";
     }
 }

@@ -56,9 +56,11 @@ public class RegisterActivity extends AppCompatActivity {
         boolean emailValid = isValidEmail(email);
         boolean emailFound = false;
 
-        String checkPasswords = isPasswordCorrect(password,passwordCheck);
 
-        if (checkPasswords.equals("") && emailValid && !userName.isEmpty()) { //TODO: check method
+        Checkers useMethod = new Checkers();
+        String checkPasswords = useMethod.isPasswordCorrect(password,passwordCheck);
+
+        if (checkPasswords.equals("") && emailValid && !userName.isEmpty()) {
 
             for (int i = 0; i < emailList.size(); i++) {
                 if (emailList.get(i).equals(email)) {
@@ -108,19 +110,17 @@ public class RegisterActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
     }
 
-    public String isPasswordCorrect(String password1, String password2){
-        int lengthUserPassword = 6;
-
-        if (!password1.equals(password2)){
-//            Toast.makeText(getApplicationContext(), "Password is not matching", Toast.LENGTH_SHORT).show();
-            return "Password is not matching";
-        }
-
-        if (password1.length() <= lengthUserPassword){
-//            Toast.makeText(getApplicationContext(), "You need a longer password!", Toast.LENGTH_SHORT).show();
-//            Toast.makeText(getApplicationContext(), "At least 6 characters!", Toast.LENGTH_SHORT).show();
-           return  "You need a longer password!";
-        }
-        return "";
-    }
+//    public String isPasswordCorrect(String password1, String password2){
+//        int lengthUserPassword = 6;
+//
+//        if (!password1.equals(password2)){
+//            return "Password is not matching";
+//        }
+//
+//        if (password1.length() <= lengthUserPassword){
+//
+//           return  "You need a longer password!";
+//        }
+//        return "";
+//    }
 }
