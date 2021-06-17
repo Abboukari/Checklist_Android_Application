@@ -20,6 +20,7 @@ import com.example.apeptodaygroep4.Models.Checkers;
 import com.example.apeptodaygroep4.Models.Task;
 import com.example.apeptodaygroep4.Models.User;
 import com.example.apeptodaygroep4.R;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -85,7 +86,7 @@ public class AddTask extends AppCompatActivity {
 
     public void addTaskToDb(View view) {
 
-        Checkers checkers= new Checkers(); //TODO:
+        Checkers checkers = new Checkers(); //TODO:
 
         EditText taskTitle = findViewById(R.id.editTextTitle);
         EditText taskDiscription = findViewById(R.id.editTextDiscription);
@@ -105,7 +106,7 @@ public class AddTask extends AppCompatActivity {
             Date dueDateTask = myCalander.getTime();
 
             boolean checkIfFilled = checkers.checkEditFields(titleTask, descriptionTask);
-            if (checkIfFilled){
+            if (checkIfFilled) {
 
                 task.setuIdUser(userId);
                 task.setTitle(titleTask);
@@ -124,33 +125,6 @@ public class AddTask extends AppCompatActivity {
             } else {
                 Toast.makeText(getApplicationContext(), "Not all fields are filled", Toast.LENGTH_SHORT).show();
             }
-
-
-
         }
     }
-
-    /*public boolean checkEditFields(String title, String description) {
-        boolean status;
-
-        if (title.isEmpty() || description.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Not all fields are filled", Toast.LENGTH_SHORT).show();
-            status = false;
-        } else {
-            status = true;
-        }
-        return status;
-    }
-
-    public boolean checkIfDateHasPassed(Calendar cal) {
-        boolean hasPassed = true;
-        Calendar current = new GregorianCalendar();
-        current.getTime();
-
-        if (cal.compareTo(current) > 0) {
-            hasPassed = false;
-            //gekozen datum is NA de huidige datum
-        }
-        return hasPassed;
-    }*/
 }
