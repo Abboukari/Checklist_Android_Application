@@ -39,7 +39,7 @@ public class ShowTaskActivity extends AppCompatActivity {
         boolean datePassed = checkers.checkIfDateHasPassedDate(date);
 
         if (datePassed) {
-            showDate = "YOu misSed youR deadline fuCkFacE!";
+            showDate = "You missed your deadline!";
         } else {
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             showDate = "Due date: " + formatter.format(date);
