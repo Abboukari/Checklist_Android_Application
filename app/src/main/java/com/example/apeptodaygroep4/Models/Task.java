@@ -7,6 +7,8 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity(foreignKeys = {@ForeignKey(
@@ -108,7 +110,10 @@ public class Task implements Serializable {
 
     @Override
     public String toString() {
-        return title + "    |     " + dateTime;
+        DateFormat dateFormat = DateFormat.getDateTimeInstance();
+        String dateAndTime = dateFormat.format(dateTime);
+
+        return title + "    |     " + dateAndTime;
     }
 
     public String detailsToString() {
