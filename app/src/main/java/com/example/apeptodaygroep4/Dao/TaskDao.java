@@ -28,4 +28,7 @@ public interface TaskDao {
     @Update()
     void updateTask(Task task);
 
+    @Query("SELECT * FROM Task ORDER BY dateTime DESC")
+    List<Task> orderByDate();
+
 }

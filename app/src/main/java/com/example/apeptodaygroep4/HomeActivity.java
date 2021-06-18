@@ -27,6 +27,9 @@ import com.example.apeptodaygroep4.UserActivity.EditTask;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -72,6 +75,10 @@ public class HomeActivity extends AppCompatActivity {
                             .taskDao()
                             .getAllDetailsFromTasks(user.getId())
             );
+
+            Comparator<Task> taskComparator = Comparator.comparing(Task::getDateTime)
+                    .thenComparing(Task::getTitle);
+            tasks.sort(taskComparator);
 
             adapter = new ArrayAdapter<>(
                     getApplication(),
