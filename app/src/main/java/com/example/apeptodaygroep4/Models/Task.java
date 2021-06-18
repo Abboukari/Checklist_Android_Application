@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 @Entity(foreignKeys = {@ForeignKey(
         entity = User.class,
@@ -110,16 +111,11 @@ public class Task implements Serializable {
 
     @Override
     public String toString() {
-        DateFormat dateFormat = DateFormat.getDateTimeInstance();
+        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,DateFormat.MEDIUM, Locale.GERMAN);
         String dateAndTime = dateFormat.format(dateTime);
 
         return title + "    |     " + dateAndTime;
     }
 
-    public String detailsToString() {
-        return "Title: " + title + "\n\n" +
-                "Description: " + description + "\n\n" +
-                "Label: " + uIdLabel + "\n\n" +
-                "Date and Time: " + dateTime;
-    }
+
 }
