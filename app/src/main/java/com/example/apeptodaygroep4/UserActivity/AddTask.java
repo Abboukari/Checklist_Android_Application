@@ -108,7 +108,9 @@ public class AddTask extends AppCompatActivity {
             task = (Task) getIntent().getSerializableExtra("FilledLabelTask");
 
             if (task == null) {
-                Toast.makeText(this, "please select a label", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please select a label, Try again", Toast.LENGTH_SHORT).show();
+                finish();
+                startActivity(getIntent());
             } else {
                 boolean checkIfFilled = checkers.checkEditFields(titleTask, descriptionTask);
                 if (checkIfFilled) {
