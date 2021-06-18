@@ -5,6 +5,8 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -80,6 +82,7 @@ public class DoneTask implements Serializable {
         this.doneUserIdLabel = doneUserIdLabel;
     }
 
+    @NotNull
     @Override
     public String toString() {
         return doneTitle;

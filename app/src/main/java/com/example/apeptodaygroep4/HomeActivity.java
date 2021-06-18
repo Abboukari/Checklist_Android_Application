@@ -27,9 +27,7 @@ import com.example.apeptodaygroep4.UserActivity.EditTask;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -38,7 +36,7 @@ public class HomeActivity extends AppCompatActivity {
     private User user;
     private int userId;
     private ListView listView;
-    private DoneTask doneTask = new DoneTask();
+    private final DoneTask doneTask = new DoneTask();
 
     @SuppressLint("SetTextI18n")
     @Override

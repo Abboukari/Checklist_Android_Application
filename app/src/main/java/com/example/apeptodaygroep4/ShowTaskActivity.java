@@ -9,8 +9,9 @@ import android.widget.TextView;
 import com.example.apeptodaygroep4.Models.Checkers;
 import com.example.apeptodaygroep4.Models.Task;
 
-import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class ShowTaskActivity extends AppCompatActivity {
 
@@ -37,7 +38,7 @@ public class ShowTaskActivity extends AppCompatActivity {
         if (datePassed) {
             showDate = "You missed your deadline!";
         } else {
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            DateFormat formatter = DateFormat.getDateTimeInstance(DateFormat.LONG,DateFormat.MEDIUM, Locale.GERMAN);
             showDate = "Due date: " + formatter.format(date);
         }
 

@@ -1,32 +1,28 @@
 package com.example.apeptodaygroep4.UserActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Dao;
-
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.apeptodaygroep4.Database.UserDatabase;
 import com.example.apeptodaygroep4.HomeActivity;
 import com.example.apeptodaygroep4.Models.Checkers;
-import com.example.apeptodaygroep4.Models.Label;
 import com.example.apeptodaygroep4.Models.Task;
 import com.example.apeptodaygroep4.Models.User;
 import com.example.apeptodaygroep4.R;
 
-import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 public class EditTask extends AppCompatActivity {
     private int tYear;
@@ -36,7 +32,8 @@ public class EditTask extends AppCompatActivity {
     private int tMinute;
     private Task task = new Task();
     private User user;
-    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    DateFormat formatter = DateFormat.getDateTimeInstance(DateFormat.LONG,DateFormat.MEDIUM, Locale.GERMAN);
+    String dateText;
 
 
     @Override
@@ -51,16 +48,16 @@ public class EditTask extends AppCompatActivity {
         EditText taskDescription = findViewById(R.id.editTextDiscriptionUpdate);
         TextView taskDateTime = findViewById(R.id.editTextDateTime);
 
-
-        String titel = task.getTitle();
+        String title = task.getTitle();
         String description = task.getDescription();
         Date date = task.getDateTime();
         String label = task.getuIdLabel();
+        dateText = "Due date: " + formatter.format(date);
 
         task.setuIdLabel(label);
-        taskTitle.setText(titel);
+        taskTitle.setText(title);
         taskDescription.setText(description);
-        taskDateTime.setText("Due date: " + formatter.format(date));
+        taskDateTime.setText(dateText);
 
 
     }
@@ -93,7 +90,8 @@ public class EditTask extends AppCompatActivity {
         datePicker.show();
         timePicker.setTitle("Choose a time");
         timePicker.show();
-        taskDateTime.setText("Due date: " + formatter.format(cal.getTime()));
+        dateText = "";
+        taskDateTime.setText(dateText);
 
     }
 
@@ -111,17 +109,17 @@ public class EditTask extends AppCompatActivity {
         String newLabelName = (String) getIntent().getSerializableExtra("NewLabel");
 
         EditText updateTaskTitle = findViewById(R.id.editTitleUpdate);
-        EditText updateTaskDiscription = findViewById(R.id.editTextDiscriptionUpdate);
-        Calendar updateMyCalander = new GregorianCalendar(tYear, tMonth, tDay, tHour, tMinute);
+        EditText updateTaskDescription = findViewById(R.id.editTextDiscriptionUpdate);//
+        Calendar updateMyCalender = new GregorianCalendar(tYear, tMonth, tDay, tHour, tMinute);//
 
-        boolean dateHasPassed = checkers.checkIfDateHasPassed(updateMyCalander);
+        boolean dateHasPassed = checkers.checkIfDateHasPassed(updateMyCalender);
 
         if (dateHasPassed) {
             Toast.makeText(getApplicationContext(), "the date you picked is in the past", Toast.LENGTH_LONG).show();
         } else {
             String titleTask = updateTaskTitle.getText().toString();
-            String descriptionTask = updateTaskDiscription.getText().toString();
-            Date dueDateTask = updateMyCalander.getTime();
+            String descriptionTask = updateTaskDescription.getText().toString();
+            Date dueDateTask = updateMyCalender.getTime();
 
             boolean checkIfAllIsFilled = checkers.checkEditFields(titleTask, descriptionTask);
 

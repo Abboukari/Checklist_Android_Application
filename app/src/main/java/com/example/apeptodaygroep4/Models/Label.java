@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.Serializable;
 
 @Entity
@@ -54,6 +56,7 @@ public class Label implements Serializable {
         this.labelName = labelName;
     }
 
+    @NotNull
     @Override
     public String toString() {
         return labelName;

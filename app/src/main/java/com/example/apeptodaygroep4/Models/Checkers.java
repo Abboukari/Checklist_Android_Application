@@ -1,11 +1,6 @@
 package com.example.apeptodaygroep4.Models;
 
 
-import android.content.Context;
-import android.widget.Toast;
-
-import com.example.apeptodaygroep4.RegisterActivity;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
