@@ -91,13 +91,14 @@ public class AddLabel extends AppCompatActivity {
                 userId = user.getId();
 
                 Label label = allUserLabels.get(info.position);
-                task.setuIdLabel(label.toString());
+                task.setuIdLabel(label.getLabelId());
 
                 runOnUiThread(() -> {
                     Intent intent = new Intent(this, AddTask.class);
                     intent.putExtra("FilledLabelTask", task);
                     intent.putExtra("User", user);
-                    intent.putExtra("userId", userId);
+                    intent.putExtra("userId", userId);//TODO: je geeft al de user mee, beetje overbodig?
+                    intent.putExtra("label", label);
                     startActivity(intent);
                     Toast.makeText(this, "Label is selected", Toast.LENGTH_SHORT).show();
                 });
@@ -141,7 +142,7 @@ public class AddLabel extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Please fill in a label", Toast.LENGTH_SHORT).show();
         }
         if (userAddLabel.matches(".*\\d.*")) {
-            Toast.makeText(getApplicationContext(), "Please only use letters", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Please only use letters", Toast.LENGTH_SHORT).show();//TODO: eventueel eruit bij tijdsgebrek
         } else {
             Label label = new Label(userId, userAddLabel);
             UserDatabase.getExecutor().execute(() -> {

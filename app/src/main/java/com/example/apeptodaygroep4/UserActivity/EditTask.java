@@ -51,7 +51,7 @@ public class EditTask extends AppCompatActivity {
         String title = task.getTitle();
         String description = task.getDescription();
         Date date = task.getDateTime();
-        String label = task.getuIdLabel();
+        Integer label = task.getuIdLabel();
         dateText = "Due date: " + formatter.format(date);
 
         task.setuIdLabel(label);
@@ -106,7 +106,7 @@ public class EditTask extends AppCompatActivity {
     public void updateTaskToDatebase(View view) {
 
         Checkers checkers = new Checkers();
-        String newLabelName = (String) getIntent().getSerializableExtra("NewLabel");
+        Integer newLabelName = (Integer) getIntent().getSerializableExtra("NewLabel");//TODO: waar komt deze vandaan? waar zit het andere end van de koppeling?
 
         EditText updateTaskTitle = findViewById(R.id.editTitleUpdate);
         EditText updateTaskDescription = findViewById(R.id.editTextDiscriptionUpdate);//
@@ -124,7 +124,7 @@ public class EditTask extends AppCompatActivity {
             boolean checkIfAllIsFilled = checkers.checkEditFields(titleTask, descriptionTask);
 
             if (checkIfAllIsFilled && newLabelName == null) {
-                String label = task.getuIdLabel();
+                Integer label = task.getuIdLabel();
                 task.setuIdLabel(label);
                 task.editTask(task.getuIdTask(), titleTask, descriptionTask, dueDateTask, label);
 

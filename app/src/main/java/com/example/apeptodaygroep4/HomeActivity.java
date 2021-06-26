@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.apeptodaygroep4.Database.UserDatabase;
 import com.example.apeptodaygroep4.Models.DoneTask;
+import com.example.apeptodaygroep4.Models.Label;
 import com.example.apeptodaygroep4.Models.Task;
 import com.example.apeptodaygroep4.Models.User;
 import com.example.apeptodaygroep4.UserActivity.AddTask;
@@ -36,6 +37,7 @@ public class HomeActivity extends AppCompatActivity {
     private User user;
     private int userId;
     private ListView listView;
+    private Label label;
     private final DoneTask doneTask = new DoneTask();
 
     @SuppressLint("SetTextI18n")
@@ -59,6 +61,7 @@ public class HomeActivity extends AppCompatActivity {
                 Intent startTaskIntent = new Intent(HomeActivity.this, AddTask.class);
                 startTaskIntent.putExtra("userId", userId);
                 startTaskIntent.putExtra("User", user);
+                //startTaskIntent.putExtra("Label", label);
                 startActivity(startTaskIntent);
             }
         });
@@ -104,13 +107,13 @@ public class HomeActivity extends AppCompatActivity {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
         if (item.getItemId() == R.id.finishedTaskAction) {
-            UserDatabase.getExecutor().execute(() -> {
+            /*UserDatabase.getExecutor().execute(() -> {
                 Task taskPosition = tasks.get(info.position);
                 doneTask.setDoneUserIdTask(taskPosition.getuIdTask());
                 doneTask.setDoneTitle(taskPosition.getTitle());
                 doneTask.setDoneDescription(taskPosition.getDescription());
                 doneTask.setDoneUserIdUser(taskPosition.getuIdUser());
-                doneTask.setDoneUserIdLabel(taskPosition.getuIdLabel());
+                //doneTask.setDoneUserIdLabel(taskPosition.getuIdLabel());
                 doneTask.setDateTime(taskPosition.getDateTime());
 
                 UserDatabase.getDatabase(getApplicationContext()).doneTaskDao().addTaskDone(doneTask);
@@ -121,6 +124,15 @@ public class HomeActivity extends AppCompatActivity {
                     tasks.remove(info.position);
                     adapter.notifyDataSetChanged();
                 });
+            });*/
+
+            Task taskPosition = tasks.get(info.position);
+            taskPosition.setDone(true);
+
+            runOnUiThread(() -> {
+                Toast.makeText(this, "Task Completed", Toast.LENGTH_SHORT).show();
+                tasks.remove(info.position);
+                adapter.notifyDataSetChanged();
             });
 
             return true;
@@ -141,10 +153,12 @@ public class HomeActivity extends AppCompatActivity {
         } else if (item.getItemId() == R.id.editTaskAction) {
             Toast.makeText(this, "Edit Task", Toast.LENGTH_SHORT).show();
             Task taskposition = tasks.get(info.position);
+            label = UserDatabase.getDatabase(getApplicationContext()).labelDao().getLabel(taskposition.getuIdLabel());//TODO: if label != 0
 
             Intent intent = new Intent(getApplicationContext(), EditTask.class);
             intent.putExtra("User", user);
             intent.putExtra("Task", taskposition);
+            intent.putExtra("Label", label);
             startActivity(intent);
             return true;
 

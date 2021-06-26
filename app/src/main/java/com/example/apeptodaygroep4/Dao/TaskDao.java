@@ -13,8 +13,11 @@ import java.util.List;
 @Dao
 public interface TaskDao {
 
-    @Query("SELECT * FROM Task WHERE uIdUser = :userId")
+    @Query("SELECT * FROM Task WHERE uIdUser = :userId AND done = 0")//0 == false
     List<Task> getAllDetailsFromTasks(int userId);
+
+    @Query("SELECT * FROM Task WHERE uIdUser = :userId AND done = 1")//1 == true
+    List<Task> getAllDoneTasks(int userId);
 
     @Insert
     void addTask(Task task);

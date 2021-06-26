@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.apeptodaygroep4.Models.Label;
 import com.example.apeptodaygroep4.Models.Task;
 import com.example.apeptodaygroep4.Models.User;
 import com.example.apeptodaygroep4.R;
@@ -17,6 +18,7 @@ public class EditLabel extends AppCompatActivity {
 
     private Task task;
     private User user;
+    private Label label;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +27,10 @@ public class EditLabel extends AppCompatActivity {
 
         task = (Task) getIntent().getSerializableExtra("Task");
         user = (User) getIntent().getSerializableExtra("User");
+        label = (Label) getIntent().getSerializableExtra("Label");//TODO:koppel label vanuit HomeActivity
 
-        String currentLabel = task.getuIdLabel();
         TextView currentLabelUser = findViewById(R.id.currentLabel);
-        currentLabelUser.setText(currentLabel);
+        currentLabelUser.setText(label.getLabelName());
 
     }
 

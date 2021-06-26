@@ -24,8 +24,8 @@ import java.util.ArrayList;
 
 public class FinishedTasks extends AppCompatActivity {
 
-    private ArrayList<DoneTask> doneTasks;
-    private ArrayAdapter<DoneTask> adapter;
+    private ArrayList<Task> tasks;
+    private ArrayAdapter<Task> adapter;
     private User user;
     private int userId;
     private Task task = new Task();
@@ -43,16 +43,16 @@ public class FinishedTasks extends AppCompatActivity {
             user = (User) getIntent().getSerializableExtra("User");
             userId = user.getId();
 
-            doneTasks = new ArrayList<DoneTask>(
+            tasks = new ArrayList<Task>(
                     UserDatabase.getDatabase(getApplicationContext())
-                            .doneTaskDao()
-                            .getTitleTasksDone(userId)
+                            .taskDao()
+                            .getAllDoneTasks(user.getId())
             );
 
-            adapter = new ArrayAdapter<>(
+            adapter = new ArrayAdapter<Task>(
                     getApplication(),
                     android.R.layout.simple_list_item_1,
-                    doneTasks
+                    tasks
             );
             runOnUiThread(() -> listView.setAdapter(adapter));
         });
@@ -76,7 +76,7 @@ public class FinishedTasks extends AppCompatActivity {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
         if (item.getItemId() == R.id.UnDoTaskAction) {
-            UserDatabase.getExecutor().execute(() -> {
+            /*UserDatabase.getExecutor().execute(() -> {
                 DoneTask doneTaskPosition = doneTasks.get(info.position);
 
                 task.setuIdTask(doneTaskPosition.getDoneUserIdTask());
@@ -96,11 +96,16 @@ public class FinishedTasks extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
                 });
 
-            });
+            });*/
+
+            Task positionUndo = tasks.get(info.position);
+            positionUndo.setDone(false);
+            Toast.makeText(this, "Task is now not done", Toast.LENGTH_SHORT).show();
 
             return true;
+
         } else if (item.getItemId() == R.id.deletedDoneTaskAction) {
-            UserDatabase.getExecutor().execute(() -> {
+            /*UserDatabase.getExecutor().execute(() -> {
                 DoneTask doneTaskPosition = doneTasks.get(info.position);
                 deleteDoneTask(doneTaskPosition);
 
@@ -109,16 +114,20 @@ public class FinishedTasks extends AppCompatActivity {
                     doneTasks.remove(info.position);
                     adapter.notifyDataSetChanged();
                 });
-            });
+            });*/
+
+            Task positionTask = tasks.get(info.position);
+            deleteDoneTask(positionTask);
+            Toast.makeText(this, "Task is deleted", Toast.LENGTH_SHORT).show();
             return true;
         } else {
             return false;
         }
     }
 
-    public void deleteDoneTask(DoneTask doneTask) {
-        UserDatabase.getDatabase(getApplicationContext()).doneTaskDao().deleteDoneTask(doneTask);
-    }
+    public void deleteDoneTask(Task task) {
+        UserDatabase.getDatabase(getApplicationContext()).taskDao().deleteTask(task);
+    }//TODO:Testcase?
 
     public void returnToHome(View view) {
         User user = (User) getIntent().getSerializableExtra("User");

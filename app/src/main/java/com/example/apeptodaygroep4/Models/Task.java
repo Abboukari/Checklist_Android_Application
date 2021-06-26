@@ -13,10 +13,15 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-@Entity(foreignKeys = {@ForeignKey(
+@Entity(foreignKeys = {
+        @ForeignKey(
         entity = User.class,
         parentColumns = "id",
         childColumns = "uIdUser"),
+        @ForeignKey(
+                entity = Label.class,
+                parentColumns = "labelId",
+                childColumns = "uIdLabel")
 })
 
 
@@ -30,10 +35,11 @@ public class Task implements Serializable {
     @ColumnInfo
     private String description;
     @ColumnInfo
-    public String uIdLabel;
+    public Integer uIdLabel;
     public Date dateTime;
+    public boolean done;
 
-    public Task(Integer uIdTask, Integer uIdUser, String title, String description, String uIdLabel, Date dateTime) {
+    public Task(Integer uIdTask, Integer uIdUser, String title, String description, Integer uIdLabel, Date dateTime) {
         this.uIdTask = uIdTask;
         this.uIdUser = uIdUser;
         this.title = title;
@@ -53,12 +59,20 @@ public class Task implements Serializable {
     }
 
 
-    public void editTask(Integer uIdTask, String title, String description, Date dateTime, String uIdLabel) {
+    public void editTask(Integer uIdTask, String title, String description, Date dateTime, Integer uIdLabel) {
         this.uIdTask = uIdTask;
         this.title = title;
         this.description = description;
         this.dateTime = dateTime;
         this.uIdLabel = uIdLabel;
+    }
+
+    public boolean isDone() {
+        return done;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
     }
 
     public Integer getuIdTask() {
@@ -93,11 +107,11 @@ public class Task implements Serializable {
         this.description = description;
     }
 
-    public String getuIdLabel() {
+    public Integer getuIdLabel() {
         return uIdLabel;
     }
 
-    public void setuIdLabel(String uIdLabel) {
+    public void setuIdLabel(Integer uIdLabel) {
         this.uIdLabel = uIdLabel;
     }
 

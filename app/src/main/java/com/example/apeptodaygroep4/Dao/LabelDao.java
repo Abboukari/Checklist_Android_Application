@@ -16,6 +16,9 @@ public interface LabelDao {
     @Query("SELECT * FROM Label WHERE userId = :userId")
     List<Label> getAllLabels(int userId);
 
+    @Query("SELECT * FROM Label WHERE labelId = :labelId")
+    Label getLabel(int labelId);
+
     @Insert
     void addLabel (Label label);
 
